@@ -1,6 +1,6 @@
 #Enunciado:
 
-Desenvolvam um aplicativo Android para acesso às informações do Site Nacional de Empregos (SINE), que atenda aos seguintes requisitos:
+Desenvolva uma aplicativo Android para acesso às informações do Site Nacional de Empregos (SINE), que atenda aos seguintes requisitos:
 
 - Versão mínima: Android 4.4 (API 19)
 - Interface nativa com Material Design (exceto a tela de gráficos, que deverá utilizar WebView e Chart.js)
