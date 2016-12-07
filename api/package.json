@@ -1,0 +1,16 @@
+{
+  "name": "node-web-scrape-sine",
+  "version": "0.0.1",
+  "description": "Trabalho Android.",
+  "main": "server.js",
+  "author": "6P TSI - 2016",
+  "dependencies": {
+    "express": "latest",
+    "request": "latest",
+    "cheerio": "latest"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "ISC"
+}
