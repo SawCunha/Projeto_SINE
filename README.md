@@ -2,10 +2,10 @@
 
 Desenvolva uma aplicativo Android para acesso às informações do Site Nacional de Empregos (SINE), que atenda aos seguintes requisitos:
 
-- Versão mínima: Android 4.4 (API 19)
-- Interface nativa com Material Design (exceto a tela de gráficos, que deverá utilizar WebView e Chart.js)
-- Persistência utilizando SQLite
-- Desenvolvimento de uma API HTTP JSON intermediária em linguagem livre entre as consultas do dispositivo móvel e o site do SINE para economia de largura de banda
+- Versão mínima: Android 4.4 (API 19).
+- Interface nativa com Material Design (exceto a tela de gráficos, que deverá utilizar WebView e Chart.js).
+- Persistência utilizando SQLite.
+- Desenvolvimento de uma API HTTP JSON intermediária em linguagem livre entre as consultas do dispositivo móvel e o site do SINE para economia de largura de banda.
 
 #Recursos do app:
 - Busca por vaga de emprego (por função/cidade/estado e com filtros "últimas vagas"/"maior salário"), que retorna uma listagem simplificada dos resultados da busca (vagas)
