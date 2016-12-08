@@ -9,13 +9,15 @@ public class Emprego extends Object {
     private String nome;
     private String descricao;
     private String endereco;
+    private Boolean favorite;
 
     public Emprego() {}
 
-    public Emprego(String nome, String descricao, String endereco) {
+    public Emprego(String nome, String descricao, String endereco, Boolean favorite) {
         this.nome = nome;
         this.descricao = descricao;
         this.endereco = endereco;
+        this.favorite = favorite;
     }
 
     public String getEndereco() {
@@ -40,6 +42,14 @@ public class Emprego extends Object {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Boolean getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        this.favorite = favorite;
     }
 
     @Override
