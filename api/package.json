@@ -3,11 +3,15 @@
   "version": "0.0.1",
   "description": "Trabalho Android.",
   "main": "server.js",
-  "author": "6P TSI - 2016",
+  "author": "IFSEMG - Campus Barbacena - 6ºp TSI - 2016",
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "cheerio": "latest",
     "express": "latest",
-    "request": "latest",
-    "cheerio": "latest"
+    "express-load": "^1.1.15",
+    "http": "0.0.0",
+    "method-override": "^2.3.7",
+    "request": "latest"
   },
   "scripts": {
     "start": "node server.js"
