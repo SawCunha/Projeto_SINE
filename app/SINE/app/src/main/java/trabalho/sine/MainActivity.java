@@ -5,11 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-<<<<<<< HEAD
+
 import android.util.Log;
-=======
-import android.view.View;
->>>>>>> ddf1a5f23c69063e9b68fab42506643438a873b8
+
 import android.widget.Toast;
 
 import java.sql.SQLException;
@@ -46,23 +44,19 @@ public class MainActivity extends AppCompatActivity {
                 new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
 
-
-<<<<<<< HEAD
         testaVolley();
         testaBanco();
     }
 
 
     private void testaVolley(){
+
         RequestURL.requestURL("https://cinevertentes.herokuapp.com/api/v1/cineplaza/movies", this, new VolleyCallback() {
-=======
-        /*RequestURL.requestURL("https://cinevertentes.herokuapp.com/api/v1/cineplaza/movies", this, new VolleyCallback() {
->>>>>>> ddf1a5f23c69063e9b68fab42506643438a873b8
+
             @Override
             public void onSuccess(String response) {
                 Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
             }
-<<<<<<< HEAD
         });
     }
 
@@ -93,13 +87,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Sucesso: ", "Vaga inserida com sucesso");
 
             //Lista as vagas salvas
-            List<Vaga> vagas = new ArrayList<>();
-            vagas = vagaDAO.queryForAll();
+            List<Vaga> vagas = vagaDAO.queryForAll();
 
             for(Vaga v: vagas) Log.d("Vaga: ", v.getVaga());
-=======
-        });*/
->>>>>>> ddf1a5f23c69063e9b68fab42506643438a873b8
 
         } catch (SQLException e) {
             e.printStackTrace();
