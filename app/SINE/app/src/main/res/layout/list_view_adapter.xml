@@ -64,14 +64,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/favorito"
-
-            android:layout_width="30dp"
-            android:layout_height="23dp"
-            app:srcCompat="@drawable/ic_favorite_border_black_48dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_favorite_border_black_48dp" />
 
     </LinearLayout>
 

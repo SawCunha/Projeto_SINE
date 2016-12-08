@@ -5,7 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+<<<<<<< HEAD
 import android.util.Log;
+=======
+import android.view.View;
+>>>>>>> ddf1a5f23c69063e9b68fab42506643438a873b8
 import android.widget.Toast;
 
 import java.sql.SQLException;
@@ -36,13 +40,14 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new AdapterListView(gera());
+        mAdapter = new AdapterListView(gera(),this);
         mRecyclerView.setAdapter(mAdapter);
         RecyclerView.ItemDecoration itemDecoration =
                 new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
 
 
+<<<<<<< HEAD
         testaVolley();
         testaBanco();
     }
@@ -50,10 +55,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void testaVolley(){
         RequestURL.requestURL("https://cinevertentes.herokuapp.com/api/v1/cineplaza/movies", this, new VolleyCallback() {
+=======
+        /*RequestURL.requestURL("https://cinevertentes.herokuapp.com/api/v1/cineplaza/movies", this, new VolleyCallback() {
+>>>>>>> ddf1a5f23c69063e9b68fab42506643438a873b8
             @Override
             public void onSuccess(String response) {
                 Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
             }
+<<<<<<< HEAD
         });
     }
 
@@ -88,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
             vagas = vagaDAO.queryForAll();
 
             for(Vaga v: vagas) Log.d("Vaga: ", v.getVaga());
+=======
+        });*/
+>>>>>>> ddf1a5f23c69063e9b68fab42506643438a873b8
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -97,21 +109,21 @@ public class MainActivity extends AppCompatActivity {
     //Método de teste...
     public ArrayList<Emprego> gera(){
         ArrayList<Emprego> empregos = new ArrayList<>();
-        Emprego emprego = new Emprego("Teste 1","Descrição 1","Rio Grande do Sul");
+        Emprego emprego = new Emprego("Teste 1","Descrição 1","Rio Grande do Sul",false);
         empregos.add(emprego);
-        emprego = new Emprego("Teste 1","Descrição 1","Rio Grande do Sul");
+        emprego = new Emprego("Teste 1","Descrição 1","Rio Grande do Sul",false);
         empregos.add(emprego);
-        emprego = new Emprego("Teste 2","Descrição 2","Rio Grande do Sul");
+        emprego = new Emprego("Teste 2","Descrição 2","Rio Grande do Sul",false);
         empregos.add(emprego);
-        emprego = new Emprego("Teste 3","Descrição 3","Rio Grande do Sul");
+        emprego = new Emprego("Teste 3","Descrição 3","Rio Grande do Sul",false);
         empregos.add(emprego);
-        emprego = new Emprego("Teste 4","Descrição 4","Rio Grande do Sul");
+        emprego = new Emprego("Teste 4","Descrição 4","Rio Grande do Sul",false);
         empregos.add(emprego);
-        emprego = new Emprego("Teste 5","Descrição 5","Rio Grande do Sul");
+        emprego = new Emprego("Teste 5","Descrição 5","Rio Grande do Sul",false);
         empregos.add(emprego);
-        emprego = new Emprego("Teste 6","Descrição 6","Rio Grande do Sul");
+        emprego = new Emprego("Teste 6","Descrição 6","Rio Grande do Sul",false);
         empregos.add(emprego);
-        emprego = new Emprego("Teste 7","Descrição 7","Rio Grande do Sul");
+        emprego = new Emprego("Teste 7","Descrição 7","Rio Grande do Sul",false);
         empregos.add(emprego);
         return  empregos;
     }
