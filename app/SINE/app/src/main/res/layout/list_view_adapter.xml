@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+
+    <LinearLayout
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:id="@+id/linearLayout2">
+
+        <ImageView
+            android:id="@+id/icons_empregos"
+            android:layout_width="66dp"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/emprego_icon"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="180dp"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout3"
+        android:weightSum="1"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/linearLayout5"
+        android:layout_marginEnd="22dp">
+
+        <TextView
+            android:id="@+id/emprego_nome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Titulo"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/emprego_descricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descriçao"
+            android:textSize="15dp"
+            android:layout_weight="0.34" />
+
+        <TextView
+            android:id="@+id/emprego_endereco"
+            android:layout_width="228dp"
+            android:layout_height="wrap_content"
+            android:text="Endereco"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/linearLayout5"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/favorito"
+
+            android:layout_width="30dp"
+            android:layout_height="23dp"
+            app:srcCompat="@drawable/ic_favorite_border_black_48dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
+
+    </LinearLayout>
+
+</RelativeLayout>
