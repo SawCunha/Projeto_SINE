@@ -10,8 +10,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="trabalho.sine.MainActivity">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_empregos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Olá mundo!!!" />
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 </RelativeLayout>
