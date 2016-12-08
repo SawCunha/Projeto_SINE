@@ -10,7 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import trabalho.sine.model.VolleyCallback;
+import trabalho.sine.interfaces.VolleyCallback;
 
 public class RequestURL {
 

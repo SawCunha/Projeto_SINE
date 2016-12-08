@@ -1,4 +1,4 @@
-package trabalho.sine.model;
+package trabalho.sine.interfaces;
 
 /**
  * Created by wagner on 08/12/16.
