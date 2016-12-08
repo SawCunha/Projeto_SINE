@@ -1,12 +1,12 @@
+var port    = 8080;
 var express = require('express');
-var fs = require('fs');
 var request = require('request');
 var cheerio = require('cheerio');
+var fs      = require('fs');
 var app     = express();
+var birds   = require('./routes/api');
 
-app.get('/', function(req, res){
-  res.json("Ola Mundo");
-});
+app.use('/api', birds);
 
-app.listen('8080')
-console.log('Magic happens on port 8080');
+app.listen(port);
+console.log('http://localhost:' + port);
