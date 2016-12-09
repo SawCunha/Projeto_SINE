@@ -1,5 +1,6 @@
 package trabalho.sine;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +25,7 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         favoriteBtn = (ImageButton) findViewById(R.id.favoritoBTN);
+        shareBtn = (ImageButton) findViewById(R.id.shareBTN);
 
         carregaInforActivity(getIntent().getExtras());
 
@@ -54,6 +56,20 @@ public class ResultActivity extends AppCompatActivity {
             favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_border_black_48dp);
             Toast.makeText(this, "Desfavoritado!!!", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    // Compartilha o link do card relacionado a vaga.
+    public void shareClick(View view){
+
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        share.putExtra(Intent.EXTRA_SUBJECT, "Teste");
+        share.putExtra(Intent.EXTRA_TEXT, "http://ibertphilos.hol.es");
+
+        startActivity(Intent.createChooser(share, "Compartilhar"));
 
     }
 }
