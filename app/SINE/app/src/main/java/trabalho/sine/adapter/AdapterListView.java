@@ -31,12 +31,9 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
     private static String LOG_TAG = "MyRecyclerViewAdapter";
 
     //Objeto com os Dados as serem exebidos na tela
-    private static List<Vaga> mDataset;
+    private List<Vaga> mDataset;
 
     private static Context context;
-
-    //Objeto responsavel pelo Click no item do listview.
-    private static MyClickListener myClickListener;
 
     //Construtor da Class
     public AdapterListView(List<Vaga> mDataset, Context context) {
@@ -52,6 +49,7 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         TextView empregoDescricao;
         TextView empregoEndereco;
         ImageButton favoriteBtn;
+        private Vaga vaga;
         private Boolean favoritado = false;
 
         //Construtor da Class
@@ -71,23 +69,19 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         public void onClick(View v) {
             Log.i(LOG_TAG, v.getScrollY()+"");
             Intent resultadoActivity = new Intent(context, ResultActivity.class);
-
-            //resultadoActivity.putExtra("vaga",transformaJson(mDataset.get(i)));
+            resultadoActivity.putExtra("vaga",transformaVagaJson(vaga));
             context.startActivity(resultadoActivity);
         }
 
-    }
+        private String transformaVagaJson(Vaga vaga){
+            Gson gson = new Gson();
+            return gson.toJson(vaga);
+        }
 
-    private static String transformaJson(Vaga vaga){
-        Gson gson = new Gson();
-        return gson.toJson(vaga);
-    }
+        public void setVaga(Vaga vaga) {
+            this.vaga = vaga;
+        }
 
-    private static void clickResultActivity(int i){
-        Intent resultadoActivity = new Intent(context, ResultActivity.class);
-
-        resultadoActivity.putExtra("vaga",transformaJson(mDataset.get(i)));
-        context.startActivity(resultadoActivity);
     }
 
     @Override
@@ -104,6 +98,7 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
     @Override
     public void onBindViewHolder(final DataObjectHolder holder, final int position) {
 
+        holder.setVaga(mDataset.get(position));
         holder.empregoNome.setText(mDataset.get(position).getTitulo());
         holder.empregoDescricao.setText(mDataset.get(position).getDescricao());
         holder.empregoEndereco.setText(mDataset.get(position).getCidade());
@@ -112,23 +107,21 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
                 (mDataset.get(position).getId() == null ?
                         R.drawable.ic_favorite_border_black_48dp:R.drawable.ic_favorite_black));
 
-
         holder.favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Vaga vaga = getItemPosition(position);
-                VagaDAO dao = new VagaDAO(context.getApplicationContext());
+                VagaDAO vagaDAO = new VagaDAO(context.getApplicationContext());
                 if(vaga.getId() == null){
-                    dao.insert(vaga);
+                    vagaDAO.insert(vaga);
                     holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_black);
                     Toast.makeText(context,"Favoritado!!!",Toast.LENGTH_SHORT).show();
                 }else{
-                    dao.delete(vaga.getId());
+                    vagaDAO.delete(vaga.getId());
                     vaga.setId(null);
                     holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_border_black_48dp);
                     Toast.makeText(context,"Desfavoritado!!!",Toast.LENGTH_SHORT).show();
                 }
-                dao.close();
             }
         });
     }
@@ -152,8 +145,5 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         return mDataset.size();
     }
 
-    public interface MyClickListener {
-        public void onItemClick(int position, View v);
-    }
 
 }
