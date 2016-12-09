@@ -31,6 +31,21 @@ public class ResultActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Toast.makeText(this,"To aki no voltar",Toast.LENGTH_SHORT).show();
+        String vagaJson = new Gson().toJson(vaga);
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("resultado",vagaJson);
+        setResult(RESULT_OK,returnIntent);
+    }
+
     private void carregaInforActivity(Bundle bundle) {
         String vagaJson = (String) bundle.get("vaga");
 

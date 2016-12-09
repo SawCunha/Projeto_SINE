@@ -1,5 +1,6 @@
 package trabalho.sine;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -20,7 +21,7 @@ import trabalho.sine.model.Vaga;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private AdapterListView mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
@@ -51,7 +52,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        Toast.makeText(this, "Voltei SAW", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "OnRestart", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Toast.makeText(this, resultCode + " = " + RESULT_OK, Toast.LENGTH_SHORT).show();
+            if(resultCode == RESULT_OK){
+                String resultado = data.getStringExtra("resultado");
+                //Coloque no EditText
+                Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
+            }
     }
 
     private void testaVolley(){

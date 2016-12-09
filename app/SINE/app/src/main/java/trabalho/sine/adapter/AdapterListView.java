@@ -1,5 +1,6 @@
 package trabalho.sine.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -41,49 +42,6 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         this.mDataset = mDataset;
     }
 
-
-    //Class Interna responsavel por criar cada Item do ListView
-    public static class DataObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        TextView empregoNome;
-        TextView empregoDescricao;
-        TextView empregoEndereco;
-        ImageButton favoriteBtn;
-        private Vaga vaga;
-        private Boolean favoritado = false;
-
-        //Construtor da Class
-        //Obtem as Referencias para Views que será utilizada.
-        public DataObjectHolder(View itemView) {
-            super(itemView);
-            empregoNome = (TextView) itemView.findViewById(R.id.emprego_nome);
-            empregoDescricao = (TextView) itemView.findViewById(R.id.emprego_descricao);
-            empregoEndereco = (TextView) itemView.findViewById(R.id.emprego_endereco);
-            favoriteBtn = (ImageButton) itemView.findViewById(R.id.favorito);
-            Log.i(LOG_TAG, "Adding Listener");
-            itemView.setOnClickListener(this);
-        }
-
-        //Método responsavel pelo Click.
-        @Override
-        public void onClick(View v) {
-            Log.i(LOG_TAG, v.getScrollY()+"");
-            Intent resultadoActivity = new Intent(context, ResultActivity.class);
-            resultadoActivity.putExtra("vaga",transformaVagaJson(vaga));
-            context.startActivity(resultadoActivity);
-        }
-
-        private String transformaVagaJson(Vaga vaga){
-            Gson gson = new Gson();
-            return gson.toJson(vaga);
-        }
-
-        public void setVaga(Vaga vaga) {
-            this.vaga = vaga;
-        }
-
-    }
-
     @Override
     public DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -92,7 +50,6 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         DataObjectHolder dataObjectHolder = new DataObjectHolder(view);
         return dataObjectHolder;
     }
-
 
     //Define O Text do Labels e a Imagem de favorito.
     @Override
@@ -144,6 +101,48 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+    //Class Interna responsavel por criar cada Item do ListView
+    public static class DataObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        TextView empregoNome;
+        TextView empregoDescricao;
+        TextView empregoEndereco;
+        ImageButton favoriteBtn;
+        private Vaga vaga;
+        static final int ACTIVITY_REQUEST = 1;
+
+        //Construtor da Class
+        //Obtem as Referencias para Views que será utilizada.
+        public DataObjectHolder(View itemView) {
+            super(itemView);
+            empregoNome = (TextView) itemView.findViewById(R.id.emprego_nome);
+            empregoDescricao = (TextView) itemView.findViewById(R.id.emprego_descricao);
+            empregoEndereco = (TextView) itemView.findViewById(R.id.emprego_endereco);
+            favoriteBtn = (ImageButton) itemView.findViewById(R.id.favorito);
+            Log.i(LOG_TAG, "Adding Listener");
+            itemView.setOnClickListener(this);
+        }
+
+        //Método responsavel pelo Click.
+        @Override
+        public void onClick(View v) {
+            Log.i(LOG_TAG, v.getScrollY()+"");
+            Intent resultadoActivity = new Intent(context, ResultActivity.class);
+            resultadoActivity.putExtra("vaga",transformaVagaJson(vaga));
+            ((Activity)context).startActivityForResult(resultadoActivity,ACTIVITY_REQUEST);
+        }
+
+        private String transformaVagaJson(Vaga vaga){
+            Gson gson = new Gson();
+            return gson.toJson(vaga);
+        }
+
+        public void setVaga(Vaga vaga) {
+            this.vaga = vaga;
+        }
+
     }
 
 
