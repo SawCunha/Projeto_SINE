@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import trabalho.sine.R;
+import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.model.Vaga;
 
 /**
@@ -24,7 +27,7 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
     private static String LOG_TAG = "MyRecyclerViewAdapter";
 
     //Objeto com os Dados as serem exebidos na tela
-    private ArrayList<Vaga> mDataset;
+    private List<Vaga> mDataset;
 
     private static Context context;
 
@@ -32,7 +35,7 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
     private static MyClickListener myClickListener;
 
     //Construtor da Class
-    public AdapterListView(ArrayList<Vaga> mDataset, Context context) {
+    public AdapterListView(List<Vaga> mDataset, Context context) {
         this.context = context;
         this.mDataset = mDataset;
     }
@@ -75,21 +78,33 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         return dataObjectHolder;
     }
 
+
+    //Define O Text do Labels e a Imagem de favorito.
     @Override
     public void onBindViewHolder(final DataObjectHolder holder, final int position) {
+
         holder.empregoNome.setText(mDataset.get(position).getTitulo());
         holder.empregoDescricao.setText(mDataset.get(position).getDescricao());
         holder.empregoEndereco.setText(mDataset.get(position).getCidade());
+
+        holder.favoriteBtn.setBackgroundResource(
+                (mDataset.get(position).getId() == null ?
+                        R.drawable.ic_favorite_border_black_48dp:R.drawable.ic_favorite_black));
+
+
         holder.favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Vaga vaga = getItemPosition(position);
+                VagaDAO dao = new VagaDAO(context.getApplicationContext());
                 if(vaga.getId() == null){
-                    vaga.setId(1L);
+                    dao.insert(vaga);
                     holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_black);
+                    Toast.makeText(context,"Favoritado!!!",Toast.LENGTH_SHORT).show();
                 }else{
-                    vaga.setId(null);
+                    dao.delete(vaga.getId());
                     holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_border_black_48dp);
+                    Toast.makeText(context,"Desfavoritado!!!",Toast.LENGTH_SHORT).show();
                 }
             }
         });
