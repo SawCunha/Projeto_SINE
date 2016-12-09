@@ -1,6 +1,7 @@
 package trabalho.sine.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import trabalho.sine.R;
+import trabalho.sine.ResultActivity;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.model.Vaga;
 
@@ -51,6 +53,7 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         private Boolean favoritado = false;
 
         //Construtor da Class
+        //Obtem as Referencias para Views que será utilizada.
         public DataObjectHolder(View itemView) {
             super(itemView);
             empregoNome = (TextView) itemView.findViewById(R.id.emprego_nome);
@@ -65,6 +68,9 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         @Override
         public void onClick(View v) {
             Log.i(LOG_TAG, "Clicado");
+            Intent resultadoActivity = new Intent(context, ResultActivity.class);
+            //resultadoActivity.put
+            context.startActivity(resultadoActivity);
         }
 
     }
@@ -103,9 +109,11 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
                     Toast.makeText(context,"Favoritado!!!",Toast.LENGTH_SHORT).show();
                 }else{
                     dao.delete(vaga.getId());
+                    vaga.setId(null);
                     holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_border_black_48dp);
                     Toast.makeText(context,"Desfavoritado!!!",Toast.LENGTH_SHORT).show();
                 }
+                dao.close();
             }
         });
     }

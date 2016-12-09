@@ -13,8 +13,9 @@
         android:theme="@style/AppTheme">
 
         <!-- Importa a API responsável por prover os serviços de geolocalização. -->
-        <meta-data android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -23,6 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ResultActivity"></activity>
     </application>
 
 </manifest>
