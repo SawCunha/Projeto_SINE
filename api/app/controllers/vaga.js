@@ -21,7 +21,11 @@ module.exports = function (app) {
         vaga.cidade = cleanString($('.label_cidade_resultado').text());
         vaga.empresa = cleanString($('.label_empresa_resultado').text());
         vaga.titulo = cleanString($('h1[itemprop="title"]').text());
-        vaga.salario = cleanString($('dd[itemprop="hiringOrganization"] ~ dd').contents().get(0).data);
+        vaga.telefone = cleanString($('#ctl00_cphConteudo_ddTelefone').text());
+        try{
+          vaga.salario = cleanString($('#ctl00_cphConteudo_hplMediaSalarial').get(0).prev.data);
+        } catch(err){}
+
         res.status(200).json(vaga);
       }
     });

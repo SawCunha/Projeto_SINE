@@ -5,6 +5,7 @@ class Vaga {
   constructor(obj) {
     this.id = obj.id;
     this.titulo = obj.titulo;
+    this.telefone = obj.telefone;
     this.descricao = obj.descricao;
     this.endereco = obj.endereco;
     this.cidade = obj.cidade;
