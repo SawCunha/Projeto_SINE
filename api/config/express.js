@@ -10,10 +10,9 @@ const constants = require('../app/resources/constants');
 module.exports = function () {
   var app = express();
   app.set('port', constants.SERVER.PORT);
-  app.set('constants', constants);
 
-  let c = new Cidade('Acrelândia','AC');
-  console.log(c);
+  // let c = new Cidade('Acrelândia','AC');
+  // console.log(c);
 
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json({ limit: '5mb' }));

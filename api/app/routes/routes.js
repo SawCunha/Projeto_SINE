@@ -1,10 +1,17 @@
 'use strict';
 
-module.exports = function(app){
-    app.get('/', function (req, res) {
-        res.send('API SINE RAIZ');
+module.exports = (app) => {
+  const vagasController = app.controllers.vaga;
+
+  app.get('/', (req, res) => {
+      res.send('API SINE - TP ANDROID');
     });
 
-    const controller = app.controllers.vaga;
-    app.get('/vaga', controller.getVaga);
-}
+  app.get('/vaga/:cidade/:funcao?/:vaga?', (req, res) => {
+    let cidade = req.params.cidade;
+    let funcao = req.params.funcao;
+    let vaga = req.params.vaga;
+
+    vagasController.getVaga(req, res, cidade, funcao, vaga);
+  });
+};

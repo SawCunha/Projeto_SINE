@@ -2,7 +2,10 @@
 
 module.exports = {
   SERVER: {
-    PORT: 10555
+    PORT: 10555,
+  },
+  URL: {
+    SINE: 'http://www.sine.com.br/',
   },
   ACCENT_MAP: {
     'ẚ': 'a',

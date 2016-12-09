@@ -1,5 +1,6 @@
-const constants = require('../resources/constants');
 'use strict';
+
+const constants = require('../resources/constants');
 
 class Cidade {
   constructor(nome, estado) {
@@ -9,19 +10,13 @@ class Cidade {
     this.estado = estado;
   }
 
-  // Cria label e URL pelo nome e estado
-  // Barbacena - MG
   createLabel(nome, estado) {
     return nome + ' - ' + estado;
   }
 
-  // Cria URL pelo nome e estado
-  // barbacena-mg
   createURL(nome, estado) {
-    nome = this.accentFold(nome);
-    return nome + '-' + estado;
-
-    //formatar para url
+    nome = this.accentFold(nome) + '-' + estado;
+    return nome.toLowerCase();
   }
 
   //Remove acentuação
