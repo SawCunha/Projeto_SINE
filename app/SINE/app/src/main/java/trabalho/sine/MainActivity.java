@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Toast.makeText(this, resultCode + " = " + RESULT_OK, Toast.LENGTH_SHORT).show();
             if(resultCode == RESULT_OK){
-                String resultado = data.getStringExtra("resultado");
+                String resultado = data.getExtras().getString("resultado");
                 //Coloque no EditText
                 Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
             }

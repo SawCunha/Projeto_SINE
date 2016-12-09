@@ -38,12 +38,13 @@ public class ResultActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        //
         Toast.makeText(this,"To aki no voltar",Toast.LENGTH_SHORT).show();
         String vagaJson = new Gson().toJson(vaga);
         Intent returnIntent = new Intent();
         returnIntent.putExtra("resultado",vagaJson);
         setResult(RESULT_OK,returnIntent);
+        super.onBackPressed();
     }
 
     private void carregaInforActivity(Bundle bundle) {
