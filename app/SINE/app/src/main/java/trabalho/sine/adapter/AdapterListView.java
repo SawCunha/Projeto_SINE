@@ -1,27 +1,18 @@
 package trabalho.sine.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.media.Image;
-import android.support.annotation.BoolRes;
-import android.support.v7.graphics.drawable.DrawableWrapper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import trabalho.sine.MainActivity;
 import trabalho.sine.R;
-import trabalho.sine.model.Emprego;
+import trabalho.sine.model.Vaga;
 
 /**
  * Created by saw on 08/12/16.
@@ -33,7 +24,7 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
     private static String LOG_TAG = "MyRecyclerViewAdapter";
 
     //Objeto com os Dados as serem exebidos na tela
-    private ArrayList<Emprego> mDataset;
+    private ArrayList<Vaga> mDataset;
 
     private static Context context;
 
@@ -41,7 +32,7 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
     private static MyClickListener myClickListener;
 
     //Construtor da Class
-    public AdapterListView(ArrayList<Emprego> mDataset, Context context) {
+    public AdapterListView(ArrayList<Vaga> mDataset, Context context) {
         this.context = context;
         this.mDataset = mDataset;
     }
@@ -86,25 +77,25 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
 
     @Override
     public void onBindViewHolder(final DataObjectHolder holder, final int position) {
-        holder.empregoNome.setText(mDataset.get(position).getNome());
+        holder.empregoNome.setText(mDataset.get(position).getTitulo());
         holder.empregoDescricao.setText(mDataset.get(position).getDescricao());
-        holder.empregoEndereco.setText(mDataset.get(position).getEndereco());
+        holder.empregoEndereco.setText(mDataset.get(position).getCidade());
         holder.favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Emprego emprego = getItemPosition(position);
-                if(!emprego.getFavorite()){
-                    emprego.setFavorite(true);
+                Vaga vaga = getItemPosition(position);
+                if(vaga.getId() == null){
+                    vaga.setId(1L);
                     holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_black);
                 }else{
-                    emprego.setFavorite(false);
+                    vaga.setId(null);
                     holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_border_black_48dp);
                 }
             }
         });
     }
 
-    public void addItem(Emprego dataObj, int index) {
+    public void addItem(Vaga dataObj, int index) {
         mDataset.add(dataObj);
         notifyItemInserted(index);
     }
@@ -114,7 +105,7 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         notifyItemRemoved(index);
     }
 
-    public Emprego getItemPosition(int position){
+    public Vaga getItemPosition(int position){
         return mDataset.get(position);
     }
 

@@ -15,7 +15,6 @@ import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.interfaces.VolleyCallback;
-import trabalho.sine.model.Emprego;
 import trabalho.sine.model.Vaga;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
                 new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
 
-        testaVolley();
-        testaBanco();
+        /*testaVolley();
+        testaBanco();*/
     }
 
 
@@ -83,25 +82,119 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Método de teste...
-    public ArrayList<Emprego> gera(){
-        ArrayList<Emprego> empregos = new ArrayList<>();
-        Emprego emprego = new Emprego("Teste 1","Descrição 1","Rio Grande do Sul",false);
-        empregos.add(emprego);
-        emprego = new Emprego("Teste 1","Descrição 1","Rio Grande do Sul",false);
-        empregos.add(emprego);
-        emprego = new Emprego("Teste 2","Descrição 2","Rio Grande do Sul",false);
-        empregos.add(emprego);
-        emprego = new Emprego("Teste 3","Descrição 3","Rio Grande do Sul",false);
-        empregos.add(emprego);
-        emprego = new Emprego("Teste 4","Descrição 4","Rio Grande do Sul",false);
-        empregos.add(emprego);
-        emprego = new Emprego("Teste 5","Descrição 5","Rio Grande do Sul",false);
-        empregos.add(emprego);
-        emprego = new Emprego("Teste 6","Descrição 6","Rio Grande do Sul",false);
-        empregos.add(emprego);
-        emprego = new Emprego("Teste 7","Descrição 7","Rio Grande do Sul",false);
-        empregos.add(emprego);
-        return  empregos;
+    public ArrayList<Vaga> gera(){
+        ArrayList<Vaga> vagas = new ArrayList<>();
+        Vaga vaga = new Vaga();
+
+        vaga.setCidade("Barbacena");
+        vaga.setDescricao("Caixa");
+        vaga.setEmpresa("Bahamas");
+        vaga.setEndereco("Rua ame");
+        vaga.setFuncao("Caixa mesmo");
+        vaga.setTitulo("Bah caixa");
+        vaga.setSalario(123.98);
+        vaga.setUrlSine("soiofioiof");
+        vagas.add(vaga);
+        vaga = new Vaga();
+
+        vaga.setCidade("Barbacena");
+        vaga.setDescricao("Caixa");
+        vaga.setEmpresa("Bahamas");
+        vaga.setEndereco("Rua ame");
+        vaga.setFuncao("Caixa mesmo");
+        vaga.setTitulo("Bah caixa");
+        vaga.setSalario(123.98);
+        vaga.setUrlSine("soiofioiof");
+        vagas.add(vaga);
+        vaga = new Vaga();
+
+        vaga.setCidade("Barbacena");
+        vaga.setDescricao("Caixa");
+        vaga.setEmpresa("Bahamas");
+        vaga.setEndereco("Rua ame");
+        vaga.setFuncao("Caixa mesmo");
+        vaga.setTitulo("Bah caixa");
+        vaga.setSalario(123.98);
+        vaga.setUrlSine("soiofioiof");
+        vagas.add(vaga);
+        vaga = new Vaga();
+
+        vaga.setCidade("Barbacena");
+        vaga.setDescricao("Caixa");
+        vaga.setEmpresa("Bahamas");
+        vaga.setEndereco("Rua ame");
+        vaga.setFuncao("Caixa mesmo");
+        vaga.setTitulo("Bah caixa");
+        vaga.setSalario(123.98);
+        vaga.setUrlSine("soiofioiof");
+        vagas.add(vaga);
+        vaga = new Vaga();
+
+        vaga.setCidade("Barbacena");
+        vaga.setDescricao("Caixa");
+        vaga.setEmpresa("Bahamas");
+        vaga.setEndereco("Rua ame");
+        vaga.setFuncao("Caixa mesmo");
+        vaga.setTitulo("Bah caixa");
+        vaga.setSalario(123.98);
+        vaga.setUrlSine("soiofioiof");
+        vagas.add(vaga);
+        vaga = new Vaga();
+
+        vaga.setCidade("Barbacena");
+        vaga.setDescricao("Caixa");
+        vaga.setEmpresa("Bahamas");
+        vaga.setEndereco("Rua ame");
+        vaga.setFuncao("Caixa mesmo");
+        vaga.setTitulo("Bah caixa");
+        vaga.setSalario(123.98);
+        vaga.setUrlSine("soiofioiof");
+        vagas.add(vaga);
+        vaga = new Vaga();
+
+        vaga.setCidade("Barbacena");
+        vaga.setDescricao("Caixa");
+        vaga.setEmpresa("Bahamas");
+        vaga.setEndereco("Rua ame");
+        vaga.setFuncao("Caixa mesmo");
+        vaga.setTitulo("Bah caixa");
+        vaga.setSalario(123.98);
+        vaga.setUrlSine("soiofioiof");
+        vagas.add(vaga);
+        vaga = new Vaga();
+
+        vaga.setCidade("Barbacena");
+        vaga.setDescricao("Caixa");
+        vaga.setEmpresa("Bahamas");
+        vaga.setEndereco("Rua ame");
+        vaga.setFuncao("Caixa mesmo");
+        vaga.setTitulo("Bah caixa");
+        vaga.setSalario(123.98);
+        vaga.setUrlSine("soiofioiof");
+        vagas.add(vaga);
+        vaga = new Vaga();
+
+        vaga.setCidade("Barbacena");
+        vaga.setDescricao("Caixa");
+        vaga.setEmpresa("Bahamas");
+        vaga.setEndereco("Rua ame");
+        vaga.setFuncao("Caixa mesmo");
+        vaga.setTitulo("Bah caixa");
+        vaga.setSalario(123.98);
+        vaga.setUrlSine("soiofioiof");
+        vagas.add(vaga);
+        vaga = new Vaga();
+
+        vaga.setCidade("Barbacena");
+        vaga.setDescricao("Caixa");
+        vaga.setEmpresa("Bahamas");
+        vaga.setEndereco("Rua ame");
+        vaga.setFuncao("Caixa mesmo");
+        vaga.setTitulo("Bah caixa");
+        vaga.setSalario(123.98);
+        vaga.setUrlSine("soiofioiof");
+        vagas.add(vaga);
+        return  vagas;
     }
 
 }
