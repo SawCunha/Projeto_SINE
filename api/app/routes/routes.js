@@ -8,10 +8,13 @@ module.exports = (app) => {
     });
 
   app.get('/vaga/:cidade/:funcao?/:vaga?', (req, res) => {
-    let cidade = req.params.cidade;
-    let funcao = req.params.funcao;
-    let vaga = req.params.vaga;
-
-    vagasController.getVaga(req, res, cidade, funcao, vaga);
+    const cidade = req.params.cidade;
+    const funcao = req.params.funcao;
+    const vaga = req.params.vaga;
+    if (cidade && funcao && vaga)
+      vagasController.getVaga(req, res, cidade, funcao, vaga);
+    else {
+      res.json('Listagem de vagas... Em construção');
+    }
   });
 };

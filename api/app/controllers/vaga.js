@@ -7,11 +7,8 @@ module.exports = function (app) {
   let controller = {};
 
   controller.getVaga = function (req, res, cidade, funcao, id) {
-    if (cidade && funcao && id) {
-      let vaga = new Vaga({ id: id, cidade: cidade, funcao: funcao });
-      vaga = this.createVaga(req, res, vaga);
-    }else
-      res.json('Listagem de vagas...');
+    let vaga = new Vaga({ id: id, cidade: cidade, funcao: funcao });
+    vaga = this.createVaga(req, res, vaga);
   };
 
   controller.createVaga = (req, res, vaga) => {
