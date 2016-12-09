@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private static String LOG_TAG = "RecyclerViewActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +29,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
+        createRecyclerView();
+
+        /*testaVolley();
+        * testaBanco();*/
+
+    }
+
+    private void createRecyclerView(){
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -38,12 +45,14 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.ItemDecoration itemDecoration =
                 new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
-
-        /*testaVolley();
-        * testaBanco();*/
-
+        mRecyclerView.setLayoutFrozen(true);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Toast.makeText(this, "Voltei SAW", Toast.LENGTH_SHORT).show();
+    }
 
     private void testaVolley(){
 

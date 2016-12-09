@@ -98,6 +98,7 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
     @Override
     public void onBindViewHolder(final DataObjectHolder holder, final int position) {
 
+
         holder.setVaga(mDataset.get(position));
         holder.empregoNome.setText(mDataset.get(position).getTitulo());
         holder.empregoDescricao.setText(mDataset.get(position).getDescricao());
