@@ -16,11 +16,12 @@ module.exports = function (app) {
     request(url, function (error, response, html) {
       if (!error) {
         let $ = cheerio.load(html);
-        vaga.description = cleanString($('dd[itemprop="description"]').text());
+        vaga.descricao = cleanString($('dd[itemprop="description"]').text());
         vaga.cidade = cleanString($('.label_cidade_resultado').text());
         vaga.empresa = cleanString($('.label_empresa_resultado').text());
         vaga.titulo = cleanString($('h1[itemprop="title"]').text());
-        res.json(vaga);
+        vaga.salario = cleanString($('dd[itemprop="hiringOrganization"] ~ dd').contents().get(0).data);
+        res.status(200).json(vaga);
       }
     });
   };

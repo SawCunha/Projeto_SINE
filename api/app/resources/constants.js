@@ -5,7 +5,7 @@ module.exports = {
     PORT: 10555,
   },
   URL: {
-    SINE: 'http://www.sine.com.br/',
+    SINE: 'http://www.sine.com.br',
   },
   ACCENT_MAP: {
     'ẚ': 'a',
