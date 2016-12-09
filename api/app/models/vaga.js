@@ -14,11 +14,9 @@ class Vaga {
     this.url_sine = this.createUrl(obj.cidade, obj.funcao, obj.id);
   }
 
-  createUrl(cidade, funcao, vaga) {
-    return constants.URL.SINE + '/vagas-empregos-em-' + cidade + '/' + funcao + '/' + vaga;
+  createUrl(cidade, funcao, id) {
+    return constants.URL.SINE + '/vagas-empregos-em-' + cidade + '/' + funcao + '/' + id;
   }
-
-  //Outros atributos
 }
 
 module.exports = Vaga;

@@ -11,7 +11,8 @@
     "express-load": "^1.1.15",
     "http": "0.0.0",
     "method-override": "^2.3.7",
-    "request": "latest"
+    "request": "latest",
+    "request-promise": "^4.1.1"
   },
   "scripts": {
     "start": "node server.js"

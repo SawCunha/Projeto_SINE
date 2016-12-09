@@ -1,7 +1,8 @@
 'use strict';
 const Vaga = require('../models/vaga');
-const request = require('request');
+const request = require('request-promise');
 const cheerio = require('cheerio');
+const utils = require('../resources/utils');
 
 module.exports = function (app) {
   let controller = {};
@@ -25,6 +26,29 @@ module.exports = function (app) {
       }
     });
   };
+
+  controller.getVagas = (req, res) => {
+    const funcao = req.query.funcao;
+    const local = req.query.local;
+
+    if(!funcao && !local){
+      res.status(400).json('Faltando Parametro(s).');
+      return;
+    }
+
+    const url = utils.urlSearch(funcao, local);
+
+    request(url)
+    .then((html) => {
+      let $ = cheerio.load(html);
+
+      //Pegar a lista de vagas
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(404).json('Erro ao obter dados.')
+    });
+  }
 
   return controller;
 };

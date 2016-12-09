@@ -17,4 +17,8 @@ module.exports = (app) => {
       res.json('Listagem de vagas... Em construção');
     }
   });
+
+  // vagas?funcao={funcao}&local={local}
+  // local = cidade/estado
+  app.get('/vagas', vagasController.getVagas);
 };
