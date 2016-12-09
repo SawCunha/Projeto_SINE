@@ -11,18 +11,16 @@ import java.sql.SQLException;
 
 import trabalho.sine.model.Vaga;
 
-/**
- * Created by wagner on 08/12/16.
- */
 
-public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
+public class DatabaseHelper<E> extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "sineinfo.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    //Cria a base de dados e as tabalas, caso as mesmas não existam.
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
@@ -32,6 +30,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
+    //Apaga as tabelas e cria novamente a base de dados em caso de atualização de versão.
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
