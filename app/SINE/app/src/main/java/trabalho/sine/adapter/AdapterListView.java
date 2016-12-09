@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
     private static String LOG_TAG = "MyRecyclerViewAdapter";
 
     //Objeto com os Dados as serem exebidos na tela
-    private List<Vaga> mDataset;
+    private static List<Vaga> mDataset;
 
     private static Context context;
 
@@ -67,12 +69,25 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         //Método responsavel pelo Click.
         @Override
         public void onClick(View v) {
-            Log.i(LOG_TAG, "Clicado");
+            Log.i(LOG_TAG, v.getScrollY()+"");
             Intent resultadoActivity = new Intent(context, ResultActivity.class);
-            //resultadoActivity.put
+
+            //resultadoActivity.putExtra("vaga",transformaJson(mDataset.get(i)));
             context.startActivity(resultadoActivity);
         }
 
+    }
+
+    private static String transformaJson(Vaga vaga){
+        Gson gson = new Gson();
+        return gson.toJson(vaga);
+    }
+
+    private static void clickResultActivity(int i){
+        Intent resultadoActivity = new Intent(context, ResultActivity.class);
+
+        resultadoActivity.putExtra("vaga",transformaJson(mDataset.get(i)));
+        context.startActivity(resultadoActivity);
     }
 
     @Override
