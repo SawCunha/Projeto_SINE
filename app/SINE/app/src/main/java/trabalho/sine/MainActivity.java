@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createRecyclerView(){
+
+        // Não é legal, está deletando e criando o recycler view novamente.
+        mRecyclerView.removeAllViewsInLayout();
+
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -63,11 +67,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Toast.makeText(this, resultCode + " = " + RESULT_OK, Toast.LENGTH_SHORT).show();
-            if(resultCode == RESULT_OK){
-                String resultado = data.getExtras().getString("resultado");
-                //Coloque no EditText
-                Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
-            }
+        if(resultCode == RESULT_OK){
+            String resultado = data.getExtras().getString("resultado");
+            //Coloque no EditText
+            Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
+        }
+
+        else if(resultCode == 2)
+            Toast.makeText(this, "Voltou do favorite", Toast.LENGTH_SHORT).show();
+
+        createRecyclerView();
+
     }
 
     private void testaVolley(){
@@ -156,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
     public void favoriteOpenClick(View view) {
 
         Intent intent = new Intent(this, FavoriteActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 2);
 
 
     }
