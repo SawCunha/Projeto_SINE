@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import trabalho.sine.adapter.AdapterListView;
+import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.model.Vaga;
 
@@ -80,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
         VagaDAO dao = new VagaDAO(getApplicationContext());
 
         vagas = dao.getAll();
+
+        RequestURL req = new RequestURL(this);
+        vagas = req.requestData("http://192.168.0.106:10555/vagas");
 
         Vaga vaga = new Vaga();
         vaga.setCidade("Barbacena");

@@ -34,6 +34,7 @@ public class RequestURL {
                 Gson gson = new Gson();
                 Type eListTyle = new TypeToken<ArrayList<Vaga>>(){}.getType();
                 eList = gson.fromJson(response, eListTyle);
+                Log.d("bell", eList.toString());
             }
         });
         return eList;
