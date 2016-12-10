@@ -83,7 +83,7 @@ public class ResultActivity extends AppCompatActivity {
         company.setText(vaga.getEmpresa());
         function.setText(vaga.getFuncao());
         des.setText(vaga.getDescricao());
-        url.setText(vaga.getUrlSine());
+        url.setText(vaga.getUrl_sine());
         openLink = (ImageView) findViewById(R.id.openLinkImage);
 
     }
@@ -111,7 +111,7 @@ public class ResultActivity extends AppCompatActivity {
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
         share.putExtra(Intent.EXTRA_SUBJECT, vaga.getTitulo());
-        share.putExtra(Intent.EXTRA_TEXT, vaga.getUrlSine());
+        share.putExtra(Intent.EXTRA_TEXT, vaga.getUrl_sine());
 
         startActivity(Intent.createChooser(share, "Compartilhar"));
 

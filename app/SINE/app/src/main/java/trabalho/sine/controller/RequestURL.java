@@ -10,34 +10,30 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
+import trabalho.sine.dao.VagasJSON;
 import trabalho.sine.interfaces.VolleyCallback;
 import trabalho.sine.model.Vaga;
 
 public class RequestURL {
     private final Context context;
-    private List<Vaga> eList = new ArrayList<>();
+    private VagasJSON vagasJSON = new VagasJSON();
 
     public RequestURL(Context context) {
         this.context = context;
     }
 
-    public List<Vaga> requestData(String url){
+    public VagasJSON requestData(String url){
         request(url, new VolleyCallback() {
             @Override
             public void onSuccess(String response) {
                 Gson gson = new Gson();
-                Type eListTyle = new TypeToken<ArrayList<Vaga>>(){}.getType();
-                eList = gson.fromJson(response, eListTyle);
-                Log.d("bell", eList.toString());
+                vagasJSON = gson.fromJson(response, VagasJSON.class);
+                for (Vaga v : vagasJSON.getVagas())
+                    Log.i("vaga: ", v.getTitulo());
             }
         });
-        return eList;
+        return vagasJSON;
     }
 
     //Efetua a requisição dos dados através da url recebida pelo usuário.

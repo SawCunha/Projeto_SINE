@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import java.util.List;
 import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
+import trabalho.sine.dao.VagasJSON;
 import trabalho.sine.model.Vaga;
 
 public class MainActivity extends AppCompatActivity {
@@ -83,7 +85,9 @@ public class MainActivity extends AppCompatActivity {
         vagas = dao.getAll();
 
         RequestURL req = new RequestURL(this);
-        vagas = req.requestData("http://192.168.0.106:10555/vagas");
+        VagasJSON vagasJSON = req.requestData("http://192.168.2.103:10555/vagas");
+        for (Vaga v : vagasJSON.getVagas())
+            Log.i("Vaga: ", v.getTitulo());
 
         Vaga vaga = new Vaga();
         vaga.setCidade("Barbacena");
@@ -92,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
         vaga.setEndereco("Rua ame");
         vaga.setFuncao("Caixa mesmo");
         vaga.setTitulo("Bah caixa");
-        vaga.setSalario(123.98);
-        vaga.setUrlSine("soiofioiof");
+        vaga.setSalario("123.98");
+        vaga.setUrl_sine("soiofioiof");
         vagas.add(vaga);
 
         vaga = new Vaga();
@@ -103,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
         vaga.setEndereco("Rua ame");
         vaga.setFuncao("Caixa mesmo");
         vaga.setTitulo("Bah caixa");
-        vaga.setSalario(123.98);
-        vaga.setUrlSine("soiofioiof");
+        vaga.setSalario("123.98");
+        vaga.setUrl_sine("soiofioiof");
         vagas.add(vaga);
 
         vaga = new Vaga();
@@ -114,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
         vaga.setEndereco("Rua ame");
         vaga.setFuncao("Caixa mesmo");
         vaga.setTitulo("Bah caixa");
-        vaga.setSalario(123.98);
-        vaga.setUrlSine("soiofioiof");
+        vaga.setSalario("123.98");
+        vaga.setUrl_sine("soiofioiof");
         vagas.add(vaga);
 
         return vagas;

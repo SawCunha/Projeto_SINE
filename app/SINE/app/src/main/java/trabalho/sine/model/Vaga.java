@@ -12,9 +12,9 @@ public class Vaga {
     @DatabaseField private String endereco;
     @DatabaseField private String cidade;
     @DatabaseField private String funcao;
-    @DatabaseField private Double salario;
+    @DatabaseField private String salario;
     @DatabaseField private String empresa;
-    @DatabaseField private String urlSine;
+    @DatabaseField private String url_sine;
 
     public Long getId() {
         return id;
@@ -64,11 +64,11 @@ public class Vaga {
         this.funcao = funcao;
     }
 
-    public Double getSalario() {
+    public String getSalario() {
         return salario;
     }
 
-    public void setSalario(Double salario) {
+    public void setSalario(String salario) {
         this.salario = salario;
     }
 
@@ -80,11 +80,11 @@ public class Vaga {
         this.empresa = empresa;
     }
 
-    public String getUrlSine() {
-        return urlSine;
+    public String getUrl_sine() {
+        return url_sine;
     }
 
-    public void setUrlSine(String urlSine) {
-        this.urlSine = urlSine;
+    public void setUrl_sine(String url_sine) {
+        this.url_sine = url_sine;
     }
 }
