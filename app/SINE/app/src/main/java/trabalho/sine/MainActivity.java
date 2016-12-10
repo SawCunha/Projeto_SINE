@@ -1,13 +1,11 @@
 package trabalho.sine;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import trabalho.sine.adapter.AdapterListView;
-import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
-import trabalho.sine.interfaces.VolleyCallback;
 import trabalho.sine.model.Vaga;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
         createRecyclerView();
-
-        /*testaVolley();
-        * testaBanco();*/
     }
 
     private void createRecyclerView(){
@@ -68,43 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 //Coloque no EditText
                 Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
             }
-    }
-
-    private void testaVolley(){
-
-        RequestURL.requestURL("https://cinevertentes.herokuapp.com/api/v1/cineplaza/movies", this, new VolleyCallback() {
-
-            @Override
-            public void onSuccess(String response) {
-                Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void testaBanco(){
-        VagaDAO dao = new VagaDAO(getApplicationContext());
-
-        Vaga vaga = new Vaga();
-        vaga.setCidade("Barbacena");
-        vaga.setDescricao("Caixa");
-        vaga.setEmpresa("Bahamas");
-        vaga.setEndereco("Rua ame");
-        vaga.setFuncao("Caixa mesmo");
-        vaga.setTitulo("Bah caixa");
-        vaga.setSalario(123.98);
-        vaga.setUrlSine("soiofioiof");
-        dao.insert(vaga);
-
-        List<Vaga> vagas = dao.getAll();
-
-        for(Vaga v : vagas)
-            Log.d("vaga: ", v.getTitulo());
-
-        dao.delete(vagas.get(0).getId());
-
-        vagas = dao.getAll();
-
-        if (vagas.isEmpty()) Toast.makeText(this, "Não existe usuário cadastrado", Toast.LENGTH_SHORT).show();
     }
 
     //Método de teste...
