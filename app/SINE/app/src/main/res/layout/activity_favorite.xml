@@ -1,30 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:id="@+id/activity_favorite"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="trabalho.sine.MainActivity">
+    tools:context="trabalho.sine.FavoriteActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/list_empregos"
+        android:id="@+id/list_empregos_favoritos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       android:scrollbars="vertical"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="73dp" />
+        android:scrollbars="vertical" />
 
-    <Button
-        android:text="Favoritos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/favoriteButton"
-        android:onClick="favoriteOpenClick"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>

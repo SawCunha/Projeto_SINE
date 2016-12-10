@@ -1,5 +1,6 @@
 package trabalho.sine;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,11 +26,14 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private Button favorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        favorite = (Button) findViewById(R.id.favoriteButton);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
         createRecyclerView();
@@ -143,6 +149,16 @@ public class MainActivity extends AppCompatActivity {
         vagas.add(vaga);
 
         return vagas;
+    }
+
+
+    // Abre a intente de favoritos.
+    public void favoriteOpenClick(View view) {
+
+        Intent intent = new Intent(this, FavoriteActivity.class);
+        startActivity(intent);
+
+
     }
 
 }
