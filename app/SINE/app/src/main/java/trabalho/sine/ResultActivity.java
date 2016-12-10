@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -19,6 +20,8 @@ public class ResultActivity extends AppCompatActivity {
     private ImageButton shareBtn;
     private Vaga vaga;
 
+    private TextView title, money, city, address, company, function, des, url;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,17 @@ public class ResultActivity extends AppCompatActivity {
 
         favoriteBtn = (ImageButton) findViewById(R.id.favoritoBTN);
         shareBtn = (ImageButton) findViewById(R.id.shareBTN);
+
+        // Carregando os labels
+        title = (TextView) findViewById(R.id.titleValue);
+        money = (TextView) findViewById(R.id.moneyValue);
+        city = (TextView) findViewById(R.id.cityValue);
+        address = (TextView) findViewById(R.id.addressValue);
+        company = (TextView) findViewById(R.id.companyValue);
+        function = (TextView) findViewById(R.id.functionValue);
+        des = (TextView) findViewById(R.id.descriptionValue);
+        url = (TextView) findViewById(R.id.urlValue);
+
 
         carregaInforActivity(getIntent().getExtras());
 
@@ -50,13 +64,22 @@ public class ResultActivity extends AppCompatActivity {
     private void carregaInforActivity(Bundle bundle) {
         String vagaJson = (String) bundle.get("vaga");
 
-        Toast.makeText(this, vagaJson, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, vagaJson, Toast.LENGTH_LONG).show();
 
         vaga = new Gson().fromJson(vagaJson, Vaga.class);
 
         favoriteBtn.setBackgroundResource(
                 (vaga.getId() == null ?
                         R.drawable.ic_favorite_border_black_48dp : R.drawable.ic_favorite_black));
+
+        title.setText(vaga.getTitulo());
+        money.setText(vaga.getSalario().toString());
+        city.setText(vaga.getCidade());
+        address.setText(vaga.getEndereco());
+        company.setText(vaga.getEmpresa());
+        function.setText(vaga.getFuncao());
+        des.setText(vaga.getDescricao());
+        url.setText(vaga.getUrlSine());
 
     }
 

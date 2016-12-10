@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_result"
     android:layout_width="match_parent"
@@ -33,5 +34,145 @@
             android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
+
+    <TextView
+        android:text="Título: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="34dp"
+        android:id="@+id/titleLabel" />
+
+    <TextView
+        android:text="s"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/titleLabel"
+        android:layout_marginStart="27dp"
+        android:id="@+id/titleValue"
+        android:layout_alignBottom="@+id/titleLabel"
+        android:layout_alignTop="@+id/titleLabel" />
+
+    <TextView
+        android:text="Salário: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleLabel"
+        android:layout_alignStart="@+id/titleLabel"
+        android:layout_marginTop="23dp"
+        android:id="@+id/moneyLabel" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/moneyLabel"
+        android:layout_alignStart="@+id/titleValue"
+        android:id="@+id/moneyValue" />
+
+    <TextView
+        android:text="Cidade: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/moneyLabel"
+        android:layout_alignStart="@+id/moneyLabel"
+        android:layout_marginTop="23dp"
+        android:id="@+id/cityLabel" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/cityLabel"
+        android:layout_alignStart="@+id/moneyValue"
+        android:id="@+id/cityValue" />
+
+    <TextView
+        android:text="Endereço: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cityLabel"
+        android:layout_alignStart="@+id/cityLabel"
+        android:layout_marginTop="23dp"
+        android:id="@+id/addressLabel" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/addressLabel"
+        android:layout_toEndOf="@+id/titleValue"
+        android:id="@+id/addressValue" />
+
+    <TextView
+        android:text="Empresa: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addressLabel"
+        android:layout_alignStart="@+id/addressLabel"
+        android:layout_marginTop="23dp"
+        android:id="@+id/companyLabel" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/companyLabel"
+        android:layout_toEndOf="@+id/cityValue"
+        android:id="@+id/companyValue" />
+
+    <TextView
+        android:text="Função: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/companyLabel"
+        android:layout_alignStart="@+id/companyLabel"
+        android:layout_marginTop="23dp"
+        android:id="@+id/functionLabel" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/functionLabel"
+        android:layout_toEndOf="@+id/companyValue"
+        android:id="@+id/functionValue" />
+
+    <TextView
+        android:text="Descrição: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/functionLabel"
+        android:layout_alignStart="@+id/functionLabel"
+        android:layout_marginTop="23dp"
+        android:id="@+id/descriptionLabel" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/descriptionLabel"
+        android:layout_toEndOf="@+id/addressValue"
+        android:id="@+id/descriptionValue" />
+
+    <TextView
+        android:text="url: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/descriptionLabel"
+        android:layout_marginTop="23dp"
+        android:id="@+id/urlLabel"
+        android:layout_alignStart="@+id/descriptionLabel"
+        android:layout_alignEnd="@+id/titleLabel" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/urlLabel"
+        android:layout_toEndOf="@+id/descriptionValue"
+        android:id="@+id/urlValue" />
 
 </RelativeLayout>
