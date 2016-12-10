@@ -3,6 +3,7 @@ package trabalho.sine.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -37,8 +38,8 @@ public class CidadeDAO {
 
     public List<Cidade> searchCities(String city, int limite){
         sqLiteDatabase = helperCidadesEstados.getReadableDatabase();
-        String selection = "nome = ?";
-        String[] selectionArgs = { city };
+        String selection = "nome like ? COLLATE NOCASE ";
+        String[] selectionArgs = { city + "%" };
         String groupBy = null;
         String having = null;
         String orderBy = null;
@@ -56,8 +57,9 @@ public class CidadeDAO {
                 cidade.setEstado(cursor.getString(cursor.getColumnIndex(DatabaseHelperCidadesEstados.COLUMN_ESTADO_CIDADE)));
                 cidade.setCapital(cursor.getInt(cursor.getColumnIndex(DatabaseHelperCidadesEstados.COLUMN_CAPITAL_CIDADE)));
 
+                Log.d("Cidade: ", cidade.getNome());
                 cidades.add(cidade);
-            } while (cursor.moveToFirst());
+            } while (cursor.moveToNext());
         }
         sqLiteDatabase.close();
         return cidades;

@@ -42,9 +42,7 @@ public class DatabaseHelperCidadesEstados extends SQLiteOpenHelper {
     public void createDatabase() throws IOException {
         boolean dbExist = checkDatabase();
 
-        if (dbExist) {
-
-        } else {
+        if (!dbExist) {
             this.getReadableDatabase();
 
             try {

@@ -3,6 +3,7 @@ package trabalho.sine.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -39,8 +40,8 @@ public class EstadoDAO {
         sqLiteDatabase = helperCidadesEstados.getReadableDatabase();
         List<Estado> estados = new ArrayList<>();
 
-        String selection = "nome = ?";
-        String[] selectionArgs = { state };
+        String selection = "nome like ? COLLATE NOCASE ";
+        String[] selectionArgs = { state + "%" };
         String groupBy = null;
         String having = null;
         String orderBy = null;
@@ -55,9 +56,9 @@ public class EstadoDAO {
                 estado.setNome(cursor.getString(cursor.getColumnIndex(DatabaseHelperCidadesEstados.COLUMN_NOME)));
                 estado.setStatus(cursor.getInt(cursor.getColumnIndex(DatabaseHelperCidadesEstados.COLUMN_STATUS_ESTADO)));
                 estado.setSigla(cursor.getString(cursor.getColumnIndex(DatabaseHelperCidadesEstados.COLUMN_SIGLA_ESTADO)));
-
+                Log.i("Estado passando: ", estado.getNome());
                 estados.add(estado);
-            } while (cursor.moveToFirst());
+            } while (cursor.moveToNext());
         }
         sqLiteDatabase.close();
         return estados;

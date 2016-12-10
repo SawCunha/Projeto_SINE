@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
         /*testaVolley();
         * testaBanco();*/
-
     }
 
     private void createRecyclerView(){
