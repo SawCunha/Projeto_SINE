@@ -17,23 +17,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import trabalho.sine.interfaces.VolleyCallback;
+import trabalho.sine.model.Vaga;
 
-public class RequestURL<E> {
-    private final Class<E> type;
+public class RequestURL {
     private final Context context;
-    private List<E> eList;
+    private List<Vaga> eList = new ArrayList<>();
 
-    public RequestURL(Class<E> type, Context context) {
-        this.type = type;
+    public RequestURL(Context context) {
         this.context = context;
     }
 
-    public List<E> requestData(String url){
+    public List<Vaga> requestData(String url){
         request(url, new VolleyCallback() {
             @Override
             public void onSuccess(String response) {
                 Gson gson = new Gson();
-                Type eListTyle = new TypeToken<ArrayList<E>>(){}.getType();
+                Type eListTyle = new TypeToken<ArrayList<Vaga>>(){}.getType();
                 eList = gson.fromJson(response, eListTyle);
             }
         });
