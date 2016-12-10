@@ -1,10 +1,14 @@
 package trabalho.sine;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +54,15 @@ public class FavoriteActivity extends AppCompatActivity {
         vagas = dao.getAll();
 
         return vagas;
+    }
+
+    @Override
+    public void onBackPressed() {
+        //
+        Toast.makeText(this,"To aki no favorite",Toast.LENGTH_SHORT).show();
+        Intent returnIntent = new Intent();
+        setResult(2,returnIntent);
+        super.onBackPressed();
     }
 
 }
