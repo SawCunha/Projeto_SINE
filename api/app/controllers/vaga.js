@@ -40,10 +40,10 @@ module.exports = function (app) {
   };
 
   controller.getVagas = (req, res) => {
-    const idFuncao = req.query.idfuncao;
-    const idCidade = req.query.idcidade;
-    const numPagina = req.query.numpagina;
-    const tipoOrdenacao = req.query.tipoordenacao;
+    const idFuncao = !req.query.idfuncao ? 0 : req.query.idfuncao;
+    const idCidade = !req.query.idcidade ? 0 : req.query.idcidade;
+    const numPagina = !req.query.numpagina ? 1 : req.query.numpagina;
+    const tipoOrdenacao = !req.query.tipoordenacao ? 1 : req.query.tipoordenacao ;
 
     if (!idFuncao && !idCidade && !numPagina && !tipoOrdenacao) {
       res.status(400).json('Faltando Parametro(s).');
