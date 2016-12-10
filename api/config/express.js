@@ -18,6 +18,14 @@ module.exports = function () {
   app.use(bodyParser.json({ limit: '5mb' }));
   app.use(methodOverride());
 
+  app.use(function(req, res, next) {
+    for (var key in req.query)
+    {
+      req.query[key.toLowerCase()] = req.query[key];
+    }
+    next();
+  });
+
   expressLoad('controllers', { cwd: 'app' })
   .then('routes')
   .into(app);
