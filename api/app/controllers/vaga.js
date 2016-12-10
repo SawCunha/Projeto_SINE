@@ -42,22 +42,46 @@ module.exports = function (app) {
   controller.getVagas = (req, res) => {
     const idFuncao = req.query.idfuncao;
     const idCidade = req.query.idcidade;
+    const numPagina = req.query.numpagina;
+    const tipoOrdenacao = req.query.tipoordenacao;
 
-    if (!idFuncao && !idCidade) {
+    if (!idFuncao && !idCidade && !numPagina && !tipoOrdenacao) {
       res.status(400).json('Faltando Parametro(s).');
       return;
     }
 
-    const url = '';
+    const url = utils.urlGetInfoVagas(idFuncao, idCidade, numPagina, tipoOrdenacao);
 
     request(url)
     .then((html) => {
-      //
+      let obj;
+      let listVagas = [];
 
+      try{
+        obj = JSON.parse(html);
+      }catch(err){
+        console.error(err);
+        res.status(200).json({'error':1})
+      }
+
+      obj.forEach(v => {
+        let vaga = new Vaga({id: v.id,
+                            url_sine: v.u,
+                            cidade: v.dc + ' - ' + v.uf,
+                            descricao: v.d,
+                            empresa: v.ne,
+                            salario: v.sl,
+                            titulo: v.tt,
+                            funcao: v.df
+                          })
+        listVagas.push(vaga);
+      })
+
+      res.status(200).json({'error':0, 'vagas': listVagas});
     })
     .catch((error) => {
       console.error(error);
-      res.status(404).json('Erro ao obter dados.');
+      res.status(404).json({'mensagem':'Erro ao obter dados.',url:url});
     });
   };
 

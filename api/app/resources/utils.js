@@ -35,5 +35,26 @@ module.exports = {
             .replace('#{idCidade}', idCidade)
             .replace('#{numPagina}', numPagina)
             .replace('#{tipoOrdenacao}', tipoOrdenacao);
+  },
+
+  removerAcentos (str) {
+    if (!str) { return ''; }
+    var ret = '';
+    for (var i = 0; i < str.length; i++) {
+      ret += constants.ACCENT_MAP[str.charAt(i)] || str.charAt(i);
+    }
+    return ret;
+  },
+  
+  formatarUrl(str) {
+      str = this.removerAcentos(str);
+      return str.replace(/_/g, '-')
+          .replace(/ /g, '-')
+          .replace(/:/g, '-')
+          .replace(/\\/g, '-')
+          .replace(/\//g, '-')
+          .replace(/[^a-zA-Z0-9\-]+/g, '')
+          .replace(/-{2,}/g, '-')
+          .toLowerCase();
   }
 }
