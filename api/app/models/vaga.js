@@ -1,5 +1,6 @@
 'use strict';
 const constants = require('../resources/constants');
+const utils = require('../resources/utils');
 
 class Vaga {
   constructor(obj) {
@@ -12,11 +13,11 @@ class Vaga {
     this.funcao = obj.funcao;
     this.salario = obj.salario;
     this.empresa = obj.empresa;
-    this.url_sine = this.createUrl(obj.cidade, obj.funcao, obj.id);
+    this.url_sine = this.createUrl();
   }
 
   createUrl(cidade, funcao, id) {
-    return constants.URL.SINE + '/vagas-empregos-em-' + cidade + '/' + funcao + '/' + id;
+    return constants.URL.SINE + '/vagas-empregos-em-' + utils.formatarUrl(this.cidade) + '/' + utils.formatarUrl(this.funcao) + '/' + this.id
   }
 }
 
