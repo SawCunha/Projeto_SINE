@@ -8,6 +8,8 @@ import com.j256.ormlite.dao.DaoManager;
 import java.sql.SQLException;
 import java.util.List;
 
+import trabalho.sine.persistence.DatabaseHelper;
+
 /**
  * Created by wagner on 09/12/16.
  */

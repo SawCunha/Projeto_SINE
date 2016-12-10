@@ -1,4 +1,4 @@
-package trabalho.sine.dao;
+package trabalho.sine.persistence;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -1,14 +1,11 @@
-/**
+
 package trabalho.sine.model;
 
-
-@DatabaseTable(tableName = "cidades")
 public class Cidade {
-    @DatabaseField(generatedId = true) private Long id;
-    @DatabaseField private String label;
-    @DatabaseField private String url;
-    @DatabaseField private String nome;
-    @DatabaseField private String estado;
+    private Long id;
+    private String nome;
+    private String estado;
+    private Integer capital;
 
     public Long getId() {
         return id;
@@ -16,22 +13,6 @@ public class Cidade {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getNome() {
@@ -49,5 +30,12 @@ public class Cidade {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public Integer getCapital() {
+        return capital;
+    }
+
+    public void setCapital(Integer capital) {
+        this.capital = capital;
+    }
 }
-*/
