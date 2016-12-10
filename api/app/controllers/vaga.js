@@ -40,24 +40,83 @@ module.exports = function (app) {
   };
 
   controller.getVagas = (req, res) => {
-    const funcao = req.query.funcao;
-    const local = req.query.local;
+    const idFuncao = req.query.idfuncao;
+    const idCidade = req.query.idcidade;
 
-    if (!funcao && !local) {
+    if (!idFuncao && !idCidade) {
       res.status(400).json('Faltando Parametro(s).');
       return;
     }
 
-    const url = utils.urlSearch(funcao, local);
+    const url = '';
 
     request(url)
     .then((html) => {
-      let $ = cheerio.load(html);
+      //
 
-      //Pegar a lista de vagas
     })
     .catch((error) => {
       console.error(error);
+      res.status(404).json('Erro ao obter dados.');
+    });
+  };
+
+
+  //Responde com um array contendo o id e o nome das possiveis funções
+  controller.getIdFuncoes = (req, res) => {
+    const nomefuncao = req.params.funcao;
+
+    if(!nomefuncao){
+      res.status(400).json('Sintaxe Incorreta');
+      return;
+    }
+
+    const url = utils.urlGetIdFuncao(nomefuncao);
+
+    request(url)
+    .then((html) => {
+      let obj;
+      try{
+        obj = JSON.parse(html);
+      } catch(err){
+        console.log(err);
+        res.status(200).json({'error':1})
+      }
+
+      res.status(200).json({'error':0, 'funcoes': obj.funcoes});
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).json('Erro ao obter dados.');
+    });
+  };
+
+
+  //Responde com um array contendo o id e o nome das possiveis cidades
+  controller.getIdCidades = (req, res) => {
+    const nomeCidade = req.params.cidade;
+
+    if(!nomeCidade){
+      res.status(400).json('Sintaxe Incorreta');
+      return;
+    }
+
+    const url = utils.urlGetIdCidade(nomeCidade);
+
+    request(url)
+    .then((html) => {
+      let obj;
+      try{
+        obj = JSON.parse(html);
+      } catch(err){
+        console.log(err);
+        res.status(200).json({'error':1})
+      }
+
+      res.status(200).json({'error':0, 'cidades': obj});
+    })
+    .catch((error) => {
+      console.log(error);
       res.status(404).json('Erro ao obter dados.');
     });
   };

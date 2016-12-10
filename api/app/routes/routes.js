@@ -9,7 +9,10 @@ module.exports = (app) => {
 
   app.get('/vaga/:cidade/:funcao/:vaga', vagasController.getVaga);
 
-  // vagas?funcao={funcao}&local={local}
-  // local = cidade/estado
+  // vagas?idfuncao={idfuncao}&idcidade={idcidade}
   app.get('/vagas', vagasController.getVagas);
+
+  app.get('/idfuncao/:funcao', vagasController.getIdFuncoes);
+
+  app.get('/idcidade/:cidade', vagasController.getIdCidades);
 };
