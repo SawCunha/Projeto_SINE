@@ -161,17 +161,31 @@
         android:layout_toEndOf="@+id/addressValue"
         android:id="@+id/descriptionValue" />
 
+    <TextView
+        android:text="Url: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/urLabel"
+        android:layout_alignTop="@+id/openLinkImage"
+        android:layout_alignStart="@+id/descriptionLabel" />
+
+    <TextView
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/urlValue"
+        android:layout_alignTop="@+id/openLinkImage"
+        android:layout_toEndOf="@+id/descriptionValue" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/openlink"
-        android:layout_below="@+id/descriptionValue"
-        android:layout_alignStart="@id/descriptionValue"
-        android:layout_toEndOf="@+id/descriptionValue"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="55dp"
         android:onClick="openLink"
-        android:id="@+id/openLinkImage"/>
+        android:id="@+id/openLinkImage"
+        android:layout_below="@+id/descriptionValue"
+        android:layout_toEndOf="@+id/urlValue" />
 
 
 </RelativeLayout>

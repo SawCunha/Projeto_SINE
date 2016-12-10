@@ -23,7 +23,7 @@ public class ResultActivity extends AppCompatActivity {
     private Vaga vaga;
     private ImageView openLink;
 
-    private TextView title, money, city, address, company, function, des;
+    private TextView title, money, city, address, company, function, des, url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class ResultActivity extends AppCompatActivity {
         company = (TextView) findViewById(R.id.companyValue);
         function = (TextView) findViewById(R.id.functionValue);
         des = (TextView) findViewById(R.id.descriptionValue);
-
+        url = (TextView) findViewById(R.id.urlValue);
 
 
 
@@ -83,7 +83,7 @@ public class ResultActivity extends AppCompatActivity {
         company.setText(vaga.getEmpresa());
         function.setText(vaga.getFuncao());
         des.setText(vaga.getDescricao());
-
+        url.setText(vaga.getUrlSine());
         openLink = (ImageView) findViewById(R.id.openLinkImage);
 
     }
@@ -110,8 +110,8 @@ public class ResultActivity extends AppCompatActivity {
         share.setType("text/plain");
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-        share.putExtra(Intent.EXTRA_SUBJECT, "Teste");
-        share.putExtra(Intent.EXTRA_TEXT, "http://ibertphilos.hol.es");
+        share.putExtra(Intent.EXTRA_SUBJECT, vaga.getTitulo());
+        share.putExtra(Intent.EXTRA_TEXT, vaga.getUrlSine());
 
         startActivity(Intent.createChooser(share, "Compartilhar"));
 
