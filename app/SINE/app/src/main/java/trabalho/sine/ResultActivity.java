@@ -1,10 +1,12 @@
 package trabalho.sine;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +21,9 @@ public class ResultActivity extends AppCompatActivity {
     private ImageButton favoriteBtn;
     private ImageButton shareBtn;
     private Vaga vaga;
+    private ImageView openLink;
 
-    private TextView title, money, city, address, company, function, des, url;
+    private TextView title, money, city, address, company, function, des;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,8 @@ public class ResultActivity extends AppCompatActivity {
         company = (TextView) findViewById(R.id.companyValue);
         function = (TextView) findViewById(R.id.functionValue);
         des = (TextView) findViewById(R.id.descriptionValue);
-        url = (TextView) findViewById(R.id.urlValue);
+
+
 
 
         carregaInforActivity(getIntent().getExtras());
@@ -79,7 +83,8 @@ public class ResultActivity extends AppCompatActivity {
         company.setText(vaga.getEmpresa());
         function.setText(vaga.getFuncao());
         des.setText(vaga.getDescricao());
-        url.setText(vaga.getUrlSine());
+
+        openLink = (ImageView) findViewById(R.id.openLinkImage);
 
     }
 
@@ -109,6 +114,15 @@ public class ResultActivity extends AppCompatActivity {
         share.putExtra(Intent.EXTRA_TEXT, "http://ibertphilos.hol.es");
 
         startActivity(Intent.createChooser(share, "Compartilhar"));
+
+    }
+
+    // Abre o link da vaga no navegador.
+    public void openLink(View view){
+
+        Intent intent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://ibertphilos.hol.es"));
+        startActivity(intent);
 
     }
 }

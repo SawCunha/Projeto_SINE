@@ -46,7 +46,7 @@
         android:id="@+id/titleLabel" />
 
     <TextView
-        android:text="s"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/titleLabel"
@@ -103,6 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/addressLabel"
+        android:layout_alignStart="@id/cityValue"
         android:layout_toEndOf="@+id/titleValue"
         android:id="@+id/addressValue" />
 
@@ -120,6 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/companyLabel"
+        android:layout_alignStart="@id/addressValue"
         android:layout_toEndOf="@+id/cityValue"
         android:id="@+id/companyValue" />
 
@@ -137,6 +139,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/functionLabel"
+        android:layout_alignStart="@id/companyValue"
         android:layout_toEndOf="@+id/companyValue"
         android:id="@+id/functionValue" />
 
@@ -154,25 +157,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/descriptionLabel"
+        android:layout_alignStart="@id/functionValue"
         android:layout_toEndOf="@+id/addressValue"
         android:id="@+id/descriptionValue" />
 
-    <TextView
-        android:text="url: "
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/descriptionLabel"
-        android:layout_marginTop="23dp"
-        android:id="@+id/urlLabel"
-        android:layout_alignStart="@+id/descriptionLabel"
-        android:layout_alignEnd="@+id/titleLabel" />
-
-    <TextView
-        android:text=""
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/urlLabel"
+        app:srcCompat="@drawable/openlink"
+        android:layout_below="@+id/descriptionValue"
+        android:layout_alignStart="@id/descriptionValue"
         android:layout_toEndOf="@+id/descriptionValue"
-        android:id="@+id/urlValue" />
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="15dp"
+        android:onClick="openLink"
+        android:id="@+id/openLinkImage"/>
+
 
 </RelativeLayout>
