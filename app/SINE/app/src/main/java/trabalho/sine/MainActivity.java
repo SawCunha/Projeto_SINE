@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import trabalho.sine.adapter.AdapterListView;
@@ -90,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         RequestURL req = new RequestURL(this);
 
         //Testa a requisição.
-        req.requestURL("http://192.168.0.106:10555/vagas", new RequestURL.VolleyCallback() {
+        req.requestURL("http://192.168.2.103:10555/vagas", new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
                 Gson gson = new Gson();

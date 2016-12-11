@@ -6,7 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "vagas")
 public class Vaga {
-    @DatabaseField private Long id;
+    @DatabaseField(id = true) private Long id;
     @DatabaseField private String titulo;
     @DatabaseField private String descricao;
     @DatabaseField private String endereco;
