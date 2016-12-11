@@ -21,7 +21,10 @@ module.exports = function () {
   app.use(function(req, res, next) {
     for (var key in req.query)
     {
-      req.query[key.toLowerCase()] = req.query[key];
+      if(key !== key.toLowerCase()){
+        req.query[key.toLowerCase()] = req.query[key];
+        delete req.query[key];
+      }
     }
     next();
   });
