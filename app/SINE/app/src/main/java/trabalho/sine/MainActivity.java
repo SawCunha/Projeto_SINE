@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog dialog;
     private SearchView search;
     private String filtroEscolhido = "";
-    private int filtroIndex;
+    private int filtroIndex = 1;
     private AlertDialog alerta;
     private Button filter;
 
@@ -45,10 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Carregando dados");
-        dialog.setIndeterminate(true);
-        dialog.show();
+        mostrarDialogoCarregando();
 
         favorite = (Button) findViewById(R.id.favoriteButton);
         filter = (Button) findViewById(R.id.filterButton);
@@ -167,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
         //Testa a requisição.
-        req.requestURL("http://192.168.0.106:10555/vagas", new RequestURL.VolleyCallback() {
+        req.requestURL("http://192.168.0.106:10555/vagas?tipoOrdenacao=" + filtroIndex, new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
                 Gson gson = new Gson();
@@ -184,18 +181,21 @@ public class MainActivity extends AppCompatActivity {
     // Constrói uma caixa de diálogo que pede qual filtro o jovem deseja.
     private void dialogFiltro(){
 
-        final CharSequence[] charSequences = new CharSequence[]{"Sem Filtro", "Últimas vagas", "Maior Salario"};
+        final CharSequence[] charSequences = new CharSequence[]{"Últimas vagas", "Maior Salario"};
         final Integer[]checados = new Integer[charSequences.length];
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Escolha o filtro?");
-        builder.setSingleChoiceItems(charSequences, 0, new DialogInterface.OnClickListener() {
+        builder.setSingleChoiceItems(charSequences, --filtroIndex, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 filtroEscolhido = charSequences[i].toString();
                 filtroIndex = i;
+                filtroIndex++;
                 alerta.dismiss();
                 Toast.makeText(getBaseContext(), filtroEscolhido, Toast.LENGTH_SHORT).show();
+                mostrarDialogoCarregando();
+                obtemVagasAPI();
             }
         });
 
@@ -211,5 +211,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void mostrarDialogoCarregando(){
+
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Carregando dados");
+        dialog.setIndeterminate(true);
+        dialog.setCancelable(false);
+        dialog.show();
+
+    }
 
 }
