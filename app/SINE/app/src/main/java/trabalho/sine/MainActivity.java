@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Button favorite;
     private List<Vaga>vagas;
     private ProgressDialog dialog;
+    private SearchView search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,32 @@ public class MainActivity extends AppCompatActivity {
         favorite = (Button) findViewById(R.id.favoriteButton);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
+
+        search = (SearchView) findViewById(R.id.pesquisa);
+        search.setQueryHint("City");
+
+        search.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                //Toast.makeText(getBaseContext(), String.valueOf(hashCode()),Toast.LENGTH_LONG).show();
+            }
+        });
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(getBaseContext(), query, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Toast.makeText(getBaseContext(), newText, Toast.LENGTH_SHORT).show();
+
+
+                return false;
+            }
+        });
 
         obtemVagasAPI();
 
