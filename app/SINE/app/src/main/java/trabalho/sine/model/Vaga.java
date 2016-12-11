@@ -6,7 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "vagas")
 public class Vaga {
-    @DatabaseField(generatedId = true) private Long id;
+    @DatabaseField private Long id;
     @DatabaseField private String titulo;
     @DatabaseField private String descricao;
     @DatabaseField private String endereco;
@@ -15,6 +15,17 @@ public class Vaga {
     @DatabaseField private String salario;
     @DatabaseField private String empresa;
     @DatabaseField private String url_sine;
+
+
+    @DatabaseField private boolean favoritado = false;
+
+    public boolean isFavoritado() {
+        return favoritado;
+    }
+
+    public void setFavoritado(boolean favoritado) {
+        this.favoritado = favoritado;
+    }
 
     public Long getId() {
         return id;

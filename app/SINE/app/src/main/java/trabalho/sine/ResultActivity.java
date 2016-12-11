@@ -73,11 +73,11 @@ public class ResultActivity extends AppCompatActivity {
         vaga = new Gson().fromJson(vagaJson, Vaga.class);
 
         favoriteBtn.setBackgroundResource(
-                (vaga.getId() == null ?
+                (vaga.isFavoritado() == false ?
                         R.drawable.ic_favorite_border_black_48dp : R.drawable.ic_favorite_black));
 
         title.setText(vaga.getTitulo());
-        money.setText(vaga.getSalario().toString());
+        money.setText(vaga.getSalario());
         city.setText(vaga.getCidade());
         address.setText(vaga.getEndereco());
         company.setText(vaga.getEmpresa());
@@ -90,13 +90,14 @@ public class ResultActivity extends AppCompatActivity {
 
     public void favoriteClick(View view) {
         VagaDAO vagaDAO = new VagaDAO(this.getApplicationContext());
-        if (vaga.getId() == null) {
+        if (vaga.isFavoritado() == false) {
+            vaga.setFavoritado(true);
             vagaDAO.insert(vaga);
             favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_black);
             Toast.makeText(this, "Favoritado!!!", Toast.LENGTH_SHORT).show();
         } else {
             vagaDAO.delete(vaga.getId());
-            vaga.setId(null);
+            vaga.setFavoritado(false);
             favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_border_black_48dp);
             Toast.makeText(this, "Desfavoritado!!!", Toast.LENGTH_SHORT).show();
         }
@@ -121,7 +122,7 @@ public class ResultActivity extends AppCompatActivity {
     public void openLink(View view){
 
         Intent intent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("http://ibertphilos.hol.es"));
+                Uri.parse(vaga.getUrl_sine()));
         startActivity(intent);
 
     }

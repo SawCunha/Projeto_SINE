@@ -1,5 +1,6 @@
 package trabalho.sine;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,16 +29,23 @@ public class MainActivity extends AppCompatActivity {
     private AdapterListView mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private Button favorite;
+    private List<Vaga>vagas;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Carregando dados");
+        dialog.setIndeterminate(true);
+        dialog.show();
+
         favorite = (Button) findViewById(R.id.favoriteButton);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
-        createRecyclerView();
+        gera();
     }
 
     private void createRecyclerView(){
@@ -48,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new AdapterListView(gera(),this);
+        mAdapter = new AdapterListView(vagas,this);
         mRecyclerView.setAdapter(mAdapter);
         RecyclerView.ItemDecoration itemDecoration =
                 new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
@@ -74,65 +82,32 @@ public class MainActivity extends AppCompatActivity {
         else if(resultCode == 2)
             Toast.makeText(this, "Voltou do favorite", Toast.LENGTH_SHORT).show();
 
+        verifica();
         createRecyclerView();
 
     }
 
     //Método de teste...
-    public List<Vaga> gera(){
-        List<Vaga> vagas = new ArrayList<>();
-
-        VagaDAO dao = new VagaDAO(getApplicationContext());
-
-        vagas = dao.getAll();
+    public void gera(){
 
         RequestURL req = new RequestURL(this);
 
         //Testa a requisição.
-        req.requestURL("http://192.168.2.103:10555/vagas", new RequestURL.VolleyCallback() {
+        req.requestURL("http://192.168.0.106:10555/vagas", new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
                 Gson gson = new Gson();
                 VagasJSON vagasJSON = gson.fromJson(response, VagasJSON.class);
+                vagas = vagasJSON.getVagas();
+                verifica();
+                createRecyclerView();
+                dialog.dismiss();
 
                 for (Vaga v : vagasJSON.getVagas()) Log.d("Vaga: ", v.getTitulo());
             }
         });
 
-        Vaga vaga = new Vaga();
-        vaga.setCidade("Barbacena");
-        vaga.setDescricao("Caixa");
-        vaga.setEmpresa("Bahamas");
-        vaga.setEndereco("Rua ame");
-        vaga.setFuncao("Caixa mesmo");
-        vaga.setTitulo("Bah caixa");
-        vaga.setSalario("123.98");
-        vaga.setUrl_sine("soiofioiof");
-        vagas.add(vaga);
 
-        vaga = new Vaga();
-        vaga.setCidade("Barbacena");
-        vaga.setDescricao("Caixa");
-        vaga.setEmpresa("Bahamas");
-        vaga.setEndereco("Rua ame");
-        vaga.setFuncao("Caixa mesmo");
-        vaga.setTitulo("Bah caixa");
-        vaga.setSalario("123.98");
-        vaga.setUrl_sine("soiofioiof");
-        vagas.add(vaga);
-
-        vaga = new Vaga();
-        vaga.setCidade("Barbacena");
-        vaga.setDescricao("Caixa");
-        vaga.setEmpresa("Bahamas");
-        vaga.setEndereco("Rua ame");
-        vaga.setFuncao("Caixa mesmo");
-        vaga.setTitulo("Bah caixa");
-        vaga.setSalario("123.98");
-        vaga.setUrl_sine("soiofioiof");
-        vagas.add(vaga);
-
-        return vagas;
     }
 
 
@@ -145,4 +120,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-}
+    // Verifica quais das vagas está no banco de dados.
+    public void verifica() {
+
+        VagaDAO vagaDAO = new VagaDAO(getApplicationContext());
+        List<Vaga> vagasBd = vagaDAO.getAll();
+
+        for (int contador = 0; contador < vagasBd.size(); contador++)
+            for (int contador2 = 0; contador2 < vagas.size(); contador2++)
+                if (vagasBd.get(contador).getId().toString().equalsIgnoreCase(vagas.get(contador2).getId().toString())) {
+                    vagas.get(contador2).setFavoritado(true);
+                    Log.d("darius", vagas.get(contador2).getId().toString());
+                }
+    }
+
+
+
+    }

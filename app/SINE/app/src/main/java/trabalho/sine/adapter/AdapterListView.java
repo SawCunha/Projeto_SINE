@@ -62,7 +62,7 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         holder.empregoEndereco.setText(mDataset.get(position).getCidade());
 
         holder.favoriteBtn.setBackgroundResource(
-                (mDataset.get(position).getId() == null ?
+                (mDataset.get(position).isFavoritado() == false ?
                         R.drawable.ic_favorite_border_black_48dp:R.drawable.ic_favorite_black));
 
         holder.favoriteBtn.setOnClickListener(new View.OnClickListener() {
@@ -70,13 +70,15 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
             public void onClick(View v) {
                 Vaga vaga = getItemPosition(position);
                 VagaDAO vagaDAO = new VagaDAO(context.getApplicationContext());
-                if(vaga.getId() == null){
+                if(vaga.isFavoritado() == false){
+                    vaga.setFavoritado(true);
                     vagaDAO.insert(vaga);
                     holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_black);
                     Toast.makeText(context,"Favoritado!!!",Toast.LENGTH_SHORT).show();
                 }else{
+                    Log.d("id_adap", vaga.getId().toString());
                     vagaDAO.delete(vaga.getId());
-                    vaga.setId(null);
+                    vaga.setFavoritado(false);
                     holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_border_black_48dp);
                     Toast.makeText(context,"Desfavoritado!!!",Toast.LENGTH_SHORT).show();
                 }

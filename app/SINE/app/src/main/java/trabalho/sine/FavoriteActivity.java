@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -52,6 +53,8 @@ public class FavoriteActivity extends AppCompatActivity {
         VagaDAO dao = new VagaDAO(getApplicationContext());
 
         vagas = dao.getAll();
+
+//        Log.d("favorites", vagas.get(0).getId().toString());
 
         return vagas;
     }
