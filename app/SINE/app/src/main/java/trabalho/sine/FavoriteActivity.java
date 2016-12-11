@@ -76,10 +76,10 @@ public class FavoriteActivity extends AppCompatActivity {
                 vgs = dao.getAll();
                 break;
             case MAIOR_SALARIO:
-                vgs = dao.getAllOrderBy();
+                vgs = dao.getAllOrderBy("salario");
                 break;
             case ULTIMAS_VAGAS:
-                vgs = dao.getAll();
+                vgs = dao.getAllOrderBy("id");
                 break;
             default:
                 break;

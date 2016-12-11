@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
         //Testa a requisição.
-        req.requestURL("http://192.168.2.103:10555/vagas", new RequestURL.VolleyCallback() {
+        req.requestURL("http://192.168.0.106:10555/vagas", new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
                 Gson gson = new Gson();

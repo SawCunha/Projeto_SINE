@@ -77,10 +77,10 @@ public class GenericDAO<E> extends DatabaseHelper<E> {
         }
     }
 
-    public List<E> getAllOrderBy(){
+    public List<E> getAllOrderBy(String campo){
         try {
             QueryBuilder<E,Long> qb = dao.queryBuilder();
-            qb.orderBy("salario",false);
+            qb.orderBy(campo,false);
             List<E> list = qb.query();
             return list;
         } catch (SQLException e){
