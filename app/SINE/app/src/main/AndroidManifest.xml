@@ -18,15 +18,18 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ResultActivity"></activity>
-        <activity android:name=".FavoriteActivity"></activity>
+        <activity android:name=".ResultActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".FavoriteActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -28,10 +28,8 @@ public class FavoriteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos_favoritos);
         createRecyclerView();
-
     }
 
     private void createRecyclerView(){
@@ -46,7 +44,7 @@ public class FavoriteActivity extends AppCompatActivity {
         mRecyclerView.setLayoutFrozen(true);
     }
 
-    //Método de teste...
+    //Obtem as Vagas salvas no Banco de Dados.
     public List<Vaga> gera(){
         List<Vaga> vagas = new ArrayList<>();
 
@@ -54,15 +52,14 @@ public class FavoriteActivity extends AppCompatActivity {
 
         vagas = dao.getAll();
 
-//        Log.d("favorites", vagas.get(0).getId().toString());
+        if(vagas.isEmpty()) Toast.makeText(this,"Você ainda não possui vagas favoritas.",Toast.LENGTH_LONG).show();
 
         return vagas;
     }
 
     @Override
     public void onBackPressed() {
-        //
-        Toast.makeText(this,"To aki no favorite",Toast.LENGTH_SHORT).show();
+
         Intent returnIntent = new Intent();
         setResult(2,returnIntent);
         super.onBackPressed();

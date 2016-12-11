@@ -14,7 +14,7 @@ import trabalho.sine.model.Vaga;
 
 public class DatabaseHelper<E> extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "sineinfo.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

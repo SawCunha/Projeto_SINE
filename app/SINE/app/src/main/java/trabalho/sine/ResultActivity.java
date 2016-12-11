@@ -96,7 +96,7 @@ public class ResultActivity extends AppCompatActivity {
             favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_black);
             Toast.makeText(this, "Favoritado!!!", Toast.LENGTH_SHORT).show();
         } else {
-            vagaDAO.delete(vaga.getId());
+            vagaDAO.delete(vaga);
             vaga.setFavoritado(false);
             favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_border_black_48dp);
             Toast.makeText(this, "Desfavoritado!!!", Toast.LENGTH_SHORT).show();

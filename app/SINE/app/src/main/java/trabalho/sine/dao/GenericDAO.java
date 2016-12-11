@@ -60,9 +60,9 @@ public class GenericDAO<E> extends DatabaseHelper<E> {
         }
     }
 
-    public void delete(Long obj){
+    public void delete(E obj){
         try {
-            dao.deleteById(obj);
+            dao.delete(obj);
         }catch (SQLException e){
             e.printStackTrace();
         }

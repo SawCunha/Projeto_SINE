@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private void createRecyclerView(){
 
         // Não é legal, está deletando e criando o recycler view novamente.
-        mRecyclerView.removeAllViewsInLayout();
+        //mRecyclerView.removeAllViewsInLayout();
 
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -72,11 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Toast.makeText(this, resultCode + " = " + RESULT_OK, Toast.LENGTH_SHORT).show();
         if(resultCode == RESULT_OK){
             String resultado = data.getExtras().getString("resultado");
-            //Coloque no EditText
-            Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
         }
 
         else if(resultCode == 2)
@@ -103,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
                 createRecyclerView();
                 dialog.dismiss();
 
-                for (Vaga v : vagasJSON.getVagas()) Log.d("Vaga: ", v.getTitulo());
+                for (Vaga v : vagasJSON.getVagas()) {
+                    Log.d("Vaga: ", v.getTitulo());
+                }
             }
         });
 
@@ -116,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, FavoriteActivity.class);
         startActivityForResult(intent, 2);
-
 
     }
 
