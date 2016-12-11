@@ -12,4 +12,6 @@
     <string name="grande_porte_label">Grande</string>
     <string name="porte_label">Tamanho da empresa: </string>
     <string name="search">Pesquisar</string>
+    <string name="search_vaga">Pesquisar Vagas</string>
+    <string name="favorite_vaga">Vagas Favoritas</string>
 </resources>

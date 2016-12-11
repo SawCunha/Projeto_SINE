@@ -34,7 +34,8 @@
             android:name=".FavoriteActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".GraphicActivity" />
-        <activity android:name=".SearchForGraphicActivity"></activity>
+        <activity android:name=".SearchForGraphicActivity" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>
