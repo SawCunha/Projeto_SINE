@@ -49,7 +49,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        createRecyclerView();
+        verficaFiltroSelecionado();
     }
 
     private void createRecyclerView(){
