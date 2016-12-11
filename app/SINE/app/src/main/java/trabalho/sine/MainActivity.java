@@ -96,12 +96,14 @@ public class MainActivity extends AppCompatActivity {
         VagaDAO vagaDAO = new VagaDAO(getApplicationContext());
         List<Vaga> vagasBd = vagaDAO.getAll();
 
-        for (int contador = 0; contador < vagasBd.size(); contador++)
-            for (int contador2 = 0; contador2 < vagas.size(); contador2++)
-                if (vagasBd.get(contador).getId().toString().equalsIgnoreCase(vagas.get(contador2).getId().toString())) {
-                    vagas.get(contador2).setFavoritado(true);
-                    Log.d("darius", vagas.get(contador2).getId().toString());
-                }
+        // Se for true, quer dizer que nao há favoritos e por isso todas as vagas devem ser desmarcadas.
+        if(vagasBd.isEmpty())
+            for(Vaga v : vagas) v.setFavoritado(false);
+
+        for (Vaga vbd : vagasBd)
+            for (Vaga vs : vagas)
+                if (vbd.getId() == vs.getId()) vs.setFavoritado(true);
+
     }
 
     public void obtemVagasAPI(){
@@ -113,9 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 Gson gson = new Gson();
                 VagasJSON vagasJSON = gson.fromJson(response, VagasJSON.class);
                 vagas = vagasJSON.getVagas();
-                verifica();
-                createRecyclerView();
-                dialog.dismiss();
+                carregaRecyclerView();
             }
         });
 
