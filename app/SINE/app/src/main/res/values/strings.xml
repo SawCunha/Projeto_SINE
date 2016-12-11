@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">SINE</string>
+
+    <!-- Tela geração de gráfico -->
     <string name="label_grafico">Média Salárial dos Profissionais</string>
+
+    <!-- Tela pesquisa de faixa salária -->
+    <string name="activity_search_graphic_title">Pesquisar Médias Saláriais</string>
+    <string name="cargo_label">Cargo: </string>
+    <string name="pequeno_porte_label">Pequena</string>
+    <string name="medio_porte_label">Média</string>
+    <string name="grande_porte_label">Grande</string>
+    <string name="porte_label">Tamanho da empresa: </string>
+    <string name="search">Pesquisar</string>
 </resources>

@@ -16,5 +16,4 @@ public enum Filtro {
     public String toString() {
         return filtro;
     }
-
 }
