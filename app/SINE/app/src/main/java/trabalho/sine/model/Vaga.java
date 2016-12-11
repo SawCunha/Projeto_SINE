@@ -98,4 +98,5 @@ public class Vaga {
     public void setUrl_sine(String url_sine) {
         this.url_sine = url_sine;
     }
+
 }

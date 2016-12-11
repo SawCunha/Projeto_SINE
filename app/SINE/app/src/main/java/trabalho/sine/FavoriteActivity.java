@@ -6,14 +6,12 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import trabalho.sine.adapter.AdapterListView;
@@ -26,7 +24,9 @@ public class FavoriteActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private RadioButton semfiltro, ultimasvagas,maiorsalario;
+    private RadioButton semfiltro, ultimasvagas, maiorsalario;
+    private List<Vaga> vagas;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,21 +36,29 @@ public class FavoriteActivity extends AppCompatActivity {
         ultimasvagas = (RadioButton) findViewById(R.id.ultimasvagas);
         maiorsalario = (RadioButton) findViewById(R.id.maiorsalario);
 
-        createRecyclerView(Filtro.SEM_FITRO);
+        verficaFiltroSelecionado();
+    }
+
+    private void verficaFiltroSelecionado() {
+        if(semfiltro.isChecked()) obtemVagasBanco(Filtro.SEM_FITRO);
+        else if(maiorsalario.isChecked()) obtemVagasBanco(Filtro.MAIOR_SALARIO);
+        else obtemVagasBanco(Filtro.ULTIMAS_VAGAS);
+
+        createRecyclerView();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        createRecyclerView(Filtro.SEM_FITRO);
+        createRecyclerView();
     }
 
-    private void createRecyclerView(Filtro filtro){
+    private void createRecyclerView(){
         //Remove os itens do Recycler, para add os novos valores.
         mRecyclerView.removeAllViewsInLayout();
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new AdapterListView(obtemVagasBanco(filtro),this);
+        mAdapter = new AdapterListView(vagas,this);
         mRecyclerView.setAdapter(mAdapter);
         RecyclerView.ItemDecoration itemDecoration =
                 new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
@@ -58,30 +66,29 @@ public class FavoriteActivity extends AppCompatActivity {
     }
 
     //Obtem as Vagas salvas no Banco de Dados.
-    public List<Vaga> obtemVagasBanco(Filtro filtro){
-        List<Vaga> vagas = new ArrayList<>();
+    public void obtemVagasBanco(Filtro filtro){
+        List<Vaga> vgs = new ArrayList<>();
 
         VagaDAO dao = new VagaDAO(getApplicationContext());
 
         switch (filtro){
             case SEM_FITRO:
-                vagas = dao.getAll();
+                vgs = dao.getAll();
                 break;
             case MAIOR_SALARIO:
-                vagas = dao.getAllOrderBy();
+                vgs = dao.getAllOrderBy();
                 break;
             case ULTIMAS_VAGAS:
-                vagas = dao.getAll();
+                vgs = dao.getAll();
                 break;
             default:
-                vagas = dao.getAll();
                 break;
         }
 
         //Caso não houver vaga, informa ao usuario com um toast
-        if(vagas.isEmpty()) Toast.makeText(this,"Você ainda não possui vagas favoritas.",Toast.LENGTH_LONG).show();
+        if(vgs.isEmpty()) Toast.makeText(this,"Você ainda não possui vagas favoritas.",Toast.LENGTH_LONG).show();
 
-        return vagas;
+        this.vagas = vgs;
     }
 
     public void onRadioButtonClicked(View view) {
@@ -93,19 +100,22 @@ public class FavoriteActivity extends AppCompatActivity {
             case R.id.semfiltro:
                 if (checked) {
                     checkedUpdate(true, false, false);
-                    createRecyclerView(Filtro.SEM_FITRO);
+                    obtemVagasBanco(Filtro.SEM_FITRO);
+                    createRecyclerView();
                 }
                 break;
             case R.id.maiorsalario:
                 if (checked){
                     checkedUpdate(false, false, true);
-                    createRecyclerView(Filtro.MAIOR_SALARIO);
+                    obtemVagasBanco(Filtro.MAIOR_SALARIO);
+                    createRecyclerView();
                 }
                 break;
             case R.id.ultimasvagas:
                 if (checked){
                     checkedUpdate(false, true, false);
-                    createRecyclerView(Filtro.ULTIMAS_VAGAS);
+                    obtemVagasBanco(Filtro.ULTIMAS_VAGAS);
+                    createRecyclerView();
                 }
                 break;
         }
