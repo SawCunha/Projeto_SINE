@@ -1,8 +1,10 @@
 package trabalho.sine;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,11 +16,13 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
+import trabalho.sine.enun.Filtro;
 import trabalho.sine.model.VagasJSON;
 import trabalho.sine.model.Vaga;
 
@@ -31,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     private List<Vaga>vagas;
     private ProgressDialog dialog;
     private SearchView search;
+    private String filtroEscolhido = "";
+    private int filtroIndex;
+    private AlertDialog alerta;
+    private Button filter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
 
         favorite = (Button) findViewById(R.id.favoriteButton);
+        filter = (Button) findViewById(R.id.filterButton);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
 
@@ -127,6 +136,34 @@ public class MainActivity extends AppCompatActivity {
                 if (vbd.getId().toString().equalsIgnoreCase(vs.getId().toString())) vs.setFavoritado(true);
     }
 
+
+    //Obtem as Vagas salvas no Banco de Dados.
+    public void filtraVagasDaRequisicao(Filtro filtro){
+
+        List<Vaga> vgs = new ArrayList<>();
+
+        switch (filtro){
+            case SEM_FITRO:
+                obtemVagasAPI();
+                break;
+            case MAIOR_SALARIO:
+                //vgs = dao.getAllOrderBy("salario");
+                break;
+            case ULTIMAS_VAGAS:
+                //vgs = dao.getAllOrderBy("id");
+                break;
+            default:
+                break;
+        }
+
+        //Caso não houver vaga, informa ao usuario com um toast
+        if(vgs.isEmpty()) Toast.makeText(this,"Você ainda não possui vagas favoritas.",Toast.LENGTH_LONG).show();
+
+        this.vagas = vgs;
+    }
+
+
+    // obtem todas as vagas da api.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
         //Testa a requisição.
@@ -139,6 +176,38 @@ public class MainActivity extends AppCompatActivity {
                 carregaRecyclerView();
             }
         });
+
+    }
+
+    /************************************* Filtros ******************************** */
+
+    // Constrói uma caixa de diálogo que pede qual filtro o jovem deseja.
+    private void dialogFiltro(){
+
+        final CharSequence[] charSequences = new CharSequence[]{"Sem Filtro", "Últimas vagas", "Maior Salario"};
+        final Integer[]checados = new Integer[charSequences.length];
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Escolha o filtro?");
+        builder.setSingleChoiceItems(charSequences, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                filtroEscolhido = charSequences[i].toString();
+                filtroIndex = i;
+                alerta.dismiss();
+                Toast.makeText(getBaseContext(), filtroEscolhido, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        alerta = builder.create();
+        alerta.show();
+    }
+
+    // responsável pelo click do botão filtro.
+    public void filterClick(View view){
+
+        dialogFiltro();
 
     }
 

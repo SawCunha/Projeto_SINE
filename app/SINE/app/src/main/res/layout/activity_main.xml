@@ -65,6 +65,16 @@
                 android:scrollbarAlwaysDrawVerticalTrack="true"
                 android:layout_alignParentBottom="true"
                 android:layout_below="@+id/favoriteButton" />
+
+            <Button
+                android:text="Filtro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/list_empregos"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="13dp"
+                android:onClick="filterClick"
+                android:id="@+id/filterButton" />
         </RelativeLayout>
 
 
