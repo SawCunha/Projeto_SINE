@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import trabalho.sine.controller.RequestURL;
-import trabalho.sine.dao.VagasJSON;
+import trabalho.sine.model.VagasJSON;
 import trabalho.sine.model.Vaga;
 
 /**

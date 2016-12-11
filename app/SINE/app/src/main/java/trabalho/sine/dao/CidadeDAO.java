@@ -36,14 +36,14 @@ public class CidadeDAO {
         }
     }
 
-    public List<Cidade> searchCities(String city, int limite){
+    public List<Cidade> searchCities(String city) {
         sqLiteDatabase = helperCidadesEstados.getReadableDatabase();
         String selection = "nome like ? COLLATE NOCASE ";
         String[] selectionArgs = { city + "%" };
         String groupBy = null;
         String having = null;
         String orderBy = null;
-        String limit = limite + "";
+        String limit = null;
 
         List<Cidade> cidades = new ArrayList<>();
 

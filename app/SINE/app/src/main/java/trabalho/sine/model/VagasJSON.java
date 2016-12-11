@@ -1,9 +1,7 @@
-package trabalho.sine.dao;
+package trabalho.sine.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import trabalho.sine.model.Vaga;
 
 /**
  * Define o modelo com a estrutura obtida através da requisição http. Isso é necessário para que a API

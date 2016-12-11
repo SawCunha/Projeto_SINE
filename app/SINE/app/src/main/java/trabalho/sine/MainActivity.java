@@ -7,10 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -19,8 +17,7 @@ import java.util.List;
 import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
-import trabalho.sine.dao.VagasJSON;
-import trabalho.sine.function.RequestFunctions;
+import trabalho.sine.model.VagasJSON;
 import trabalho.sine.model.Vaga;
 
 public class MainActivity extends AppCompatActivity {
@@ -104,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
         //Testa a requisição.
-        req.requestURL("http://192.168.0.106:10555/vagas", new RequestURL.VolleyCallback() {
+        req.requestURL("http://192.168.2.103:10555/vagas", new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
                 Gson gson = new Gson();
