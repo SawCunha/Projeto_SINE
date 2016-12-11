@@ -57,9 +57,9 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
 
 
         holder.setVaga(mDataset.get(position));
-        holder.empregoNome.setText(mDataset.get(position).getTitulo());
-        holder.empregoDescricao.setText(mDataset.get(position).getDescricao());
-        holder.empregoEndereco.setText(mDataset.get(position).getCidade());
+        holder.vagaNome.setText(mDataset.get(position).getFuncao());
+        holder.vagaEmpresa.setText(mDataset.get(position).getEmpresa());
+        holder.vagaEndereco.setText(mDataset.get(position).getCidade());
 
         holder.favoriteBtn.setBackgroundResource(
                 (mDataset.get(position).isFavoritado() == false ?
@@ -108,9 +108,9 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
     //Class Interna responsavel por criar cada Item do ListView
     public static class DataObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView empregoNome;
-        TextView empregoDescricao;
-        TextView empregoEndereco;
+        TextView vagaNome;
+        TextView vagaEmpresa;
+        TextView vagaEndereco;
         ImageButton favoriteBtn;
         private Vaga vaga;
         static final int ACTIVITY_REQUEST = 1;
@@ -119,11 +119,10 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         //Obtem as Referencias para Views que será utilizada.
         public DataObjectHolder(View itemView) {
             super(itemView);
-            empregoNome = (TextView) itemView.findViewById(R.id.emprego_nome);
-            empregoDescricao = (TextView) itemView.findViewById(R.id.emprego_descricao);
-            empregoEndereco = (TextView) itemView.findViewById(R.id.emprego_endereco);
+            vagaNome = (TextView) itemView.findViewById(R.id.vaga_nome);
+            vagaEmpresa = (TextView) itemView.findViewById(R.id.vaga_empresa);
+            vagaEndereco = (TextView) itemView.findViewById(R.id.vaga_endereco);
             favoriteBtn = (ImageButton) itemView.findViewById(R.id.favorito);
-            Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
         }
 
