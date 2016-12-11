@@ -56,7 +56,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
         VagaDAO dao = new VagaDAO(getApplicationContext());
 
-        vagas = dao.getAll();
+        vagas = dao.getAllOrderBy();
 
         //Caso não houver vaga, informa ao usuario com um toast
         if(vagas.isEmpty()) Toast.makeText(this,"Você ainda não possui vagas favoritas.",Toast.LENGTH_LONG).show();

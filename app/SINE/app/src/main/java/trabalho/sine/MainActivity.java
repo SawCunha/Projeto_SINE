@@ -84,10 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Abre a intente de favoritos.
     public void favoriteOpenClick(View view) {
-
         Intent intent = new Intent(this, FavoriteActivity.class);
         startActivityForResult(intent, 2);
-
     }
 
     // Verifica quais das vagas está no banco de dados.
@@ -97,12 +95,11 @@ public class MainActivity extends AppCompatActivity {
         List<Vaga> vagasBd = vagaDAO.getAll();
 
         // Se for true, quer dizer que nao há favoritos e por isso todas as vagas devem ser desmarcadas.
-        if(vagasBd.isEmpty())
-            for(Vaga v : vagas) v.setFavoritado(false);
+        if(vagasBd.isEmpty()) for(Vaga v : vagas) v.setFavoritado(false);
 
         for (Vaga vbd : vagasBd)
             for (Vaga vs : vagas)
-                if (vbd.getId() == vs.getId()) vs.setFavoritado(true);
+                if (vbd.getId().toString().equalsIgnoreCase(vs.getId().toString())) vs.setFavoritado(true);
     }
 
     public void obtemVagasAPI(){

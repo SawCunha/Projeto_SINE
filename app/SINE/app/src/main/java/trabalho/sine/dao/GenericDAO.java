@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -75,4 +76,17 @@ public class GenericDAO<E> extends DatabaseHelper<E> {
             e.printStackTrace();
         }
     }
+
+    public List<E> getAllOrderBy(){
+        try {
+            QueryBuilder<E,Long> qb = dao.queryBuilder();
+            qb.orderBy("salario",false);
+            List<E> list = qb.query();
+            return list;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }
