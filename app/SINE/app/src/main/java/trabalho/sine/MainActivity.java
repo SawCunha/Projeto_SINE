@@ -96,6 +96,12 @@ public class MainActivity extends AppCompatActivity {
         VagaDAO vagaDAO = new VagaDAO(getApplicationContext());
         List<Vaga> vagasBd = vagaDAO.getAll();
 
+        // Se for true, quer dizer que nao há favoritos e por isso todas as vagas devem ser desmarcadas.
+        if(vagasBd.size() == 0)
+            for(int x = 0; x < vagas.size(); x++)
+                vagas.get(x).setFavoritado(false);
+
+
         for (int contador = 0; contador < vagasBd.size(); contador++)
             for (int contador2 = 0; contador2 < vagas.size(); contador2++)
                 if (vagasBd.get(contador).getId().toString().equalsIgnoreCase(vagas.get(contador2).getId().toString())) {
