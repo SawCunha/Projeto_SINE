@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SINE</string>
+    <string name="label_grafico">Média Salárial dos Profissionais</string>
 </resources>
