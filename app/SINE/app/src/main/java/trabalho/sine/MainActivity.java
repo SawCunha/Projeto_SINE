@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         for (Vaga vbd : vagasBd)
             for (Vaga vs : vagas)
                 if (vbd.getId() == vs.getId()) vs.setFavoritado(true);
-
     }
 
     public void obtemVagasAPI(){
