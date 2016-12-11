@@ -32,7 +32,14 @@ public class FavoriteActivity extends AppCompatActivity {
         createRecyclerView();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        createRecyclerView();
+    }
+
     private void createRecyclerView(){
+        //Remove os itens do Recycler, para add os novos valores.
+        mRecyclerView.removeAllViewsInLayout();
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -41,7 +48,6 @@ public class FavoriteActivity extends AppCompatActivity {
         RecyclerView.ItemDecoration itemDecoration =
                 new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
-        mRecyclerView.setLayoutFrozen(true);
     }
 
     //Obtem as Vagas salvas no Banco de Dados.
@@ -52,6 +58,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
         vagas = dao.getAll();
 
+        //Caso não houver vaga, informa ao usuario com um toast
         if(vagas.isEmpty()) Toast.makeText(this,"Você ainda não possui vagas favoritas.",Toast.LENGTH_LONG).show();
 
         return vagas;
@@ -59,7 +66,6 @@ public class FavoriteActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         Intent returnIntent = new Intent();
         setResult(2,returnIntent);
         super.onBackPressed();

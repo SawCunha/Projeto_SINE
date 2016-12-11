@@ -20,6 +20,7 @@ import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.dao.VagasJSON;
+import trabalho.sine.function.RequestFunctions;
 import trabalho.sine.model.Vaga;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,14 +45,20 @@ public class MainActivity extends AppCompatActivity {
         favorite = (Button) findViewById(R.id.favoriteButton);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
-        gera();
+
+        obtemVagasAPI();
+
+    }
+
+    private void carregaRecyclerView() {
+        verifica();
+        createRecyclerView();
+        dialog.dismiss();
     }
 
     private void createRecyclerView(){
-
-        // Não é legal, está deletando e criando o recycler view novamente.
-        //mRecyclerView.removeAllViewsInLayout();
-
+        //Remove os itens do Recycler, para add os novos valores.
+        mRecyclerView.removeAllViewsInLayout();
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -60,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.ItemDecoration itemDecoration =
                 new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
-        mRecyclerView.setLayoutFrozen(true);
+        mRecyclerView.setLayoutFrozen(false);
     }
 
     @Override
@@ -70,44 +77,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_OK){
-            String resultado = data.getExtras().getString("resultado");
-        }
-
-        else if(resultCode == 2)
-            Toast.makeText(this, "Voltou do favorite", Toast.LENGTH_SHORT).show();
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
         verifica();
         createRecyclerView();
-
     }
-
-    //Método de teste...
-    public void gera(){
-
-        RequestURL req = new RequestURL(this);
-
-        //Testa a requisição.
-        req.requestURL("http://192.168.2.103:10555/vagas", new RequestURL.VolleyCallback() {
-            @Override
-            public void onSuccess(String response) {
-                Gson gson = new Gson();
-                VagasJSON vagasJSON = gson.fromJson(response, VagasJSON.class);
-                vagas = vagasJSON.getVagas();
-                verifica();
-                createRecyclerView();
-                dialog.dismiss();
-
-                for (Vaga v : vagasJSON.getVagas()) {
-                    Log.d("Vaga: ", v.getTitulo());
-                }
-            }
-        });
-
-
-    }
-
 
     // Abre a intente de favoritos.
     public void favoriteOpenClick(View view) {
@@ -131,6 +104,22 @@ public class MainActivity extends AppCompatActivity {
                 }
     }
 
-
+    public void obtemVagasAPI(){
+        RequestURL req = new RequestURL(this);
+        //Testa a requisição.
+        req.requestURL("http://192.168.0.106:10555/vagas", new RequestURL.VolleyCallback() {
+            @Override
+            public void onSuccess(String response) {
+                Gson gson = new Gson();
+                VagasJSON vagasJSON = gson.fromJson(response, VagasJSON.class);
+                vagas = vagasJSON.getVagas();
+                verifica();
+                createRecyclerView();
+                dialog.dismiss();
+            }
+        });
 
     }
+
+
+}

@@ -10,6 +10,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.util.List;
+
+import trabalho.sine.model.Vaga;
+
 public class RequestURL {
     private final Context context;
 
@@ -32,7 +36,11 @@ public class RequestURL {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.i("Error Request: ", error.getMessage());
+                try {
+                    Log.i("Error Request: ", error.getMessage());
+                }catch (NullPointerException e){
+                    Log.i("Erro ao Conectar... \n",e.getMessage());
+                }
             }
         });
         queue.add(stringRequest);
