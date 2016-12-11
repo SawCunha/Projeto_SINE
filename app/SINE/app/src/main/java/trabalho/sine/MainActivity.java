@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,9 +87,17 @@ public class MainActivity extends AppCompatActivity {
         vagas = dao.getAll();
 
         RequestURL req = new RequestURL(this);
-        VagasJSON vagasJSON = req.requestData("http://192.168.2.103:10555/vagas");
-        for (Vaga v : vagasJSON.getVagas())
-            Log.i("Vaga: ", v.getTitulo());
+
+        //Testa a requisição.
+        req.requestURL("http://192.168.2.103:10555/vagas", new RequestURL.VolleyCallback() {
+            @Override
+            public void onSuccess(String response) {
+                Gson gson = new Gson();
+                VagasJSON vagasJSON = gson.fromJson(response, VagasJSON.class);
+
+                for (Vaga v : vagasJSON.getVagas()) Log.d("Vaga: ", v.getTitulo());
+            }
+        });
 
         Vaga vaga = new Vaga();
         vaga.setCidade("Barbacena");
