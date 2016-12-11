@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_favorite"
     android:layout_width="match_parent"
@@ -8,7 +8,77 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="trabalho.sine.FavoriteActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorPrimaryDark">
+
+
+        <TextView
+            android:text="Filtro:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:textSize="16dp"
+            android:textColor="#fff"
+            android:layout_weight="1" />
+
+
+
+        <LinearLayout
+            android:layout_width="310dp"
+            android:layout_height="44dp">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="45dp">
+                    <RadioButton
+                        android:text="Sem Filtro"
+                        android:id="@+id/semfiltro"
+                        android:textColor="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:onClick="onRadioButtonClicked"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="45dp">
+                    <RadioButton
+                        android:text="Ultimas Vagas"
+                        android:id="@+id/ultimasvagas"
+                        android:textColor="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="45dp">
+                    <RadioButton
+                        android:text="Maior Salario"
+                        android:id="@+id/maiorsalario"
+                        android:textColor="#fff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:onClick="onRadioButtonClicked"/>
+                </LinearLayout>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_empregos_favoritos"
@@ -16,4 +86,4 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical" />
 
-</RelativeLayout>
+</LinearLayout>

@@ -43,8 +43,6 @@ public class ResultActivity extends AppCompatActivity {
         des = (TextView) findViewById(R.id.descriptionValue);
         url = (TextView) findViewById(R.id.urlValue);
 
-
-
         carregaInforActivity(getIntent().getExtras());
 
     }
@@ -56,8 +54,6 @@ public class ResultActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //
-        Toast.makeText(this,"To aki no voltar",Toast.LENGTH_SHORT).show();
         String vagaJson = new Gson().toJson(vaga);
         Intent returnIntent = new Intent();
         returnIntent.putExtra("resultado",vagaJson);
@@ -67,8 +63,6 @@ public class ResultActivity extends AppCompatActivity {
 
     private void carregaInforActivity(Bundle bundle) {
         String vagaJson = (String) bundle.get("vaga");
-
-        //Toast.makeText(this, vagaJson, Toast.LENGTH_LONG).show();
 
         vaga = new Gson().fromJson(vagaJson, Vaga.class);
 
@@ -120,10 +114,7 @@ public class ResultActivity extends AppCompatActivity {
 
     // Abre o link da vaga no navegador.
     public void openLink(View view){
-
-        Intent intent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(vaga.getUrl_sine()));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(vaga.getUrl_sine()));
         startActivity(intent);
-
     }
 }
