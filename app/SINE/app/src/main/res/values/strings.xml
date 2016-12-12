@@ -8,6 +8,7 @@
     <string name="nav_item_home">Home</string>
     <string name="nav_item_friends">Pesquisar Vagas</string>
     <string name="nav_item_notifications">Vagas Favoritas</string>
+    <string name="nav_item_search_payment">Médias Saláriais</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">

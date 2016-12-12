@@ -113,12 +113,12 @@
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
                 android:layout_marginTop="5dp"
-                android:onClick="graphicActivity"
+                android:onClick="searchForGraphicActivity"
                 android:layout_weight="77.75">
 
 
                 <TextView
-                    android:text="@string/favorite_vaga"
+                    android:text="@string/nav_item_search_payment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
