@@ -34,7 +34,6 @@ public class SearchActivity extends AppCompatActivity {
     private Button favorite;
     private List<Vaga> vagas;
     private ProgressDialog dialog;
-    private SearchView search;
     private String filtroEscolhido = "";
     private int filtroIndex = 1;
     private AlertDialog alerta;
@@ -51,32 +50,6 @@ public class SearchActivity extends AppCompatActivity {
         filter = (Button) findViewById(R.id.filterButton);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
-
-        search = (SearchView) findViewById(R.id.pesquisa);
-        search.setQueryHint("City");
-
-        search.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener(){
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                //Toast.makeText(getBaseContext(), String.valueOf(hashCode()),Toast.LENGTH_LONG).show();
-            }
-        });
-
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(getBaseContext(), query, Toast.LENGTH_SHORT).show();
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                //Toast.makeText(getBaseContext(), newText, Toast.LENGTH_SHORT).show();
-
-
-                return false;
-            }
-        });
 
         obtemVagasAPI();
 
@@ -125,12 +98,14 @@ public class SearchActivity extends AppCompatActivity {
         VagaDAO vagaDAO = new VagaDAO(getApplicationContext());
         List<Vaga> vagasBd = vagaDAO.getAll();
 
-        // Se for true, quer dizer que nao há favoritos e por isso todas as vagas devem ser desmarcadas.
-        if(vagasBd.isEmpty()) for(Vaga v : vagas) v.setFavoritado(false);
+        // Processamento 100%. Se algum mestre tiver uma ideia de otimizar os dois blocos abaixo, vlw.
+        for(Vaga v : vagas)
+            v.setFavoritado(false);
 
         for (Vaga vbd : vagasBd)
             for (Vaga vs : vagas)
-                if (vbd.getId().toString().equalsIgnoreCase(vs.getId().toString())) vs.setFavoritado(true);
+                if (vbd.getId().toString().equalsIgnoreCase(vs.getId().toString()))
+                    vs.setFavoritado(true);
     }
 
 
@@ -181,6 +156,9 @@ public class SearchActivity extends AppCompatActivity {
     // Constrói uma caixa de diálogo que pede qual filtro o jovem deseja.
     private void dialogFiltro(){
 
+        // Guardar o ultimo filtro clicado, se o jovem nao clicar em um novo, volta ao que estava.
+        final int tempFiltroIndex = filtroIndex;
+
         final CharSequence[] charSequences = new CharSequence[]{"Últimas vagas", "Maior Salario"};
         final Integer[]checados = new Integer[charSequences.length];
 
@@ -198,6 +176,7 @@ public class SearchActivity extends AppCompatActivity {
                 obtemVagasAPI();
             }
         });
+        filtroIndex = tempFiltroIndex;
         alerta = builder.create();
         alerta.show();
     }
