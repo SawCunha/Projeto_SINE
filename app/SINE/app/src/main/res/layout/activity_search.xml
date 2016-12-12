@@ -36,6 +36,5 @@
         android:id="@+id/filterButton"
         android:layout_marginTop="14dp"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/favoriteButton"
-        android:layout_marginEnd="74dp" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

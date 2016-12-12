@@ -10,8 +10,12 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -39,10 +43,23 @@ public class SearchActivity extends AppCompatActivity {
     private AlertDialog alerta;
     private Button filter;
 
+    private String cidadeEstado, funcao, numPag;
+    private AlertDialog buscaAlert;
+    private EditText inputCidade;
+    private EditText inputFuncao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        funcao = "";
+        cidadeEstado = "";
+        inputCidade = new EditText(this);
+        inputFuncao = new EditText(this);
+
+        inputCidade.setInputType(InputType.TYPE_CLASS_TEXT);
+        inputFuncao.setInputType(InputType.TYPE_CLASS_TEXT);
 
         mostrarDialogoCarregando();
 
@@ -138,8 +155,13 @@ public class SearchActivity extends AppCompatActivity {
     // obtem todas as vagas da api.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
+
         //Testa a requisição.
-        req.requestURL("http://192.168.0.106:10555/vagas?tipoOrdenacao=" + filtroIndex, new RequestURL.VolleyCallback() {
+        Log.d("teste_req", String.format("http://192.168.0.106:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+                "&tipoOrdenacao=%d",funcao, cidadeEstado, 1, filtroIndex));
+
+        req.requestURL(String.format("http://192.168.0.106:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+                "&tipoOrdenacao=%d", funcao, cidadeEstado, 1, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
                 Gson gson = new Gson();
@@ -156,27 +178,83 @@ public class SearchActivity extends AppCompatActivity {
     // Constrói uma caixa de diálogo que pede qual filtro o jovem deseja.
     private void dialogFiltro(){
 
+        // Os blocos abaixo define os input's para a entrada de texto.
+        inputCidade.setHint("Cidade-uf");
+        inputFuncao.setHint("Função");
+
+        final LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        layout.addView(inputCidade);
+        layout.addView(inputFuncao);
+
         // Guardar o ultimo filtro clicado, se o jovem nao clicar em um novo, volta ao que estava.
         final int tempFiltroIndex = filtroIndex;
 
         final CharSequence[] charSequences = new CharSequence[]{"Últimas vagas", "Maior Salario"};
         final Integer[]checados = new Integer[charSequences.length];
 
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Escolha o filtro?");
+        builder.setView(layout);
         builder.setSingleChoiceItems(charSequences, --filtroIndex, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 filtroEscolhido = charSequences[i].toString();
                 filtroIndex = i;
                 filtroIndex++;
+            }
+        });
+
+        // Ação que irá ocorrer quando o jovem clicar no botão ok.
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                cidadeEstado = inputCidade.getText().toString().replaceAll(" ", "").trim();
+                funcao = inputFuncao.getText().toString().replaceAll(" ", "").trim();
+
                 alerta.dismiss();
-                Toast.makeText(getBaseContext(), filtroEscolhido, Toast.LENGTH_SHORT).show();
+
+                /* Remove os input's do layout, como eles são variavéis de classe(fiz isso pra manter o estado da última pesquisa),
+                   o estado de qual layout eles pertence é mantido, assim se o jovem fechar o alert e abrir de novo não seria
+                   possível add's em novo layout, por isso esse comando abaixo.
+                */
+                layout.removeAllViews();
+
                 mostrarDialogoCarregando();
                 obtemVagasAPI();
             }
         });
+
+        // Ação que irá ocorrer quando o jovem clicar no botão Reseta.
+        builder.setNegativeButton("Resetar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                // Requisicão feita será: /vagas?idfuncao=&idcidade=?&numPagina=?tipoOrdenacao=1
+
+                // Reseta todos os campos.
+                filtroEscolhido = "";
+                filtroIndex = 1;
+                inputCidade.setText("");
+                inputFuncao.setText("");
+
+                cidadeEstado = "";
+                funcao = "";
+
+                alerta.dismiss();
+                layout.removeAllViews();
+
+                mostrarDialogoCarregando();
+                obtemVagasAPI();
+            }
+        });
+
+
         filtroIndex = tempFiltroIndex;
+        builder.setCancelable(false);
         alerta = builder.create();
         alerta.show();
     }
@@ -186,12 +264,60 @@ public class SearchActivity extends AppCompatActivity {
         dialogFiltro();
     }
 
+    /* Constrói uma caixa de diálogo para montar a busca.
+    private void dialogBusca(){
+
+        final EditText inputCidade = new EditText(this);
+        final EditText inputFuncao = new EditText(this);
+
+        inputCidade.setHint("Cidade-un");
+        inputFuncao.setHint("Função");
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        layout.addView(inputCidade);
+        layout.addView(inputFuncao);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("         Entre com a busca!");
+        builder.setView(layout);
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                cidadeEstado = inputCidade.getText().toString();
+                funcao = inputFuncao.getText().toString();
+                buscaAlert.dismiss();
+                mostrarDialogoCarregando();
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                buscaAlert.dismiss();
+            }
+        });
+
+        builder.setCancelable(false);
+        buscaAlert = builder.create();
+        buscaAlert.show();
+    }
+
+    public void searchClick(View view){
+
+        dialogBusca();
+
+    }*/
+
+
     public void mostrarDialogoCarregando(){
 
         dialog = new ProgressDialog(this);
         dialog.setMessage("Carregando dados");
         dialog.setIndeterminate(true);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.show();
 
     }
