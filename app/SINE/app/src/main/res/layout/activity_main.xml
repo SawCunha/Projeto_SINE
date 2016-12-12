@@ -122,11 +122,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
                     android:layout_marginBottom="18dp"
                     android:textColor="#fff"
                     android:id="@+id/mediasalarial"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:layout_alignStart="@+id/grafico" />
 
 
                 <ImageView
@@ -154,11 +154,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
                     android:layout_marginBottom="18dp"
                     android:textColor="#fff"
                     android:id="@+id/info"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:layout_alignStart="@+id/sobre" />
 
 
                 <ImageView

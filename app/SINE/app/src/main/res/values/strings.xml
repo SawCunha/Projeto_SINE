@@ -6,19 +6,25 @@
     <string name="drawer_close">Close</string>
 
     <string name="nav_item_home">Home</string>
-    <string name="nav_item_friends">Pesquisar Vagas</string>
-    <string name="nav_item_notifications">Vagas Favoritas</string>
+    <string name="nav_item_vagas_favoritas">Vagas Favoritas</string>
+    <string name="nav_item_media_salarial">Media salarial</string>
+    <string name="nav_item_sobre">Sobre</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_home</item>
-        <item>@string/nav_item_friends</item>
-        <item>@string/nav_item_notifications</item>
+        <item>@string/nav_item_vagas_favoritas</item>
+        <item>@string/nav_item_media_salarial</item>
+        <item>@string/nav_item_sobre</item>
     </string-array>
 
-    <string name="title_messages">Pesquisar Vagas</string>
-    <string name="title_friends">Pesquisar Vagas</string>
+
+    <string name="title_vagas_favoritas">Vagas Favoritas</string>
     <string name="title_home">Home</string>
+    <string name="title_media_salarial">Media salarial</string>
+    <string name="title_sobre">Sobre</string>
+
+
 
 
     <!-- Tela geração de gráfico -->
