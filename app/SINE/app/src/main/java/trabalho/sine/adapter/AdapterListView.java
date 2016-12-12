@@ -63,7 +63,7 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         Log.d("cabal", mDataset.get(position).isFavoritado() + "");
         holder.favoriteBtn.setBackgroundResource(
                 (mDataset.get(position).isFavoritado() == false ?
-                        R.drawable.starwhite:R.drawable.starblack));
+                        R.drawable.ic_favorite_border_black_48dp:R.drawable.ic_favorite_black));
 
         holder.favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,13 +73,13 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
                 if(vaga.isFavoritado() == false){
                     vaga.setFavoritado(true);
                     vagaDAO.insert(vaga);
-                    holder.favoriteBtn.setBackgroundResource(R.drawable.starblack);
+                    holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_black);
                     Toast.makeText(context,"Favoritado!!!",Toast.LENGTH_SHORT).show();
                 }else{
                     Log.d("id_adap", vaga.getId().toString() + "   SAW");
                     vagaDAO.delete(vaga);
                     vaga.setFavoritado(false);
-                    holder.favoriteBtn.setBackgroundResource(R.drawable.starwhite);
+                    holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_border_black_48dp);
                     Toast.makeText(context,"Desfavoritado!!!",Toast.LENGTH_SHORT).show();
                 }
             }

@@ -1,133 +1,160 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/my_drawer_layout"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true"
-    android:layout_marginLeft="2dp"
-    android:layout_marginRight="2dp"
-    android:layout_marginTop="40dp"
-    android:background="?android:attr/selectableItemBackground">
+    android:layout_height="match_parent">
+
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="?android:attr/selectableItemBackground"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/container_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="?android:attr/selectableItemBackground">
+
+
+            <RelativeLayout
+                android:layout_width="176dp"
+                android:layout_height="192dp"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/button"
+                android:onClick="searchActivity">
+
+
+                <TextView
+                    android:text="@string/search_vaga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="18dp"
+                    android:textColor="#fff"
+                    android:id="@+id/search_vaga"
+                    android:textSize="20dp" />
+
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_lupa_emprego"
+                    android:layout_above="@+id/search_vaga"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="14dp"
+                    android:id="@+id/lupa" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="176dp"
+                android:layout_height="192dp"
+                android:background="#757575"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="10dp"
+                android:onClick="favoriteActivity"
+                >
+
+
+                <TextView
+                    android:text="@string/favorite_vaga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="18dp"
+                    android:textColor="#fff"
+                    android:id="@+id/vagasfavoritas"
+                    android:textSize="20dp" />
+
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_favorite_border_black_48dp"
+                    android:layout_above="@+id/vagasfavoritas"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="14dp"
+                    android:id="@+id/estrela" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
 
         <RelativeLayout
-            android:layout_width="176dp"
-            android:layout_height="192dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorPrimaryDark"
-            android:onClick="searchActivity">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:weightSum="1">
 
-            <TextView
-                android:text="@string/search_vaga"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="18dp"
-                android:textColor="#fff"
-                android:id="@+id/search_vaga"
-                android:textSize="20dp" />
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_lupa_emprego"
-                android:layout_above="@+id/search_vaga"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="14dp"
-                android:id="@+id/lupa" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="176dp"
-            android:layout_height="192dp"
-            android:background="#00897B"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_marginTop="10dp"
-            android:onClick="favoriteActivity"
-            >
+            <RelativeLayout
+                android:layout_width="176dp"
+                android:layout_height="192dp"
+                android:background="#757575"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="5dp"
+                android:onClick="graphicActivity"
+                android:layout_weight="77.75">
 
-            <TextView
-                android:text="@string/favorite_vaga"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="18dp"
-                android:textColor="#fff"
-                android:id="@+id/vagasfavoritas"
-                android:textSize="20dp" />
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_favorite_border_black_48dp"
-                android:layout_above="@+id/vagasfavoritas"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="14dp"
-                android:id="@+id/estrela" />
+                <TextView
+                    android:text="@string/favorite_vaga"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="18dp"
+                    android:textColor="#fff"
+                    android:id="@+id/mediasalarial"
+                    android:textSize="20dp" />
+
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/ic_grafico"
+                    android:layout_above="@+id/mediasalarial"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="14dp"
+                    android:id="@+id/grafico" /></RelativeLayout>
+
 
         </RelativeLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground">
 
-        <RelativeLayout
-            android:layout_width="176dp"
-            android:layout_height="192dp"
-            android:background="#00895C"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_marginTop="5dp"
-            android:onClick="graphicActivity"
-            >
 
-            <TextView
-                android:text="@string/favorite_vaga"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="18dp"
-                android:textColor="#fff"
-                android:id="@+id/mediasalarial"
-                android:textSize="20dp" />
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_grafico"
-                android:layout_above="@+id/mediasalarial"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="14dp"
-                android:id="@+id/grafico" /></RelativeLayout>
+    <fragment
+        android:id="@+id/fragment_navigation_drawer"
+        android:name="trabalho.sine.activity.FragmentDrawer"
+        android:layout_width="@dimen/nav_drawer_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:layout="@layout/fragment_navigation_drawer"
+        tools:layout="@layout/fragment_navigation_drawer" />
 
-        <RelativeLayout
-            android:layout_width="176dp"
-            android:layout_height="192dp"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="1dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/colorPrimary">
 
-        </RelativeLayout>
-    </LinearLayout>
 
-    <!-- Your drawer view. This can be any view, FrameLayout
-         is just an example. As we have set fitSystemWindows=true
-         this will be displayed under the status bar. -->
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>

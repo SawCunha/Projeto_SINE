@@ -23,7 +23,7 @@ public class ResultActivity extends AppCompatActivity {
     private Vaga vaga;
     private ImageView openLink;
 
-    private TextView title, money, city, address, company, function, des;
+    private TextView title, money, city, address, company, function, des, url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,7 @@ public class ResultActivity extends AppCompatActivity {
         company = (TextView) findViewById(R.id.companyValue);
         function = (TextView) findViewById(R.id.functionValue);
         des = (TextView) findViewById(R.id.descriptionValue);
+        url = (TextView) findViewById(R.id.urlValue);
 
         carregaInforActivity(getIntent().getExtras());
 
@@ -67,7 +68,7 @@ public class ResultActivity extends AppCompatActivity {
 
         favoriteBtn.setBackgroundResource(
                 (vaga.isFavoritado() == false ?
-                        R.drawable.starwhite : R.drawable.starblack));
+                        R.drawable.ic_favorite_border_black_48dp : R.drawable.ic_favorite_black));
 
         title.setText(vaga.getTitulo());
         money.setText(vaga.getSalario());
@@ -76,6 +77,7 @@ public class ResultActivity extends AppCompatActivity {
         company.setText(vaga.getEmpresa());
         function.setText(vaga.getFuncao());
         des.setText(vaga.getDescricao());
+        url.setText(vaga.getUrl_sine());
         openLink = (ImageView) findViewById(R.id.openLinkImage);
 
     }
@@ -85,12 +87,12 @@ public class ResultActivity extends AppCompatActivity {
         if (vaga.isFavoritado() == false) {
             vaga.setFavoritado(true);
             vagaDAO.insert(vaga);
-            favoriteBtn.setBackgroundResource(R.drawable.starblack);
+            favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_black);
             Toast.makeText(this, "Favoritado!!!", Toast.LENGTH_SHORT).show();
         } else {
             vagaDAO.delete(vaga);
             vaga.setFavoritado(false);
-            favoriteBtn.setBackgroundResource(R.drawable.starwhite);
+            favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_border_black_48dp);
             Toast.makeText(this, "Desfavoritado!!!", Toast.LENGTH_SHORT).show();
         }
 
