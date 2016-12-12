@@ -3,6 +3,7 @@ package trabalho.sine;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
@@ -30,7 +33,7 @@ import trabalho.sine.enun.Filtro;
 import trabalho.sine.model.Vaga;
 import trabalho.sine.model.VagasJSON;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
@@ -47,6 +50,9 @@ public class SearchActivity extends AppCompatActivity {
     private AlertDialog buscaAlert;
     private EditText inputCidade;
     private EditText inputFuncao;
+
+    private Toolbar mToolbar;
+    private FragmentDrawer drawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +75,15 @@ public class SearchActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
 
         obtemVagasAPI();
+
+        //Toolbar e MenuDrawer
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        drawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_search);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.activity_main), mToolbar);
+        drawerFragment.setDrawerListener(this);
 
     }
 
@@ -319,6 +334,11 @@ public class SearchActivity extends AppCompatActivity {
         dialog.setIndeterminate(true);
         dialog.setCancelable(true);
         dialog.show();
+
+    }
+
+    @Override
+    public void onDrawerItemSelected(View view, int position) {
 
     }
 }

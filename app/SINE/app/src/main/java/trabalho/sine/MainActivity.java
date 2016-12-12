@@ -10,6 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.function.Conexao;
@@ -47,10 +54,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         startActivity(favoriteActivity);
     }
 
-    public void searchForGraphicActivity(View view){
+    public void graphicActivity(View view){
         if(Conexao.isConectado(this)) {
-            Intent searchForGraphicActivity = new Intent(this, SearchForGraphicActivity.class);
-            startActivity(searchForGraphicActivity);
+            Intent graphicActivity = new Intent(this,GraphicActivity.class);
+            startActivity(graphicActivity);
         }else
             Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
     }

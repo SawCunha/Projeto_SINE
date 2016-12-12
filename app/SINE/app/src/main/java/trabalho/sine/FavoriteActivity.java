@@ -1,11 +1,15 @@
 package trabalho.sine;
 
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -14,12 +18,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.enun.Filtro;
 import trabalho.sine.model.Vaga;
 
-public class FavoriteActivity extends AppCompatActivity {
+public class FavoriteActivity extends AppCompatActivity implements  FragmentDrawer.FragmentDrawerListener{
 
     private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
@@ -27,10 +32,23 @@ public class FavoriteActivity extends AppCompatActivity {
     private RadioButton semfiltro, ultimasvagas, maiorsalario;
     private List<Vaga> vagas;
 
+    private Toolbar mToolbar;
+    private FragmentDrawer drawerFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        drawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_favorite);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer_favorite, (DrawerLayout) findViewById(R.id.activity_favorite), mToolbar);
+        drawerFragment.setDrawerListener(this);
+
+
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos_favoritos);
         semfiltro = (RadioButton) findViewById(R.id.semfiltro);
         ultimasvagas = (RadioButton) findViewById(R.id.ultimasvagas);
@@ -134,4 +152,30 @@ public class FavoriteActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDrawerItemSelected(View view, int position) {
+
+    }
 }
