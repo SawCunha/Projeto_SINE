@@ -99,11 +99,11 @@
         </LinearLayout>
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:weightSum="1">
+            android:orientation="horizontal"
+            android:background="?android:attr/selectableItemBackground">
 
 
             <RelativeLayout
@@ -118,7 +118,7 @@
 
 
                 <TextView
-                    android:text="@string/favorite_vaga"
+                    android:text="@string/media_salarial"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -138,8 +138,44 @@
                     android:layout_marginBottom="14dp"
                     android:id="@+id/grafico" /></RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="176dp"
+                android:layout_height="192dp"
+                android:background="#757575"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="5dp"
+                android:onClick="graphicActivity"
+                android:layout_weight="77.75">
 
-        </RelativeLayout>
+
+                <TextView
+                    android:text="@string/info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="18dp"
+                    android:textColor="#fff"
+                    android:id="@+id/info"
+                    android:textSize="20dp" />
+
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/info"
+                    android:layout_above="@+id/info"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="14dp"
+                    android:id="@+id/sobre" /></RelativeLayout>
+
+
+
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
 

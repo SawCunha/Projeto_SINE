@@ -34,6 +34,8 @@
     <string name="search">Pesquisar</string>
     <string name="search_vaga">Pesquisar Vagas</string>
     <string name="favorite_vaga">Vagas Favoritas</string>
+    <string name="media_salarial">Média Salarial</string>
+    <string name="info">Sobre</string>
     <string name="conexao_infor">Você deve estar conectado...</string>
 
     <!-- TODO: Remove or change this placeholder text -->
