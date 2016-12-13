@@ -29,69 +29,60 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:text="Filtro:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView2"
-                android:textSize="16dp"
-                android:textColor="@color/fonte"
-                android:layout_weight="1" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-
-            <LinearLayout
-                android:layout_width="310dp"
-                android:layout_height="44dp">
-
+                <TextView
+                    android:text="Filtrar por:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="13dp"
+                    android:id="@+id/textView4" />
 
                 <RadioGroup
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_below="@+id/textView4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp" />
 
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/textView4"
+                    android:layout_centerHorizontal="true">
 
-                    <LinearLayout
-                        android:layout_width="100dp"
-                        android:layout_height="45dp">
-                        <RadioButton
-                            android:text="Sem Filtro"
-                            android:id="@+id/semfiltro"
-                            android:textColor="@color/fonte"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:onClick="onRadioButtonClicked"/>
-                    </LinearLayout>
+                    <RadioButton
+                        android:text="Sem filtro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/semfiltro"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:onClick="onRadioButtonClicked"/>
 
+                    <RadioButton
+                        android:text="Últimas Vagas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ultimasvagas"
+                        android:layout_weight="1"
+                        android:onClick="onRadioButtonClicked"/>
 
-                    <LinearLayout
-                        android:layout_width="100dp"
-                        android:layout_height="45dp">
-                        <RadioButton
-                            android:text="Ultimas Vagas"
-                            android:id="@+id/ultimasvagas"
-                            android:textColor="@color/fonte"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:onClick="onRadioButtonClicked"/>
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="100dp"
-                        android:layout_height="45dp">
-                        <RadioButton
-                            android:text="Maior Salario"
-                            android:id="@+id/maiorsalario"
-                            android:textColor="@color/fonte"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:onClick="onRadioButtonClicked"/>
-                    </LinearLayout>
-
-                </RadioGroup>
-
-            </LinearLayout>
+                    <RadioButton
+                        android:text="Maior salário"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/maiorsalario"
+                        android:layout_weight="1"
+                        android:onClick="onRadioButtonClicked"/>
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list_empregos_favoritos"
@@ -102,6 +93,7 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"/>
+
     </LinearLayout>
 
     <fragment
