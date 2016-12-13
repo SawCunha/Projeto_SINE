@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.enun.Filtro;
+import trabalho.sine.function.Conexao;
 import trabalho.sine.model.Vaga;
 
 public class FavoriteActivity extends AppCompatActivity implements  FragmentDrawer.FragmentDrawerListener{
@@ -106,7 +108,7 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
         }
 
         //Caso não houver vaga, informa ao usuario com um toast
-        if(vgs.isEmpty()) Toast.makeText(this,"Você ainda não possui vagas favoritas.",Toast.LENGTH_LONG).show();
+        if(vgs.isEmpty()) Toast.makeText(this,R.string.toast_msg_favorite_activity,Toast.LENGTH_LONG).show();
 
         this.vagas = vgs;
     }
@@ -173,6 +175,29 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
-
+        switch (position){
+            case 1: searchActivity(); break;
+            case 2: break;
+            case 3: searchForGraphicActivity();break;
+            case 4: break;
+            default: Log.i("ERRO","POSITION ERROR"); break;
+        }
     }
+
+    private void searchActivity() {
+        if(Conexao.isConectado(this)) {
+            Intent searchActivity = new Intent(this, SearchActivity.class);
+            startActivity(searchActivity);
+        }else
+            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
+    }
+
+    private void searchForGraphicActivity() {
+        if(Conexao.isConectado(this)) {
+            Intent searchForGraphicActivity = new Intent(this,SearchForGraphicActivity.class);
+            startActivity(searchForGraphicActivity);
+        }else
+            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
+    }
+
 }

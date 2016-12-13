@@ -60,7 +60,6 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         holder.vagaNome.setText(mDataset.get(position).getFuncao());
         holder.vagaEmpresa.setText(mDataset.get(position).getEmpresa());
         holder.vagaEndereco.setText(mDataset.get(position).getCidade());
-        Log.d("cabal", mDataset.get(position).isFavoritado() + "");
         holder.favoriteBtn.setBackgroundResource(
                 (mDataset.get(position).isFavoritado() == false ?
                         R.drawable.ic_favorite_border_black_48dp:R.drawable.ic_favorite_black));
@@ -74,13 +73,12 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
                     vaga.setFavoritado(true);
                     vagaDAO.insert(vaga);
                     holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_black);
-                    Toast.makeText(context,"Favoritado!!!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,R.string.toast_msg_adapter_list_favoritado,Toast.LENGTH_SHORT).show();
                 }else{
-                    Log.d("id_adap", vaga.getId().toString() + "   SAW");
                     vagaDAO.delete(vaga);
                     vaga.setFavoritado(false);
                     holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_border_black_48dp);
-                    Toast.makeText(context,"Desfavoritado!!!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,R.string.toast_msg_adapter_list_desfavoritado,Toast.LENGTH_SHORT).show();
                 }
             }
         });

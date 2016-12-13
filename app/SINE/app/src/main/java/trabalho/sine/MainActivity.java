@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +46,11 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
     }
 
+    public void favoriteActivity(View view){
+        Intent favoriteActivity = new Intent(this, FavoriteActivity.class);
+        startActivity(favoriteActivity);
+    }
+
     public void searchForGraphicActivity(View view){
         if(Conexao.isConectado(this)) {
             Intent searchForGraphicActivity = new Intent(this,SearchForGraphicActivity.class);
@@ -71,6 +77,14 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     }
 
     @Override
-    public void onDrawerItemSelected(View view, int position) {}
+    public void onDrawerItemSelected(View view, int position) {
+        switch (position){
+            case 1: searchActivity(view); break;
+            case 2: favoriteActivity(view); break;
+            case 3: searchForGraphicActivity(view);break;
+            case 4: break;
+            default: Log.i("ERRO","POSITION ERROR"); break;
+        }
+    }
 
 }

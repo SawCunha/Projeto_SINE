@@ -29,6 +29,7 @@ import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.enun.Filtro;
+import trabalho.sine.function.Conexao;
 import trabalho.sine.model.Vaga;
 import trabalho.sine.model.VagasJSON;
 
@@ -121,12 +122,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         createRecyclerView();
     }
 
-    // Abre a intente de favoritos.
-    public void favoriteOpenClick(View view) {
-        Intent intent = new Intent(this, FavoriteActivity.class);
-        startActivityForResult(intent, 2);
-    }
-
     // Verifica quais das vagas está no banco de dados.
     public void verifica() {
 
@@ -164,21 +159,20 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         }
 
         //Caso não houver vaga, informa ao usuario com um toast
-        if(vgs.isEmpty()) Toast.makeText(this,"Você ainda não possui vagas favoritas.",Toast.LENGTH_LONG).show();
+        if(vgs.isEmpty()) Toast.makeText(this,R.string.toast_msg_search_activity,Toast.LENGTH_LONG).show();
 
         this.vagas = vgs;
     }
-
 
     // obtem todas as vagas da api.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
 
         //Testa a requisição.
-        Log.d("teste_req", String.format("http://192.168.2.104:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        Log.d("teste_req", String.format("http://192.168.0.101:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d",funcao, cidadeEstado, 1, filtroIndex));
 
-        req.requestURL(String.format("http://192.168.2.104:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        req.requestURL(String.format("http://192.168.0.101:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d", funcao, cidadeEstado, 1, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
@@ -341,6 +335,27 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
+        switch (position){
+            case 0: break;
+            case 1: break;
+            case 2: favoriteActivity(); break;
+            case 3: searchForGraphicActivity();break;
+            case 4: break;
+            default: Log.i("ERRO","POSITION ERROR"); break;
+        }
+    }
 
+
+    private void favoriteActivity() {
+        Intent favoriteActivity = new Intent(this, FavoriteActivity.class);
+        startActivity(favoriteActivity);
+    }
+
+    private void searchForGraphicActivity() {
+        if(Conexao.isConectado(this)) {
+            Intent searchForGraphicActivity = new Intent(this,SearchForGraphicActivity.class);
+            startActivity(searchForGraphicActivity);
+        }else
+            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
     }
 }

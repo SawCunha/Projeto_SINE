@@ -1,17 +1,21 @@
 package trabalho.sine;
 
+import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import trabalho.sine.activity.FragmentDrawer;
+import trabalho.sine.function.Conexao;
 
 public class GraphicActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
     @BindView(R.id.graphic_web_view) WebView graphicWebView;
@@ -59,5 +63,34 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
     }
 
     @Override
-    public void onDrawerItemSelected(View view, int position) {}
+    public void onDrawerItemSelected(View view, int position) {
+        switch (position){
+            case 1: searchActivity(); break;
+            case 2: favoriteActivity(); break;
+            case 3: searchForGraphicActivity();break;
+            case 4: break;
+            default: Log.i("ERRO","POSITION ERROR"); break;
+        }
+    }
+
+    private void searchActivity() {
+        if(Conexao.isConectado(this)) {
+            Intent searchActivity = new Intent(this, SearchActivity.class);
+            startActivity(searchActivity);
+        }else
+            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
+    }
+
+    private void favoriteActivity() {
+        Intent favoriteActivity = new Intent(this, FavoriteActivity.class);
+        startActivity(favoriteActivity);
+    }
+
+    private void searchForGraphicActivity() {
+        if(Conexao.isConectado(this)) {
+            Intent searchForGraphicActivity = new Intent(this,SearchForGraphicActivity.class);
+            startActivity(searchForGraphicActivity);
+        }else
+            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
+    }
 }
