@@ -169,10 +169,10 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         RequestURL req = new RequestURL(this);
 
         //Testa a requisição.
-        Log.d("teste_req", String.format("http://192.168.0.101:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        Log.d("teste_req", String.format("http://192.168.1.106:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d",funcao, cidadeEstado, 1, filtroIndex));
 
-        req.requestURL(String.format("http://192.168.0.101:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        req.requestURL(String.format("http://192.168.1.106:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d", funcao, cidadeEstado, 1, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
