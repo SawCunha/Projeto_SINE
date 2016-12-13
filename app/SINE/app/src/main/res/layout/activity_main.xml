@@ -25,19 +25,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:background="?android:attr/selectableItemBackground">
 
-
             <RelativeLayout
-                android:layout_width="176dp"
-                android:layout_height="192dp"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_marginTop="10dp"
-                android:background="#757575"
+                android:layout_width="385dp"
+                android:layout_height="128dp"
+                android:background="#2196f3"
                 android:onClick="searchActivity">
-
 
                 <TextView
                     android:text="@string/search_vaga"
@@ -46,7 +41,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="18dp"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:id="@+id/search_vaga"
                     android:textSize="20dp" />
 
@@ -60,16 +55,13 @@
                     android:layout_marginBottom="14dp"
                     android:id="@+id/lupa" />
             </RelativeLayout>
+
             <RelativeLayout
-                android:layout_width="176dp"
-                android:layout_height="192dp"
-                android:background="#757575"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="385dp"
+                android:layout_height="128dp"
+                android:background="#42a5f5"
                 android:onClick="favoriteActivity"
                 >
-
 
                 <TextView
                     android:text="@string/favorite_vaga"
@@ -78,7 +70,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="18dp"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:id="@+id/vagasfavoritas"
                     android:textSize="20dp" />
 
@@ -92,42 +84,25 @@
                     android:layout_marginBottom="14dp"
                     android:id="@+id/estrela" />
 
-
             </RelativeLayout>
 
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="?android:attr/selectableItemBackground">
-
-
             <RelativeLayout
-                android:layout_width="176dp"
-                android:layout_height="192dp"
-                android:background="#757575"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_marginTop="5dp"
-                android:onClick="graphicActivity"
-                android:layout_weight="77.75">
+                android:layout_width="385dp"
+                android:layout_height="128dp"
+                android:background="#64b5f6"
+                android:onClick="graphicActivity">
 
 
                 <TextView
                     android:text="@string/media_salarial"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginBottom="18dp"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:id="@+id/mediasalarial"
-                    android:textSize="20dp"
-                    android:layout_alignStart="@+id/grafico" />
-
+                    android:textSize="20dp" />
 
                 <ImageView
                     android:layout_width="100dp"
@@ -139,26 +114,22 @@
                     android:id="@+id/grafico" /></RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="176dp"
-                android:layout_height="192dp"
-                android:background="#757575"
-                android:layout_marginLeft="1dp"
-                android:layout_marginRight="1dp"
-                android:layout_marginTop="5dp"
-                android:onClick="graphicActivity"
-                android:layout_weight="77.75">
+                android:layout_width="385dp"
+                android:layout_height="127dp"
+                android:background="#90caf9"
+                android:onClick="graphicActivity">
 
 
                 <TextView
                     android:text="@string/info"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginBottom="18dp"
-                    android:textColor="#fff"
+                    android:textColor="#000"
                     android:id="@+id/info"
-                    android:textSize="20dp"
-                    android:layout_alignStart="@+id/sobre" />
+                    android:textSize="20dp" />
 
 
                 <ImageView
@@ -170,17 +141,9 @@
                     android:layout_marginBottom="14dp"
                     android:id="@+id/sobre" /></RelativeLayout>
 
-
-
-
         </LinearLayout>
 
-
-
     </LinearLayout>
-
-
-
 
     <fragment
         android:id="@+id/fragment_navigation_drawer"
