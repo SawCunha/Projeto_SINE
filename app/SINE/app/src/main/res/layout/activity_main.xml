@@ -116,8 +116,7 @@
             <RelativeLayout
                 android:layout_width="385dp"
                 android:layout_height="127dp"
-                android:background="#90caf9"
-                android:onClick="graphicActivity">
+                android:background="#90caf9">
 
 
                 <TextView

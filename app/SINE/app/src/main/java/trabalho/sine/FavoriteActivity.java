@@ -104,7 +104,7 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
         }
 
         //Caso não houver vaga, informa ao usuario com um toast
-        if(vgs.isEmpty()) Toast.makeText(this,"Você ainda não possui vagas favoritas.",Toast.LENGTH_LONG).show();
+        if(vgs.isEmpty()) Toast.makeText(this,R.string.toast_msg_favorite_activity,Toast.LENGTH_LONG).show();
 
         this.vagas = vgs;
     }

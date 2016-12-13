@@ -29,20 +29,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:text="Filtro:"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView2"
-                android:textSize="16dp"
-                android:textColor="@color/fonte"
-                android:layout_weight="1" />
+
 
 
             <LinearLayout
-                android:layout_width="310dp"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
                 android:layout_height="44dp">
 
+                <TextView
+                    android:text="@string/filtro_favorite_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView2"
+                    android:textSize="25dp"
+                    android:textColor="@color/fonte"
+                    android:layout_weight="1" />
 
                 <RadioGroup
                     android:layout_width="wrap_content"
@@ -54,7 +56,7 @@
                         android:layout_width="100dp"
                         android:layout_height="45dp">
                         <RadioButton
-                            android:text="Sem Filtro"
+                            android:text="@string/sem_filtro_favorite_activity"
                             android:id="@+id/semfiltro"
                             android:textColor="@color/fonte"
                             android:layout_width="match_parent"
@@ -68,8 +70,7 @@
                         android:layout_width="100dp"
                         android:layout_height="45dp">
                         <RadioButton
-                            android:text="Ultimas Vagas"
-                            android:id="@+id/ultimasvagas"
+                            android:text="@string/ultima_vagas_favorite_activity"                            android:id="@+id/ultimasvagas"
                             android:textColor="@color/fonte"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -81,7 +82,7 @@
                         android:layout_width="100dp"
                         android:layout_height="45dp">
                         <RadioButton
-                            android:text="Maior Salario"
+                            android:text="@string/maior_salario_favorite_activity"
                             android:id="@+id/maiorsalario"
                             android:textColor="@color/fonte"
                             android:layout_width="match_parent"

@@ -18,14 +18,10 @@
         <item>@string/nav_item_sobre</item>
     </string-array>
 
-
     <string name="title_vagas_favoritas">Vagas Favoritas</string>
     <string name="title_home">Home</string>
     <string name="title_media_salarial">Media salarial</string>
     <string name="title_sobre">Sobre</string>
-
-
-
 
     <!-- Tela geração de gráfico -->
     <string name="label_grafico">Média Salárial dos Profissionais</string>
@@ -46,4 +42,17 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="filtro_favorite_activity">Filtros:</string>
+    <string name="sem_filtro_favorite_activity">Sem Filtro</string>
+    <string name="maior_salario_favorite_activity">Maior Salario</string>
+    <string name="ultima_vagas_favorite_activity">Ultimas Vagas</string>
+
+    <string name="toast_msg_search_activity">Você ainda não possui vagas favoritas.</string>
+    <string name="toast_msg_favorite_activity">Você ainda não possui vagas favoritas.</string>
+    <string name="toast_msg_result_activity_favoritado">Favoritado!!!</string>
+    <string name="toast_msg_result_activity_desfavoritado">Desfavoritado!!!</string>
+
+    <string name="toast_msg_adapter_list_favoritado">Favoritado!!!</string>
+    <string name="toast_msg_adapter_list_desfavoritado">Desfavoritado!!!</string>
 </resources>

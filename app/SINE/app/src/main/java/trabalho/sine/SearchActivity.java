@@ -38,7 +38,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private Button favorite;
     private List<Vaga> vagas;
     private ProgressDialog dialog;
     private String filtroEscolhido = "";
@@ -69,7 +68,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
         mostrarDialogoCarregando();
 
-        favorite = (Button) findViewById(R.id.favoriteButton);
         filter = (Button) findViewById(R.id.filterButton);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
@@ -118,12 +116,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         createRecyclerView();
     }
 
-    // Abre a intente de favoritos.
-    public void favoriteOpenClick(View view) {
-        Intent intent = new Intent(this, FavoriteActivity.class);
-        startActivityForResult(intent, 2);
-    }
-
     // Verifica quais das vagas está no banco de dados.
     public void verifica() {
 
@@ -161,7 +153,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         }
 
         //Caso não houver vaga, informa ao usuario com um toast
-        if(vgs.isEmpty()) Toast.makeText(this,"Você ainda não possui vagas favoritas.",Toast.LENGTH_LONG).show();
+        if(vgs.isEmpty()) Toast.makeText(this,R.string.toast_msg_search_activity,Toast.LENGTH_LONG).show();
 
         this.vagas = vgs;
     }
