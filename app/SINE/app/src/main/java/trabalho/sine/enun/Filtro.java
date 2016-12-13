@@ -9,7 +9,7 @@ public enum Filtro {
 
     private String filtro;
     Filtro(String filtro) {
-        filtro = filtro;
+        this.filtro = filtro;
     }
 
     @Override

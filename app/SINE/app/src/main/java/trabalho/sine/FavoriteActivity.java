@@ -22,6 +22,7 @@ import java.util.List;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.dao.VagaDAO;
+import trabalho.sine.enun.CampoBD;
 import trabalho.sine.enun.Filtro;
 import trabalho.sine.function.Conexao;
 import trabalho.sine.model.Vaga;
@@ -99,10 +100,10 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
                 vgs = dao.getAll();
                 break;
             case MAIOR_SALARIO:
-                vgs = dao.getAllOrderBy("salario");
+                vgs = dao.getAllOrderBy(CampoBD.SALARIO.toString());
                 break;
             case ULTIMAS_VAGAS:
-                vgs = dao.getAllOrderBy("id");
+                vgs = dao.getAllOrderBy(CampoBD.ID.toString());
                 break;
             default:
                 break;

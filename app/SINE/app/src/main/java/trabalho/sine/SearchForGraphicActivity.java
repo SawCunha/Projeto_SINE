@@ -44,16 +44,6 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
     }
 
     //Responsavel pela criação e definção do toolbar
-    /*private void createToolbar(){
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        mDrawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_graphic);
-        mDrawerFragment.setUp(R.id.fragment_navigation_drawer_graphic, (DrawerLayout) findViewById(R.id.activity_graphic), mToolbar);
-
-        mDrawerFragment.setDrawerListener(this);
-    }*/
-
     private void createToolbar(){
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -62,8 +52,6 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
         mDrawerFragment.setUp(R.id.fragment_navigation_drawer_graphic, (DrawerLayout) findViewById(R.id.activity_graphic), mToolbar);
         mDrawerFragment.setDrawerListener(this);
     }
-
-
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
