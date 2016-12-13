@@ -1,83 +1,119 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_search_for_graphic"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_graphic"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="trabalho.sine.SearchForGraphicActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/label_search_graphic_view"
-        android:textSize="@dimen/font_size_activity_graphic_title"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:text="@string/activity_search_graphic_title"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/cargo_label"
-        android:id="@+id/cargo_text_view"
-        android:textStyle="bold"
-        android:textSize="@dimen/font_size_activity_graphic"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textAutoComplete"
-        android:id="@+id/cargo_search_edit_text"
-        tools:ignore="LabelFor" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/porte_label"
-        android:textSize="@dimen/font_size_activity_graphic"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:textStyle="bold"/>
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/porte_radio_group"
-        android:orientation="vertical"
-        android:textSize="@dimen/font_size_activity_graphic"
-        android:layout_marginBottom="@dimen/activity_vertical_margin">
-
-        <RadioButton
-            android:id="@+id/pequeno_porte_radio"
-            android:checked="true"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/container_toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pequeno_porte_label"/>
+            android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/medio_porte_radio"
-            android:layout_width="wrap_content"
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/medio_porte_label"/>
+            android:id="@+id/label_search_graphic_view"
+            android:textSize="@dimen/font_size_activity_graphic_title"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:text="@string/activity_search_graphic_title"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
-        <RadioButton
-            android:id="@+id/grande_porte_radio"
-            android:layout_width="wrap_content"
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/grande_porte_label"/>
-    </RadioGroup>
+            android:text="@string/cargo_label"
+            android:id="@+id/cargo_text_view"
+            android:textStyle="bold"
+            android:textSize="@dimen/font_size_activity_graphic"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/search_button"
-        android:textSize="@dimen/font_size_activity_graphic"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/search"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textAutoComplete"
+            android:id="@+id/cargo_search_edit_text"
+            tools:ignore="LabelFor" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/porte_label"
+            android:textSize="@dimen/font_size_activity_graphic"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:textStyle="bold"/>
+
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/porte_radio_group"
+            android:orientation="vertical"
+            android:textSize="@dimen/font_size_activity_graphic"
+            android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+
+            <RadioButton
+                android:id="@+id/pequeno_porte_radio"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pequeno_porte_label"/>
+
+
+            <RadioButton
+                android:id="@+id/medio_porte_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/medio_porte_label"/>
+
+
+            <RadioButton
+                android:id="@+id/grande_porte_radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/grande_porte_label"/>
+        </RadioGroup>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/search_button"
+            android:textSize="@dimen/font_size_activity_graphic"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/search"/>
+
+
 </LinearLayout>
+
+
+    <fragment
+    android:id="@+id/fragment_navigation_drawer_graphic"
+    android:name="trabalho.sine.activity.FragmentDrawer"
+    android:layout_width="@dimen/nav_drawer_width"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    app:layout="@layout/fragment_navigation_drawer"
+    tools:layout="@layout/fragment_navigation_drawer" />
+</android.support.v4.widget.DrawerLayout>
