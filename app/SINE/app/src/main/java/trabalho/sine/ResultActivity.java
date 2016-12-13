@@ -29,10 +29,6 @@ public class ResultActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-        favoriteBtn = (ImageButton) findViewById(R.id.favoritoBTN);
-        shareBtn = (ImageButton) findViewById(R.id.shareBTN);
-
-        // Carregando os labels
         title = (TextView) findViewById(R.id.titleValue);
         money = (TextView) findViewById(R.id.moneyValue);
         city = (TextView) findViewById(R.id.cityValue);
@@ -41,6 +37,9 @@ public class ResultActivity extends AppCompatActivity {
         function = (TextView) findViewById(R.id.functionValue);
         des = (TextView) findViewById(R.id.descriptionValue);
         url = (TextView) findViewById(R.id.urlValue);
+        openLink = (ImageView) findViewById(R.id.openLinkImage);
+        favoriteBtn = (ImageButton) findViewById(R.id.favoritoBTN);
+        shareBtn = (ImageButton) findViewById(R.id.shareBTN);
 
         carregaInforActivity(getIntent().getExtras());
 
@@ -65,10 +64,14 @@ public class ResultActivity extends AppCompatActivity {
 
         vaga = new Gson().fromJson(vagaJson, Vaga.class);
 
+        populaActivity(vaga);
+
+    }
+
+    public void populaActivity(Vaga vaga){
         favoriteBtn.setBackgroundResource(
                 (vaga.isFavoritado() == false ?
                         R.drawable.ic_favorite_border_black_48dp : R.drawable.ic_favorite_black));
-
         title.setText(vaga.getTitulo());
         money.setText(vaga.getSalario());
         city.setText(vaga.getCidade());
@@ -77,8 +80,6 @@ public class ResultActivity extends AppCompatActivity {
         function.setText(vaga.getFuncao());
         des.setText(vaga.getDescricao());
         url.setText(vaga.getUrl_sine());
-        openLink = (ImageView) findViewById(R.id.openLinkImage);
-
     }
 
     public void favoriteClick(View view) {

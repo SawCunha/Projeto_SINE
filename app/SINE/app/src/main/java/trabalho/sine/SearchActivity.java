@@ -87,7 +87,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mDrawerFragment = (FragmentDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_search);
-        mDrawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.activity_main), mToolbar);
+        mDrawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.activity_search), mToolbar);
         mDrawerFragment.setDrawerListener(this);
     }
 

@@ -52,6 +52,7 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
         verficaFiltroSelecionado();
     }
 
+    //Responsavel pela criação e definção do toolbar
     private void createToolbar(){
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -120,33 +121,20 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.semfiltro:
-                if (checked) {
-                    checkedUpdate(true, false, false);
-                    obtemVagasBanco(Filtro.SEM_FITRO);
-                    createRecyclerView();
-                }
-                break;
+                if (checked) checkedFiltro(true, false, false,Filtro.SEM_FITRO); break;
             case R.id.maiorsalario:
-                if (checked){
-                    checkedUpdate(false, false, true);
-                    obtemVagasBanco(Filtro.MAIOR_SALARIO);
-                    createRecyclerView();
-                }
-                break;
+                if (checked) checkedFiltro(false, false, true,Filtro.MAIOR_SALARIO); break;
             case R.id.ultimasvagas:
-                if (checked){
-                    checkedUpdate(false, true, false);
-                    obtemVagasBanco(Filtro.ULTIMAS_VAGAS);
-                    createRecyclerView();
-                }
-                break;
+                if (checked) checkedFiltro(false, true, false,Filtro.ULTIMAS_VAGAS); break;
         }
     }
 
-    private void checkedUpdate(Boolean s, Boolean u, Boolean m){
+    private void checkedFiltro(Boolean s, Boolean u, Boolean m, Filtro filtro){
         semfiltro.setChecked(s);
         maiorsalario.setChecked(m);
         ultimasvagas.setChecked(u);
+        obtemVagasBanco(filtro);
+        createRecyclerView();
     }
 
     @Override
