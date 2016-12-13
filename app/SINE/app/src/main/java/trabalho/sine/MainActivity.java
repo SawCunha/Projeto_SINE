@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     public void searchForGraphicActivity(View view){
         if(Conexao.isConectado(this)) {
-            Intent searchForGraphicActivity = new Intent(this,SearchForGraphicActivity.class);
+            Intent searchForGraphicActivity = new Intent(this, SearchForGraphicActivity.class);
             startActivity(searchForGraphicActivity);
         }else
             Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
