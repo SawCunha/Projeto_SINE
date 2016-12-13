@@ -3,14 +3,13 @@ package trabalho.sine;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
@@ -176,10 +175,10 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         RequestURL req = new RequestURL(this);
 
         //Testa a requisição.
-        Log.d("teste_req", String.format("http://192.168.0.106:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        Log.d("teste_req", String.format("http://192.168.2.104:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d",funcao, cidadeEstado, 1, filtroIndex));
 
-        req.requestURL(String.format("http://192.168.0.106:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        req.requestURL(String.format("http://192.168.2.104:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d", funcao, cidadeEstado, 1, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {

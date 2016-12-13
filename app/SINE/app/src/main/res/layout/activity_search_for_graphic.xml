@@ -48,12 +48,14 @@
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/porte_radio_group"
         android:orientation="vertical"
         android:textSize="@dimen/font_size_activity_graphic"
         android:layout_marginBottom="@dimen/activity_vertical_margin">
 
         <RadioButton
             android:id="@+id/pequeno_porte_radio"
+            android:checked="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pequeno_porte_label"/>

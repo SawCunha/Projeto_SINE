@@ -1,14 +1,13 @@
 package trabalho.sine;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import trabalho.sine.controller.RequestURL;
 
 public class SearchForGraphicActivity extends AppCompatActivity {
 
@@ -26,17 +25,7 @@ public class SearchForGraphicActivity extends AppCompatActivity {
     @OnClick(R.id.search_button)
     public void pesquisarCargo(){
 
-        //Falta implementar a lógica para buscar os dados
-
-        RequestURL requestURL = new RequestURL(this);
-
-        requestURL.requestURL("blablabla", new RequestURL.VolleyCallback() {
-            @Override
-            public void onSuccess(String response) {
-                Intent graphicIntent = new Intent(SearchForGraphicActivity.this, GraphicActivity.class);
-                startActivity(graphicIntent);
-            }
-        });
+        Toast.makeText(this, "Teste ButterKniffe", Toast.LENGTH_SHORT).show();
 
     }
 }
