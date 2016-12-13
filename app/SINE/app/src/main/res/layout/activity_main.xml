@@ -90,7 +90,7 @@
                 android:layout_width="385dp"
                 android:layout_height="128dp"
                 android:background="#64b5f6"
-                android:onClick="graphicActivity">
+                android:onClick="searchForGraphicActivity">
 
                 <TextView
                     android:text="@string/media_salarial"
