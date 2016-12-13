@@ -33,7 +33,7 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
     private List<Vaga> vagas;
 
     private Toolbar mToolbar;
-    private FragmentDrawer drawerFragment;
+    private FragmentDrawer mDrawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,20 +41,22 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
         setContentView(R.layout.activity_favorite);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        drawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_favorite);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer_favorite, (DrawerLayout) findViewById(R.id.activity_favorite), mToolbar);
-        drawerFragment.setDrawerListener(this);
-
-
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos_favoritos);
         semfiltro = (RadioButton) findViewById(R.id.semfiltro);
         ultimasvagas = (RadioButton) findViewById(R.id.ultimasvagas);
         maiorsalario = (RadioButton) findViewById(R.id.maiorsalario);
 
+        createToolbar();
         verficaFiltroSelecionado();
+    }
+
+    private void createToolbar(){
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mDrawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_favorite);
+        mDrawerFragment.setUp(R.id.fragment_navigation_drawer_favorite, (DrawerLayout) findViewById(R.id.activity_favorite), mToolbar);
+        mDrawerFragment.setDrawerListener(this);
     }
 
     private void verficaFiltroSelecionado() {

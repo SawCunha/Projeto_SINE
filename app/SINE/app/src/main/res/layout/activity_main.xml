@@ -92,7 +92,6 @@
                 android:background="#64b5f6"
                 android:onClick="graphicActivity">
 
-
                 <TextView
                     android:text="@string/media_salarial"
                     android:layout_width="wrap_content"
@@ -118,7 +117,6 @@
                 android:layout_height="127dp"
                 android:background="#90caf9">
 
-
                 <TextView
                     android:text="@string/info"
                     android:layout_width="wrap_content"
@@ -129,7 +127,6 @@
                     android:textColor="#000"
                     android:id="@+id/info"
                     android:textSize="20dp" />
-
 
                 <ImageView
                     android:layout_width="100dp"

@@ -51,7 +51,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private EditText inputFuncao;
 
     private Toolbar mToolbar;
-    private FragmentDrawer drawerFragment;
+    private FragmentDrawer mDrawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,13 +76,17 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
         //Toolbar e MenuDrawer
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        createToolbar();
+
+    }
+
+    private void createToolbar(){
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        drawerFragment = (FragmentDrawer)
+        mDrawerFragment = (FragmentDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_search);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.activity_main), mToolbar);
-        drawerFragment.setDrawerListener(this);
-
+        mDrawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.activity_main), mToolbar);
+        mDrawerFragment.setDrawerListener(this);
     }
 
     private void carregaRecyclerView() {

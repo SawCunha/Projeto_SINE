@@ -6,6 +6,7 @@
     <string name="drawer_close">Close</string>
 
     <string name="nav_item_home">Home</string>
+
     <string name="nav_item_vagas_favoritas">Vagas Favoritas</string>
     <string name="nav_item_media_salarial">Media salarial</string>
     <string name="nav_item_sobre">Sobre</string>
@@ -13,6 +14,7 @@
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
         <item>@string/nav_item_home</item>
+        <item>@string/search_vaga</item>
         <item>@string/nav_item_vagas_favoritas</item>
         <item>@string/nav_item_media_salarial</item>
         <item>@string/nav_item_sobre</item>

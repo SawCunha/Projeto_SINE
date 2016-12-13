@@ -23,7 +23,7 @@ import trabalho.sine.function.Conexao;
 
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
     private Toolbar mToolbar;
-    private FragmentDrawer drawerFragment;
+    private FragmentDrawer mDrawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +31,17 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         setContentView(R.layout.activity_main);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        createToolbar();
+    }
 
+    private void createToolbar(){
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        drawerFragment = (FragmentDrawer)
+        mDrawerFragment = (FragmentDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-        drawerFragment.setDrawerListener(this);
+        mDrawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+        mDrawerFragment.setDrawerListener(this);
     }
 
     public void searchActivity(View view){
@@ -56,8 +59,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     public void graphicActivity(View view){
         if(Conexao.isConectado(this)) {
-            Intent graphicActivity = new Intent(this,GraphicActivity.class);
-            startActivity(graphicActivity);
+            Intent searchForGraphicActivity = new Intent(this,SearchForGraphicActivity.class);
+            startActivity(searchForGraphicActivity);
         }else
             Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
     }

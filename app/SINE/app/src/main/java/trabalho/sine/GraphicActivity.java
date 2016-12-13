@@ -17,7 +17,7 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
     @BindView(R.id.graphic_web_view) WebView graphicWebView;
 
     private Toolbar mToolbar;
-    private FragmentDrawer drawerFragment;
+    private FragmentDrawer mDrawerFragment;
 
 
     @Override
@@ -30,14 +30,17 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         ButterKnife.setDebug(true);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        createToolbar();
+    }
 
+    private void createToolbar(){
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        drawerFragment = (FragmentDrawer)
+        mDrawerFragment = (FragmentDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_graphic);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer_graphic, (DrawerLayout) findViewById(R.id.activity_graphic), mToolbar);
-        drawerFragment.setDrawerListener(this);
+        mDrawerFragment.setUp(R.id.fragment_navigation_drawer_graphic, (DrawerLayout) findViewById(R.id.activity_graphic), mToolbar);
+        mDrawerFragment.setDrawerListener(this);
     }
 
     @Override

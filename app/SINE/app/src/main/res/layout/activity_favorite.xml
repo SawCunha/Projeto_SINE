@@ -42,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView2"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     android:textColor="@color/fonte"
                     android:layout_weight="1" />
 
@@ -70,7 +70,8 @@
                         android:layout_width="100dp"
                         android:layout_height="45dp">
                         <RadioButton
-                            android:text="@string/ultima_vagas_favorite_activity"                            android:id="@+id/ultimasvagas"
+                            android:text="@string/ultima_vagas_favorite_activity"
+                            android:id="@+id/ultimasvagas"
                             android:textColor="@color/fonte"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
