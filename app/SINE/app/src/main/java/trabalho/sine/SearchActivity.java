@@ -336,7 +336,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     @Override
     public void onDrawerItemSelected(View view, int position) {
         switch (position){
-            case 0: break;
+            case 0: home(); break;
             case 1: break;
             case 2: favoriteActivity(); break;
             case 3: searchForGraphicActivity();break;
@@ -345,6 +345,10 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         }
     }
 
+    private void home() {
+        Intent home = new Intent(this, MainActivity.class);
+        startActivity(home);
+    }
 
     private void favoriteActivity() {
         Intent favoriteActivity = new Intent(this, FavoriteActivity.class);

@@ -65,12 +65,18 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
     @Override
     public void onDrawerItemSelected(View view, int position) {
         switch (position){
+            case 0: home(); break;
             case 1: searchActivity(); break;
             case 2: favoriteActivity(); break;
             case 3: searchForGraphicActivity();break;
             case 4: break;
             default: Log.i("ERRO","POSITION ERROR"); break;
         }
+    }
+
+    private void home() {
+        Intent home = new Intent(this, MainActivity.class);
+        startActivity(home);
     }
 
     private void searchActivity() {

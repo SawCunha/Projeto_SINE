@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     @Override
     public void onDrawerItemSelected(View view, int position) {
         switch (position){
+            case 0: break;
             case 1: searchActivity(view); break;
             case 2: favoriteActivity(view); break;
             case 3: searchForGraphicActivity(view);break;
