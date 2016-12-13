@@ -25,7 +25,15 @@
             layout="@layout/toolbar" />
     </LinearLayout>
 
-
+        <Button
+            android:text="Filtro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="filterClick"
+            android:id="@+id/filterButton"
+            android:layout_marginTop="14dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_empregos"
@@ -38,15 +46,7 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/favoriteButton" />
 
-    <Button
-        android:text="Filtro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="filterClick"
-        android:id="@+id/filterButton"
-        android:layout_marginTop="14dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+
     </LinearLayout>
 
     <fragment

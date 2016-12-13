@@ -38,6 +38,5 @@ public class SearchForGraphicActivity extends AppCompatActivity {
             }
         });
 
-
     }
 }

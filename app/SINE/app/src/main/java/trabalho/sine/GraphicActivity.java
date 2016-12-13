@@ -19,7 +19,6 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +35,6 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
     private void createToolbar(){
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         mDrawerFragment = (FragmentDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_graphic);
         mDrawerFragment.setUp(R.id.fragment_navigation_drawer_graphic, (DrawerLayout) findViewById(R.id.activity_graphic), mToolbar);
@@ -61,7 +59,5 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
     }
 
     @Override
-    public void onDrawerItemSelected(View view, int position) {
-
-    }
+    public void onDrawerItemSelected(View view, int position) {}
 }

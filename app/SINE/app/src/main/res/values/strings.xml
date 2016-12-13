@@ -54,7 +54,6 @@
     <string name="toast_msg_favorite_activity">Você ainda não possui vagas favoritas.</string>
     <string name="toast_msg_result_activity_favoritado">Favoritado!!!</string>
     <string name="toast_msg_result_activity_desfavoritado">Desfavoritado!!!</string>
-
     <string name="toast_msg_adapter_list_favoritado">Favoritado!!!</string>
     <string name="toast_msg_adapter_list_desfavoritado">Desfavoritado!!!</string>
 </resources>

@@ -52,11 +52,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
     }
 
-    public void favoriteActivity(View view){
-        Intent favoriteActivity = new Intent(this,FavoriteActivity.class);
-        startActivity(favoriteActivity);
-    }
-
     public void graphicActivity(View view){
         if(Conexao.isConectado(this)) {
             Intent searchForGraphicActivity = new Intent(this,SearchForGraphicActivity.class);
@@ -83,8 +78,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     }
 
     @Override
-    public void onDrawerItemSelected(View view, int position) {
-
-    }
+    public void onDrawerItemSelected(View view, int position) {}
 
 }
