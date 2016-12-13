@@ -2,8 +2,13 @@ package trabalho.sine;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -12,10 +17,12 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.dao.VagaDAO;
+import trabalho.sine.function.Conexao;
 import trabalho.sine.model.Vaga;
 
-public class ResultActivity extends AppCompatActivity {
+public class ResultActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private ImageButton favoriteBtn;
     private ImageButton shareBtn;
@@ -24,11 +31,14 @@ public class ResultActivity extends AppCompatActivity {
 
     private TextView title, money, city, address, company, function, des, url;
 
+    private Toolbar mToolbar;
+    private FragmentDrawer mDrawerFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         title = (TextView) findViewById(R.id.titleValue);
         money = (TextView) findViewById(R.id.moneyValue);
         city = (TextView) findViewById(R.id.cityValue);
@@ -41,10 +51,37 @@ public class ResultActivity extends AppCompatActivity {
         favoriteBtn = (ImageButton) findViewById(R.id.favoritoBTN);
         shareBtn = (ImageButton) findViewById(R.id.shareBTN);
 
+        createToolbar();
         carregaInforActivity(getIntent().getExtras());
 
     }
 
+    //Responsavel pela criação e definção do toolbar
+    private void createToolbar() {
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mDrawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_result);
+        mDrawerFragment.setUp(R.id.fragment_navigation_drawer_result, (DrawerLayout) findViewById(R.id.activity_result), mToolbar);
+        mDrawerFragment.setDrawerListener(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     protected void onPause() {
         super.onPause();
@@ -116,5 +153,38 @@ public class ResultActivity extends AppCompatActivity {
     public void openLink(View view){
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(vaga.getUrl_sine()));
         startActivity(intent);
+    }
+
+    @Override
+    public void onDrawerItemSelected(View view, int position) {
+        switch (position){
+            case 0: home(); break;
+            case 1: searchActivity(); break;
+            case 2: break;
+            case 3: searchForGraphicActivity();break;
+            case 4: break;
+            default: Log.i("ERRO","POSITION ERROR"); break;
+        }
+    }
+
+    private void home() {
+        Intent home = new Intent(this, MainActivity.class);
+        startActivity(home);
+    }
+
+    private void searchActivity() {
+        if(Conexao.isConectado(this)) {
+            Intent searchActivity = new Intent(this, SearchActivity.class);
+            startActivity(searchActivity);
+        }else
+            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
+    }
+
+    private void searchForGraphicActivity() {
+        if(Conexao.isConectado(this)) {
+            Intent searchForGraphicActivity = new Intent(this,SearchForGraphicActivity.class);
+            startActivity(searchForGraphicActivity);
+        }else
+            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
     }
 }

@@ -17,7 +17,7 @@ import trabalho.sine.model.Vaga;
 
 public class RequestFunctions {
 
-    private static final String URL = "http://192.168.1.106:10555/";
+    private static final String URL = "http://192.168.0.5:10555/";
     private static final String VAGAS_ALL = "vagas";
     private static List<Vaga> vagas;
 
