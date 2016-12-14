@@ -58,6 +58,16 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
     }
 
+    public void infoActivity(View view) {
+        Intent infoActivity = new Intent(this, InfoActivity.class);
+        startActivity(infoActivity);
+    }
+
+    private void info() {
+        Intent info = new Intent(this, InfoActivity.class);
+        startActivity(info);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -82,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             case 1: searchActivity(view); break;
             case 2: favoriteActivity(view); break;
             case 3: searchForGraphicActivity(view);break;
-            case 4: break;
+            case 4: info(); break;
             default: Log.i("ERRO","POSITION ERROR"); break;
         }
     }

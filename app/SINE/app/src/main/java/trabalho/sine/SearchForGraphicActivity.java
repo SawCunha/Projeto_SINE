@@ -60,7 +60,7 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
             case 1: searchActivity(); break;
             case 2: favoriteActivity(view); break;
             case 3: break;
-            case 4: break;
+            case 4: info(); break;
             default: Log.i("ERRO","POSITION ERROR"); break;
         }
     }
@@ -83,5 +83,8 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
             Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
     }
 
-
+    private void info() {
+        Intent info = new Intent(this, InfoActivity.class);
+        startActivity(info);
+    }
 }

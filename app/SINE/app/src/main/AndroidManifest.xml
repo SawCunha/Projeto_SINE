@@ -35,7 +35,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".GraphicActivity" />
         <activity android:name=".SearchForGraphicActivity" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".InfoActivity"></activity>
     </application>
 
 </manifest>

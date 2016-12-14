@@ -169,10 +169,10 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         RequestURL req = new RequestURL(this);
 
         //Testa a requisição.
-        Log.d("teste_req", String.format("http://192.168.0.5:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        Log.d("teste_req", String.format("http://192.168.1.100:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d",funcao, cidadeEstado, 1, filtroIndex));
 
-        req.requestURL(String.format("http://192.168.0.5:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        req.requestURL(String.format("http://192.168.1.100:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d", funcao, cidadeEstado, 1, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
@@ -340,7 +340,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
             case 1: break;
             case 2: favoriteActivity(); break;
             case 3: searchForGraphicActivity();break;
-            case 4: break;
+            case 4: info(); break;
             default: Log.i("ERRO","POSITION ERROR"); break;
         }
     }
@@ -361,5 +361,10 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
             startActivity(searchForGraphicActivity);
         }else
             Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
+    }
+
+    private void info() {
+        Intent info = new Intent(this, InfoActivity.class);
+        startActivity(info);
     }
 }

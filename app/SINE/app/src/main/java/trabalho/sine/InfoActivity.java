@@ -2,6 +2,7 @@ package trabalho.sine;
 
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -9,39 +10,42 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.function.Conexao;
 
-public class GraphicActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
-    @BindView(R.id.graphic_web_view) WebView graphicWebView;
+public class InfoActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener{
 
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
 
+    private TextView titulo, desenvolvedores, versao, professor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_graphic);
+        setContentView(R.layout.activity_info);
 
-        //Define o ButterKnife para gerenciar as activities e ativa o modo de debugação.
-        ButterKnife.bind(this);
-        ButterKnife.setDebug(true);
+
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         createToolbar();
+
+        titulo = (TextView) findViewById(R.id.titulo);
+        versao = (TextView) findViewById(R.id.versao);
+        desenvolvedores = (TextView) findViewById(R.id.desenvolvedor);
+        professor = (TextView) findViewById(R.id.professor);
     }
 
-    private void createToolbar(){
+    //Responsavel pela criação e definção do toolbar
+    private void createToolbar() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mDrawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_graphic);
-        mDrawerFragment.setUp(R.id.fragment_navigation_drawer_graphic, (DrawerLayout) findViewById(R.id.activity_graphic), mToolbar);
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_info);
+        mDrawerFragment.setUp(R.id.fragment_navigation_drawer_info, (DrawerLayout) findViewById(R.id.activity_info), mToolbar);
         mDrawerFragment.setDrawerListener(this);
     }
 
@@ -67,9 +71,9 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         switch (position){
             case 0: home(); break;
             case 1: searchActivity(); break;
-            case 2: favoriteActivity(); break;
+            case 2: favoriteActivity(view); break;
             case 3: searchForGraphicActivity();break;
-            case 4: info(); break;
+            case 4: break;
             default: Log.i("ERRO","POSITION ERROR"); break;
         }
     }
@@ -87,7 +91,7 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
             Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
     }
 
-    private void favoriteActivity() {
+    public void favoriteActivity(View view){
         Intent favoriteActivity = new Intent(this, FavoriteActivity.class);
         startActivity(favoriteActivity);
     }
@@ -98,10 +102,5 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
             startActivity(searchForGraphicActivity);
         }else
             Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
-    }
-
-    private void info() {
-        Intent info = new Intent(this, InfoActivity.class);
-        startActivity(info);
     }
 }
