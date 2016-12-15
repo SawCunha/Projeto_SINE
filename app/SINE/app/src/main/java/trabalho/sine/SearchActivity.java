@@ -55,6 +55,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
     private int pos = 1;
+    private int totalItemCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
         inputCidade = new EditText(this);
         inputFuncao = new EditText(this);
-
+        totalItemCount = 0;
         inputCidade.setInputType(InputType.TYPE_CLASS_TEXT);
         inputFuncao.setInputType(InputType.TYPE_CLASS_TEXT);
         favorite = (Button) findViewById(R.id.favoriteButton);
@@ -108,6 +109,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setLayoutFrozen(false);
+        mRecyclerView.scrollToPosition(totalItemCount);
         //Define o metodo que ira obter a ação do Scroll.
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
@@ -115,17 +117,17 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 //Verifica se o scroll moveu
                 if(dy > 0){
                     //Obtem as informações referente aos itens do RecyclerView.
-                    int pastVisiblesItems, visibleItemCount, totalItemCount;
+                    int pastVisiblesItems, visibleItemCount;
                     visibleItemCount = mLayoutManager.getChildCount();
                     totalItemCount = mLayoutManager.getItemCount();
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
                     //Verifica se chegou no ultimo elemento do recyclerview.
                     if((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                        pos++;
-                        obtemVagasAPI();
-
-
-
+                        mRecyclerView.clearOnScrollListeners();
+                        mostrarDialogoCarregando();
+                       obtemVagasAPI();
+                       totalItemCount--;
                     }
                 }
             }
@@ -249,7 +251,13 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 */
                 layout.removeAllViews();
 
+               // Reseta o scroll
+                mRecyclerView.scrollToPosition(0);
+                mRecyclerView.clearOnScrollListeners();
+
                 mostrarDialogoCarregando();
+                vagas.clear();
+                pos = 1;
                 obtemVagasAPI();
             }
         });
@@ -262,6 +270,12 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 // Requisicão feita será: /vagas?idfuncao=&idcidade=?&numPagina=?tipoOrdenacao=1
 
                 // Reseta todos os campos.
+
+                // Reseta o scroll.
+                mRecyclerView.scrollToPosition(0);
+                mRecyclerView.clearOnScrollListeners();
+
+                vagas.clear();
                 pos = 1;
                 filtroEscolhido = "";
                 filtroIndex = 1;
