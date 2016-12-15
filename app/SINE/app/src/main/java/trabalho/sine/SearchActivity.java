@@ -27,6 +27,7 @@ import java.util.List;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.adapter.AdapterListView;
+import trabalho.sine.adapter.AdpterScrollListener;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.enun.Filtro;
@@ -111,27 +112,8 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         mRecyclerView.setLayoutFrozen(false);
         mRecyclerView.scrollToPosition(totalItemCount);
         //Define o metodo que ira obter a ação do Scroll.
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                //Verifica se o scroll moveu
-                if(dy > 0){
-                    //Obtem as informações referente aos itens do RecyclerView.
-                    int pastVisiblesItems, visibleItemCount;
-                    visibleItemCount = mLayoutManager.getChildCount();
-                    totalItemCount = mLayoutManager.getItemCount();
-                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
-                    //Verifica se chegou no ultimo elemento do recyclerview.
-                    if((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                       pos++;
-                        mRecyclerView.clearOnScrollListeners();
-                        mostrarDialogoCarregando();
-                       obtemVagasAPI();
-                       totalItemCount--;
-                    }
-                }
-            }
-        });
+        mRecyclerView.addOnScrollListener(new AdpterScrollListener(this,mRecyclerView,mAdapter,mLayoutManager,
+                cidadeEstado,funcao,filtroIndex,pos));
     }
 
     @Override
@@ -188,7 +170,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
 
-        req.requestURL(String.format("http://192.168.0.106:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        req.requestURL(String.format("http://192.168.0.101:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d", funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
@@ -354,13 +336,11 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
 
     public void mostrarDialogoCarregando(){
-
         dialog = new ProgressDialog(this);
         dialog.setMessage("Carregando dados");
         dialog.setIndeterminate(true);
         dialog.setCancelable(true);
         dialog.show();
-
     }
 
     @Override
