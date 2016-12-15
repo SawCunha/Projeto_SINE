@@ -2,10 +2,9 @@ package trabalho.sine;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.TextViewCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -23,7 +22,7 @@ public class InfoActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
 
-    private TextView titulo, desenvolvedores, versao, professor;
+    private TextView titulo, desenvolvedores, versao;
     private ImageView imagemSine;
 
     @Override
@@ -31,15 +30,12 @@ public class InfoActivity extends AppCompatActivity implements FragmentDrawer.Fr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-
-
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         createToolbar();
 
         titulo = (TextView) findViewById(R.id.titulo);
         versao = (TextView) findViewById(R.id.versao);
-        desenvolvedores = (TextView) findViewById(R.id.desenvolvedor);
-        professor = (TextView) findViewById(R.id.professor);
+        desenvolvedores = (TextView) findViewById(R.id.developers);
 
         imagemSine = (ImageView) findViewById(R.id.imagemSine);
         imagemSine.setBackgroundColor(Color.TRANSPARENT);

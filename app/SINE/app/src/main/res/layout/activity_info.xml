@@ -24,7 +24,7 @@
     </LinearLayout>
 
         <TextView
-            android:text="SINE"
+            android:text="@string/app_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/titulo"
@@ -34,29 +34,14 @@
             android:textStyle="normal|bold" />
 
         <TextView
-            android:text="Versão: 1.1"
+            android:text="@string/version"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/versao"
-            android:textSize="22sp"
-            android:textAlignment="viewStart"
-            android:textColorLink="@android:color/background_dark" />
-
-        <TextView
-            android:text="Desenvolvedores: Alunos do 6º Periodo do curso Superior de Tecnologia em Sistemas para Internet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/desenvolvedor"
-            android:textSize="22sp"
-            android:textColorLink="@android:color/background_dark" />
-
-        <TextView
-            android:text="Prof.: Rafael Alencar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/professor"
-            android:textSize="22sp"
-            android:textAlignment="viewStart"
+            android:textSize="@dimen/font_view_about"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
             android:textColorLink="@android:color/background_dark" />
 
         <ImageView
@@ -68,6 +53,17 @@
             android:cropToPadding="true"
             android:isScrollContainer="true"
             android:background="@android:color/transparent"/>
+
+        <TextView
+            android:text="@string/about_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:id="@+id/developers"
+            android:textSize="@dimen/font_view_about"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
+            android:textColorLink="@android:color/background_dark" />
 
     </LinearLayout>
 
