@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import trabalho.sine.activity.FragmentDrawer;
+import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
@@ -332,35 +333,13 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     @Override
     public void onDrawerItemSelected(View view, int position) {
         switch (position){
-            case 0: home(); break;
+            case 0: LoadActivities.home(this); break;
             case 1: break;
-            case 2: favoriteActivity(); break;
-            case 3: searchForGraphicActivity();break;
-            case 4: info(); break;
+            case 2: LoadActivities.favoriteActivity(this); break;
+            case 3: LoadActivities.searchForGraphicActivity(this);break;
+            case 4: LoadActivities.info(this); break;
             default: Log.i("ERRO","POSITION ERROR"); break;
         }
     }
 
-    private void home() {
-        Intent home = new Intent(this, MainActivity.class);
-        startActivity(home);
-    }
-
-    private void favoriteActivity() {
-        Intent favoriteActivity = new Intent(this, FavoriteActivity.class);
-        startActivity(favoriteActivity);
-    }
-
-    private void searchForGraphicActivity() {
-        if(Conexao.isConectado(this)) {
-            Intent searchForGraphicActivity = new Intent(this,SearchForGraphicActivity.class);
-            startActivity(searchForGraphicActivity);
-        }else
-            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
-    }
-
-    private void info() {
-        Intent info = new Intent(this, InfoActivity.class);
-        startActivity(info);
-    }
 }

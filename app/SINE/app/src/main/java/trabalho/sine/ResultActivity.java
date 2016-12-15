@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import trabalho.sine.activity.FragmentDrawer;
+import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.function.Conexao;
 import trabalho.sine.model.Vaga;
@@ -158,43 +159,13 @@ public class ResultActivity extends AppCompatActivity implements FragmentDrawer.
     @Override
     public void onDrawerItemSelected(View view, int position) {
         switch (position){
-            case 0: home(); break;
-            case 1: searchActivity(); break;
-            case 2: favoriteActivity(view); break;
-            case 3: searchForGraphicActivity();break;
-            case 4: info(); break;
+            case 0: LoadActivities.home(this); break;
+            case 1: LoadActivities.searchActivity(this); break;
+            case 2: LoadActivities.favoriteActivity(this); break;
+            case 3: LoadActivities.searchForGraphicActivity(this);break;
+            case 4: LoadActivities.info(this); break;
             default: Log.i("ERRO","POSITION ERROR"); break;
         }
     }
 
-    private void home() {
-        Intent home = new Intent(this, MainActivity.class);
-        startActivity(home);
-    }
-
-    private void searchActivity() {
-        if(Conexao.isConectado(this)) {
-            Intent searchActivity = new Intent(this, SearchActivity.class);
-            startActivity(searchActivity);
-        }else
-            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
-    }
-
-    public void favoriteActivity(View view){
-        Intent favoriteActivity = new Intent(this, FavoriteActivity.class);
-        startActivity(favoriteActivity);
-    }
-
-    private void searchForGraphicActivity() {
-        if(Conexao.isConectado(this)) {
-            Intent searchForGraphicActivity = new Intent(this,SearchForGraphicActivity.class);
-            startActivity(searchForGraphicActivity);
-        }else
-            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
-    }
-
-    private void info() {
-        Intent info = new Intent(this, InfoActivity.class);
-        startActivity(info);
-    }
 }
