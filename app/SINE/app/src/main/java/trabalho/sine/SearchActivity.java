@@ -137,32 +137,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                     vs.setFavoritado(true);
     }
 
-
-    //Obtem as Vagas salvas no Banco de Dados.
-    public void filtraVagasDaRequisicao(Filtro filtro){
-
-        List<Vaga> vgs = new ArrayList<>();
-
-        switch (filtro){
-            case SEM_FITRO:
-                obtemVagasAPI();
-                break;
-            case MAIOR_SALARIO:
-                //vgs = dao.getAllOrderBy("salario");
-                break;
-            case ULTIMAS_VAGAS:
-                //vgs = dao.getAllOrderBy("id");
-                break;
-            default:
-                break;
-        }
-
-        //Caso não houver vaga, informa ao usuario com um toast
-        if(vgs.isEmpty()) Toast.makeText(this,R.string.toast_msg_search_activity,Toast.LENGTH_LONG).show();
-
-        this.vagas = vgs;
-    }
-
     // obtem todas as vagas da api.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
@@ -186,8 +160,8 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private void dialogFiltro(){
 
         // Os blocos abaixo define os input's para a entrada de texto.
-        inputCidade.setHint("Cidade-uf");
-        inputFuncao.setHint("Função");
+        inputCidade.setHint(R.string.dialog_filter_hint_one);
+        inputFuncao.setHint(R.string.dialog_filter_hint_two);
 
         final LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -203,7 +177,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Escolha o filtro?");
+        builder.setTitle(R.string.alert_dialog_title);
         builder.setView(layout);
         builder.setSingleChoiceItems(charSequences, --filtroIndex, new DialogInterface.OnClickListener() {
             @Override
@@ -215,7 +189,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         });
 
         // Ação que irá ocorrer quando o jovem clicar no botão ok.
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -242,7 +216,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         });
 
         // Ação que irá ocorrer quando o jovem clicar no botão Reseta.
-        builder.setNegativeButton("Resetar", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.negative_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -283,7 +257,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     public void filterClick(View view){
         dialogFiltro();
     }
-    
+
     public void mostrarDialogoCarregando(){
         dialog = new ProgressDialog(this);
         dialog.setMessage("Carregando dados");
