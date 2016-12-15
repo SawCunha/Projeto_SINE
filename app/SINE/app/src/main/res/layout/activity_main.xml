@@ -23,16 +23,19 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="?android:attr/selectableItemBackground">
 
-            <RelativeLayout
-                android:layout_width="385dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="128dp"
                 android:background="#e57373"
-                android:onClick="searchActivity">
+                android:onClick="searchActivity"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <TextView
                     android:text="@string/search_vaga"
@@ -47,21 +50,22 @@
 
 
                 <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
                     android:src="@drawable/ic_lupa_emprego"
                     android:layout_above="@+id/search_vaga"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="14dp"
-                    android:id="@+id/lupa" />
-            </RelativeLayout>
+                    android:id="@+id/lupa"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp" />
+            </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="385dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="128dp"
                 android:background="#ffcc80"
                 android:onClick="favoriteActivity"
-                >
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <TextView
                     android:text="@string/favorite_vaga"
@@ -76,21 +80,23 @@
 
 
                 <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
                     android:src="@drawable/ic_favorite_border_black_48dp"
                     android:layout_above="@+id/vagasfavoritas"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="14dp"
-                    android:id="@+id/estrela" />
+                    android:id="@+id/estrela"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp" />
 
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="385dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="128dp"
                 android:background="#fff59d"
-                android:onClick="searchForGraphicActivity">
+                android:onClick="searchForGraphicActivity"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <TextView
                     android:text="@string/media_salarial"
@@ -104,19 +110,21 @@
                     android:textSize="20dp" />
 
                 <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
                     android:src="@drawable/ic_grafico"
                     android:layout_above="@+id/mediasalarial"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="14dp"
-                    android:id="@+id/grafico" /></RelativeLayout>
+                    android:id="@+id/grafico"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp" /></LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="385dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="127dp"
                 android:background="#c8e6c9"
-                android:onClick="infoActivity">
+                android:onClick="infoActivity"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <TextView
                     android:text="@string/info"
@@ -130,13 +138,12 @@
                     android:textSize="20dp" />
 
                 <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
                     android:src="@drawable/info"
                     android:layout_above="@+id/info"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="14dp"
-                    android:id="@+id/sobre" /></RelativeLayout>
+                    android:id="@+id/sobre"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp" /></LinearLayout>
 
         </LinearLayout>
 
