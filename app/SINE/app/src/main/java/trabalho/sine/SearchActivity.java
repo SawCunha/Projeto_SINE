@@ -54,11 +54,14 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
+    private int pos = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        vagas = new ArrayList<>();
 
         inputCidade = new EditText(this);
         inputFuncao = new EditText(this);
@@ -118,9 +121,11 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
                     //Verifica se chegou no ultimo elemento do recyclerview.
                     if((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                        //Aki dentro deve ficar a função...
-                        Toast.makeText(SearchActivity.this, visibleItemCount + pastVisiblesItems +
-                                " = " + totalItemCount, Toast.LENGTH_LONG).show();
+                       pos++;
+                        obtemVagasAPI();
+
+
+
                     }
                 }
             }
@@ -181,13 +186,13 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
 
-        req.requestURL(String.format("http://192.168.0.101:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
-                "&tipoOrdenacao=%d", funcao, cidadeEstado, 1, filtroIndex), new RequestURL.VolleyCallback() {
+        req.requestURL(String.format("http://192.168.0.106:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+                "&tipoOrdenacao=%d", funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
                 Gson gson = new Gson();
                 VagasJSON vagasJSON = gson.fromJson(response, VagasJSON.class);
-                vagas = vagasJSON.getVagas();
+                vagas.addAll(vagasJSON.getVagas());
                 carregaRecyclerView();
             }
         });
@@ -257,6 +262,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 // Requisicão feita será: /vagas?idfuncao=&idcidade=?&numPagina=?tipoOrdenacao=1
 
                 // Reseta todos os campos.
+                pos = 1;
                 filtroEscolhido = "";
                 filtroIndex = 1;
                 inputCidade.setText("");
