@@ -61,5 +61,28 @@ module.exports = {
           .replace(/[^a-zA-Z0-9\-]+/g, '')
           .replace(/-{2,}/g, '-')
           .toLowerCase();
+  },
+
+  //Substitui as keys pelo estilo underscore
+  keysToUnderscoreCase(obj){
+    let arrayKeys = Object.keys(obj);
+
+    arrayKeys.forEach((elem, i) => {
+        let oldKey = elem;
+        let newKey = elem.replace(/(.)([A-Z])/g, "$1_$2").toLowerCase(); //Substitui por underscore. Ex ('ABCde' => 'A_b_cde')
+
+        //verifica se as keys são diferentes
+        if (oldKey !== newKey || obj[oldKey] === Object(obj[oldKey])) {
+            //faz a substituição das keys
+            Object.defineProperty(obj, newKey, Object.getOwnPropertyDescriptor(obj, oldKey));
+
+            if(oldKey !== newKey)
+              delete obj[oldKey];
+
+            //verifica se a key refere-se a um objeto, se sim, utiliza recursão
+            if(obj[newKey] === Object(obj[newKey]))
+                return this.keysToUnderscoreCase(obj[newKey]);
+        }
+    });
   }
 }

@@ -54,7 +54,10 @@ module.exports = function(app){
       MediaSalarial.detalhesFuncao.salarios.grandeEmpresa.senior = objDetalhes.SalarioGrande.Senior;
       MediaSalarial.detalhesFuncao.salarios.grandeEmpresa.master = objDetalhes.SalarioGrande.Master;
 
-      res.status(200).json({'error': 0, 'MediaSalarial': MediaSalarial});
+      let json = {'error': 0, 'MediaSalarial': MediaSalarial};
+      utils.keysToUnderscoreCase(json);
+
+      res.status(200).json(json);
 
     })
     .catch((error) => {
