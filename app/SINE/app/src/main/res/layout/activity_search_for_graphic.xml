@@ -43,10 +43,9 @@
             android:text="@string/cargo_label"
             android:id="@+id/cargo_text_view"
             android:textStyle="bold"
-            android:textSize="@dimen/font_size_activity_graphic"/>
+            android:textSize="@dimen/font_size_activity_graphic" />
 
-
-        <EditText
+        <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textAutoComplete"

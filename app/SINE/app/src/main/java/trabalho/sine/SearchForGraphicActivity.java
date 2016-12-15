@@ -1,47 +1,90 @@
 package trabalho.sine;
 
-import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
-import trabalho.sine.function.Conexao;
+import trabalho.sine.adapter.CargoSuggestionAdapter;
 
 public class SearchForGraphicActivity extends AppCompatActivity implements  FragmentDrawer.FragmentDrawerListener{
 
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
+    private Resources resources;
 
-    @BindView(R.id.cargo_search_edit_text) EditText cargoSearchEditText;
+    @BindView(R.id.cargo_search_edit_text) AutoCompleteTextView cargoSearchEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_search_for_graphic);
 
         ButterKnife.bind(this);
         ButterKnife.setDebug(true);
+        initTextView();
+
+        cargoSearchEditText.setAdapter(new CargoSuggestionAdapter(this, cargoSearchEditText.getText().toString(), "http://192.168.2.104:10555/idfuncao/"));
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         createToolbar();
     }
 
+    private void initTextView(){
+        resources = getResources();
+
+        //Cria um objeto para poder exercutarmos operações nos campos editáveis.
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                callClearErrors(editable);
+            }
+        };
+    }
+
+    private void callClearErrors(Editable editable){
+        if(!editable.toString().isEmpty()) clearErrorFields(cargoSearchEditText);
+    }
+
+    private boolean validateFields(){
+        if (TextUtils.isEmpty(cargoSearchEditText.getEditableText().toString().trim())){
+            cargoSearchEditText.requestFocus();
+            cargoSearchEditText.setError(resources.getString(R.string.campo_cargo_vazio));
+            return false;
+        }
+        return true;
+    }
+
+    private void clearErrorFields(EditText... editTexts){
+        for (EditText editText : editTexts) editText.setError(null);
+    }
+
     @OnClick(R.id.search_button)
     public void pesquisarCargo(){
-
-        Toast.makeText(this, "Teste ButterKniffe", Toast.LENGTH_SHORT).show();
-
+        validateFields();
     }
 
     //Responsavel pela criação e definção do toolbar

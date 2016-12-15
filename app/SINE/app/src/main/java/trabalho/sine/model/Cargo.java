@@ -1,10 +1,10 @@
-
 package trabalho.sine.model;
 
-/*
-    Model utilizado para obter os dados que serão utilizados no AutoComplete.
+/**
+    Model utilizado para obter os dados do AutoComplete do Cargo.
  */
-public class Cidade {
+
+public class Cargo {
     private Long id;
     private String descricao;
 
