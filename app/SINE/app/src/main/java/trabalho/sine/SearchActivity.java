@@ -55,6 +55,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
     private int pos = 1;
+    private int totalItemCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
         inputCidade = new EditText(this);
         inputFuncao = new EditText(this);
-
+        totalItemCount = 0;
         inputCidade.setInputType(InputType.TYPE_CLASS_TEXT);
         inputFuncao.setInputType(InputType.TYPE_CLASS_TEXT);
         favorite = (Button) findViewById(R.id.favoriteButton);
@@ -108,6 +109,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setLayoutFrozen(false);
+        mRecyclerView.scrollToPosition(totalItemCount);
         //Define o metodo que ira obter a ação do Scroll.
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
@@ -115,17 +117,15 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 //Verifica se o scroll moveu
                 if(dy > 0){
                     //Obtem as informações referente aos itens do RecyclerView.
-                    int pastVisiblesItems, visibleItemCount, totalItemCount;
+                    int pastVisiblesItems, visibleItemCount;
                     visibleItemCount = mLayoutManager.getChildCount();
                     totalItemCount = mLayoutManager.getItemCount();
                     pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
                     //Verifica se chegou no ultimo elemento do recyclerview.
                     if((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                        pos++;
-                        obtemVagasAPI();
-
-
-
+                       obtemVagasAPI();
+                       totalItemCount--;
                     }
                 }
             }
@@ -186,7 +186,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
 
-        req.requestURL(String.format("http://192.168.0.106:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        req.requestURL(String.format("http://192.168.0.101:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d", funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
