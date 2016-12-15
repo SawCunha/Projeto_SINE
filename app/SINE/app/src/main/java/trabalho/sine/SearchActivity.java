@@ -40,7 +40,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private Button favorite;
     private List<Vaga> vagas;
     private ProgressDialog dialog;
     private String filtroEscolhido = "";
@@ -48,8 +47,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private AlertDialog alerta;
     private Button filter;
 
-    private String cidadeEstado = "", funcao = "", numPag;
-    private AlertDialog buscaAlert;
+    private String cidadeEstado = "", funcao = "";
     private EditText inputCidade;
     private EditText inputFuncao;
 
@@ -70,7 +68,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         totalItemCount = 0;
         inputCidade.setInputType(InputType.TYPE_CLASS_TEXT);
         inputFuncao.setInputType(InputType.TYPE_CLASS_TEXT);
-        favorite = (Button) findViewById(R.id.favoriteButton);
         filter = (Button) findViewById(R.id.filterButton);
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
 
@@ -286,55 +283,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     public void filterClick(View view){
         dialogFiltro();
     }
-
-    /* Constrói uma caixa de diálogo para montar a busca.
-    private void dialogBusca(){
-
-        final EditText inputCidade = new EditText(this);
-        final EditText inputFuncao = new EditText(this);
-
-        inputCidade.setHint("Cidade-un");
-        inputFuncao.setHint("Função");
-
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        layout.addView(inputCidade);
-        layout.addView(inputFuncao);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("         Entre com a busca!");
-        builder.setView(layout);
-
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                cidadeEstado = inputCidade.getText().toString();
-                funcao = inputFuncao.getText().toString();
-                buscaAlert.dismiss();
-                mostrarDialogoCarregando();
-            }
-        });
-
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                buscaAlert.dismiss();
-            }
-        });
-
-        builder.setCancelable(false);
-        buscaAlert = builder.create();
-        buscaAlert.show();
-    }
-
-    public void searchClick(View view){
-
-        dialogBusca();
-
-    }*/
-
-
+    
     public void mostrarDialogoCarregando(){
         dialog = new ProgressDialog(this);
         dialog.setMessage("Carregando dados");
