@@ -37,6 +37,11 @@ module.exports = {
             .replace('#{tipoOrdenacao}', tipoOrdenacao);
   },
 
+  urlGetMediaSalarial(idFuncao){
+    return 'http://salariobr.com/api/Funcoes/RetornarInformacoesFuncao?funcao=#{idFuncao}'
+            .replace('#{idFuncao}', idFuncao);
+  },
+
   removerAcentos (str) {
     if (!str) { return ''; }
     var ret = '';
