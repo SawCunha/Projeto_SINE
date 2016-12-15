@@ -11,70 +11,83 @@
 
 
     <LinearLayout
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout2">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/icons_empregos"
-            android:layout_width="66dp"
-            android:layout_height="60dp"
-            app:srcCompat="@drawable/emprego_icon"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="180dp"
-        android:layout_height="80dp"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout3"
-        android:weightSum="1"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/linearLayout5"
-        android:layout_marginEnd="22dp">
-
-        <TextView
-            android:id="@+id/vaga_nome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Titulo"
-            android:textSize="15dp" />
-
-        <TextView
-            android:id="@+id/vaga_empresa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Empresa"
-            android:textSize="13dp"
-            android:layout_weight="0.34" />
-
-        <TextView
-            android:id="@+id/vaga_endereco"
-            android:layout_width="228dp"
-            android:layout_height="wrap_content"
-            android:text="Endereco"
-            android:textSize="13dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/linearLayout5"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true">
-
-        <ImageButton
-            android:id="@+id/favorito"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout2"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/icons_empregos"
+                android:layout_width="66dp"
+                android:layout_height="60dp"
+                app:srcCompat="@drawable/emprego_icon"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout3"
+            android:weightSum="1"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/linearLayout5"
+            android:layout_marginEnd="22dp"
+            android:gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/vaga_nome"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="Titulo"
+                android:textSize="15dp"
+                android:textStyle="normal|bold" />
+
+            <TextView
+                android:id="@+id/vaga_empresa"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="Empresa"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:id="@+id/vaga_endereco"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="Endereco"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/linearLayout5"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/ic_favorite_border_black_48dp" />
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp">
+
+            <ImageButton
+                android:id="@+id/favorito"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/ic_favorite_border_black_48dp"
+                android:layout_height="30dp"
+                android:layout_width="30dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
 
 </RelativeLayout>
