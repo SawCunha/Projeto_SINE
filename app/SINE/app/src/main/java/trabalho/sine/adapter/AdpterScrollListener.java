@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
+import trabalho.sine.Servidor;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.model.Vaga;
 import trabalho.sine.model.VagasJSON;
@@ -56,7 +57,7 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
                 mostrarDialogoCarregando();
                 totalItemCount--;
                 mRecyclerView.scrollToPosition(totalItemCount);
-                req.requestURL(String.format("http://192.168.0.101:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+                req.requestURL(String.format(Servidor.ENDERECO_SERVIDOR + "/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                         "&tipoOrdenacao=%d", funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
                     @Override
                     public void onSuccess(String response) {
