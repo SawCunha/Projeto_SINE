@@ -31,7 +31,7 @@
             <RelativeLayout
                 android:layout_width="385dp"
                 android:layout_height="128dp"
-                android:background="#2196f3"
+                android:background="#e57373"
                 android:onClick="searchActivity">
 
                 <TextView
@@ -59,7 +59,7 @@
             <RelativeLayout
                 android:layout_width="385dp"
                 android:layout_height="128dp"
-                android:background="#42a5f5"
+                android:background="#ffcc80"
                 android:onClick="favoriteActivity"
                 >
 
@@ -89,7 +89,7 @@
             <RelativeLayout
                 android:layout_width="385dp"
                 android:layout_height="128dp"
-                android:background="#64b5f6"
+                android:background="#fff59d"
                 android:onClick="searchForGraphicActivity">
 
                 <TextView
@@ -115,7 +115,7 @@
             <RelativeLayout
                 android:layout_width="385dp"
                 android:layout_height="127dp"
-                android:background="#90caf9"
+                android:background="#c8e6c9"
                 android:onClick="infoActivity">
 
                 <TextView

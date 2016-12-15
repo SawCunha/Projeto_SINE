@@ -10,6 +10,11 @@ module.exports = function(app){
   controller.getMediaSalarial = (req, res) => {
     const idFuncao = req.query.idfuncao;
 
+    if (!idFuncao) {
+      res.status(400).json('Faltando Parametro(s).');
+      return;
+    }
+
     const url = utils.urlGetMediaSalarial(idFuncao);
 
     rp(url)
@@ -30,31 +35,33 @@ module.exports = function(app){
 
       const objDetalhes = obj.DetalhesFuncao;
 
-      MediaSalarial.detalhesFuncao = {};
-      MediaSalarial.detalhesFuncao.salarios = {};
+      MediaSalarial.salarios = {};
 
-      MediaSalarial.detalhesFuncao.salarios.pequenaEmpresa = {};
-      MediaSalarial.detalhesFuncao.salarios.pequenaEmpresa.trainee = objDetalhes.SalarioPequena.Trainee;
-      MediaSalarial.detalhesFuncao.salarios.pequenaEmpresa.junior = objDetalhes.SalarioPequena.Junior;
-      MediaSalarial.detalhesFuncao.salarios.pequenaEmpresa.pleno = objDetalhes.SalarioPequena.Pleno;
-      MediaSalarial.detalhesFuncao.salarios.pequenaEmpresa.senior = objDetalhes.SalarioPequena.Senior;
-      MediaSalarial.detalhesFuncao.salarios.pequenaEmpresa.master = objDetalhes.SalarioPequena.Master;
+      MediaSalarial.salarios.pequenaEmpresa = {};
+      MediaSalarial.salarios.pequenaEmpresa.trainee = objDetalhes.SalarioPequena.Trainee;
+      MediaSalarial.salarios.pequenaEmpresa.junior = objDetalhes.SalarioPequena.Junior;
+      MediaSalarial.salarios.pequenaEmpresa.pleno = objDetalhes.SalarioPequena.Pleno;
+      MediaSalarial.salarios.pequenaEmpresa.senior = objDetalhes.SalarioPequena.Senior;
+      MediaSalarial.salarios.pequenaEmpresa.master = objDetalhes.SalarioPequena.Master;
 
-      MediaSalarial.detalhesFuncao.salarios.mediaEmpresa = {};
-      MediaSalarial.detalhesFuncao.salarios.mediaEmpresa.trainee = objDetalhes.SalarioMedia.Trainee;
-      MediaSalarial.detalhesFuncao.salarios.mediaEmpresa.junior = objDetalhes.SalarioMedia.Junior;
-      MediaSalarial.detalhesFuncao.salarios.mediaEmpresa.pleno = objDetalhes.SalarioMedia.Pleno;
-      MediaSalarial.detalhesFuncao.salarios.mediaEmpresa.senior = objDetalhes.SalarioMedia.Senior;
-      MediaSalarial.detalhesFuncao.salarios.mediaEmpresa.master = objDetalhes.SalarioMedia.Master;
+      MediaSalarial.salarios.mediaEmpresa = {};
+      MediaSalarial.salarios.mediaEmpresa.trainee = objDetalhes.SalarioMedia.Trainee;
+      MediaSalarial.salarios.mediaEmpresa.junior = objDetalhes.SalarioMedia.Junior;
+      MediaSalarial.salarios.mediaEmpresa.pleno = objDetalhes.SalarioMedia.Pleno;
+      MediaSalarial.salarios.mediaEmpresa.senior = objDetalhes.SalarioMedia.Senior;
+      MediaSalarial.salarios.mediaEmpresa.master = objDetalhes.SalarioMedia.Master;
 
-      MediaSalarial.detalhesFuncao.salarios.grandeEmpresa = {};
-      MediaSalarial.detalhesFuncao.salarios.grandeEmpresa.trainee = objDetalhes.SalarioGrande.Trainee;
-      MediaSalarial.detalhesFuncao.salarios.grandeEmpresa.junior = objDetalhes.SalarioGrande.Junior;
-      MediaSalarial.detalhesFuncao.salarios.grandeEmpresa.pleno = objDetalhes.SalarioGrande.Pleno;
-      MediaSalarial.detalhesFuncao.salarios.grandeEmpresa.senior = objDetalhes.SalarioGrande.Senior;
-      MediaSalarial.detalhesFuncao.salarios.grandeEmpresa.master = objDetalhes.SalarioGrande.Master;
+      MediaSalarial.salarios.grandeEmpresa = {};
+      MediaSalarial.salarios.grandeEmpresa.trainee = objDetalhes.SalarioGrande.Trainee;
+      MediaSalarial.salarios.grandeEmpresa.junior = objDetalhes.SalarioGrande.Junior;
+      MediaSalarial.salarios.grandeEmpresa.pleno = objDetalhes.SalarioGrande.Pleno;
+      MediaSalarial.salarios.grandeEmpresa.senior = objDetalhes.SalarioGrande.Senior;
+      MediaSalarial.salarios.grandeEmpresa.master = objDetalhes.SalarioGrande.Master;
 
-      res.status(200).json({'error': 0, 'MediaSalarial': MediaSalarial});
+      let json = {'error': 0, 'MediaSalarial': MediaSalarial};
+      utils.keysToUnderscoreCase(json);
+
+      res.status(200).json(json);
 
     })
     .catch((error) => {

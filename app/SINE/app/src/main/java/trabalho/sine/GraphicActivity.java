@@ -9,7 +9,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -35,6 +38,17 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         createToolbar();
+
+        // Adicionando o grafico
+        WebView webview = (WebView) this.findViewById(R.id.graphic_web_view);
+        WebSettings webSettings = webview.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setBuiltInZoomControls(true);
+        webview.requestFocusFromTouch();
+        webview.setWebViewClient(new WebViewClient());
+        webview.setWebChromeClient(new WebChromeClient());
+        // A pasta grafico esta dentro da pasta main. Não tenho certeza se isso está certo
+        webview.loadUrl("file:///main/grafico/charts.html"); // confere se isso ta certo, por favor!!!
     }
 
     private void createToolbar(){

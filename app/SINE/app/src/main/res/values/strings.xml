@@ -56,6 +56,17 @@
     <string name="toast_msg_result_activity_desfavoritado">Desfavoritado!!!</string>
     <string name="toast_msg_adapter_list_favoritado">Favoritado!!!</string>
     <string name="toast_msg_adapter_list_desfavoritado">Desfavoritado!!!</string>
+    
+    <string name="dialog_infor">Carregando dados</string>
+    <string name="positive_button">OK</string>
+    <string name="negative_button">Resetar</string>
+    <string name="dialog_filter_hint_one">Cidade-uf</string>
+    <string name="dialog_filter_hint_two">Função</string>
+    <string name="filter_name_ultimas_vagas">Últimas vagas</string>
+    <string name="filter_name_maior_salario">Maior Salário</string>
+
+
+    <string name="alert_dialog_title">Escolha o filtro?</string>
 
     <!-- About view -->
     <string name="about_app">Desenvolvido pelos formandos do 6º Período do Curso Superior de Tecnologia em Sistemas para Internet, no ano de 2016.</string>

@@ -27,19 +27,19 @@ import java.util.List;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.adapter.AdapterListView;
+import trabalho.sine.adapter.AdpterScrollListener;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.enun.Filtro;
-import trabalho.sine.function.Conexao;
 import trabalho.sine.model.Vaga;
 import trabalho.sine.model.VagasJSON;
+import trabalho.sine.Servidor;
 
 public class SearchActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private Button favorite;
     private List<Vaga> vagas;
     private ProgressDialog dialog;
     private String filtroEscolhido = "";
@@ -47,8 +47,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private AlertDialog alerta;
     private Button filter;
 
-    private String cidadeEstado = "", funcao = "", numPag;
-    private AlertDialog buscaAlert;
+    private String cidadeEstado = "", funcao = "";
     private EditText inputCidade;
     private EditText inputFuncao;
 
@@ -69,7 +68,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         totalItemCount = 0;
         inputCidade.setInputType(InputType.TYPE_CLASS_TEXT);
         inputFuncao.setInputType(InputType.TYPE_CLASS_TEXT);
-        favorite = (Button) findViewById(R.id.favoriteButton);
         filter = (Button) findViewById(R.id.filterButton);
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
 
@@ -111,25 +109,8 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         mRecyclerView.setLayoutFrozen(false);
         mRecyclerView.scrollToPosition(totalItemCount);
         //Define o metodo que ira obter a ação do Scroll.
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                //Verifica se o scroll moveu
-                if(dy > 0){
-                    //Obtem as informações referente aos itens do RecyclerView.
-                    int pastVisiblesItems, visibleItemCount;
-                    visibleItemCount = mLayoutManager.getChildCount();
-                    totalItemCount = mLayoutManager.getItemCount();
-                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
-                    //Verifica se chegou no ultimo elemento do recyclerview.
-                    if((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                       pos++;
-                       obtemVagasAPI();
-                       totalItemCount--;
-                    }
-                }
-            }
-        });
+        mRecyclerView.addOnScrollListener(new AdpterScrollListener(this,mRecyclerView,mAdapter,mLayoutManager,
+                cidadeEstado,funcao,filtroIndex,pos));
     }
 
     @Override
@@ -156,37 +137,11 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                     vs.setFavoritado(true);
     }
 
-
-    //Obtem as Vagas salvas no Banco de Dados.
-    public void filtraVagasDaRequisicao(Filtro filtro){
-
-        List<Vaga> vgs = new ArrayList<>();
-
-        switch (filtro){
-            case SEM_FITRO:
-                obtemVagasAPI();
-                break;
-            case MAIOR_SALARIO:
-                //vgs = dao.getAllOrderBy("salario");
-                break;
-            case ULTIMAS_VAGAS:
-                //vgs = dao.getAllOrderBy("id");
-                break;
-            default:
-                break;
-        }
-
-        //Caso não houver vaga, informa ao usuario com um toast
-        if(vgs.isEmpty()) Toast.makeText(this,R.string.toast_msg_search_activity,Toast.LENGTH_LONG).show();
-
-        this.vagas = vgs;
-    }
-
     // obtem todas as vagas da api.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
 
-        req.requestURL(String.format("http://192.168.0.101:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        req.requestURL(String.format(Servidor.ENDERECO_SERVIDOR + "/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d", funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
@@ -205,8 +160,8 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private void dialogFiltro(){
 
         // Os blocos abaixo define os input's para a entrada de texto.
-        inputCidade.setHint("Cidade-uf");
-        inputFuncao.setHint("Função");
+        inputCidade.setHint(R.string.dialog_filter_hint_one);
+        inputFuncao.setHint(R.string.dialog_filter_hint_two);
 
         final LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -222,7 +177,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Escolha o filtro?");
+        builder.setTitle(R.string.alert_dialog_title);
         builder.setView(layout);
         builder.setSingleChoiceItems(charSequences, --filtroIndex, new DialogInterface.OnClickListener() {
             @Override
@@ -234,7 +189,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         });
 
         // Ação que irá ocorrer quando o jovem clicar no botão ok.
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -249,19 +204,31 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 */
                 layout.removeAllViews();
 
+               // Reseta o scroll
+                mRecyclerView.scrollToPosition(0);
+                mRecyclerView.clearOnScrollListeners();
+
                 mostrarDialogoCarregando();
+                vagas.clear();
+                pos = 1;
                 obtemVagasAPI();
             }
         });
 
         // Ação que irá ocorrer quando o jovem clicar no botão Reseta.
-        builder.setNegativeButton("Resetar", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.negative_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 // Requisicão feita será: /vagas?idfuncao=&idcidade=?&numPagina=?tipoOrdenacao=1
 
                 // Reseta todos os campos.
+
+                // Reseta o scroll.
+                mRecyclerView.scrollToPosition(0);
+                mRecyclerView.clearOnScrollListeners();
+
+                vagas.clear();
                 pos = 1;
                 filtroEscolhido = "";
                 filtroIndex = 1;
@@ -291,62 +258,12 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         dialogFiltro();
     }
 
-    /* Constrói uma caixa de diálogo para montar a busca.
-    private void dialogBusca(){
-
-        final EditText inputCidade = new EditText(this);
-        final EditText inputFuncao = new EditText(this);
-
-        inputCidade.setHint("Cidade-un");
-        inputFuncao.setHint("Função");
-
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        layout.addView(inputCidade);
-        layout.addView(inputFuncao);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("         Entre com a busca!");
-        builder.setView(layout);
-
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                cidadeEstado = inputCidade.getText().toString();
-                funcao = inputFuncao.getText().toString();
-                buscaAlert.dismiss();
-                mostrarDialogoCarregando();
-            }
-        });
-
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                buscaAlert.dismiss();
-            }
-        });
-
-        builder.setCancelable(false);
-        buscaAlert = builder.create();
-        buscaAlert.show();
-    }
-
-    public void searchClick(View view){
-
-        dialogBusca();
-
-    }*/
-
-
     public void mostrarDialogoCarregando(){
-
         dialog = new ProgressDialog(this);
         dialog.setMessage("Carregando dados");
         dialog.setIndeterminate(true);
         dialog.setCancelable(true);
         dialog.show();
-
     }
 
     @Override
