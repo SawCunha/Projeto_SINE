@@ -38,7 +38,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
     private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private LinearLayoutManager mLayoutManager;
     private Button favorite;
     private List<Vaga> vagas;
     private ProgressDialog dialog;
@@ -54,11 +54,14 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
+    private int pos = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        vagas = new ArrayList<>();
 
         inputCidade = new EditText(this);
         inputFuncao = new EditText(this);
@@ -105,6 +108,28 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setLayoutFrozen(false);
+        //Define o metodo que ira obter a ação do Scroll.
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                //Verifica se o scroll moveu
+                if(dy > 0){
+                    //Obtem as informações referente aos itens do RecyclerView.
+                    int pastVisiblesItems, visibleItemCount, totalItemCount;
+                    visibleItemCount = mLayoutManager.getChildCount();
+                    totalItemCount = mLayoutManager.getItemCount();
+                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+                    //Verifica se chegou no ultimo elemento do recyclerview.
+                    if((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                       pos++;
+                        obtemVagasAPI();
+
+
+
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -162,12 +187,12 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         RequestURL req = new RequestURL(this);
 
         req.requestURL(String.format("http://192.168.0.106:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
-                "&tipoOrdenacao=%d", funcao, cidadeEstado, 1, filtroIndex), new RequestURL.VolleyCallback() {
+                "&tipoOrdenacao=%d", funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
                 Gson gson = new Gson();
                 VagasJSON vagasJSON = gson.fromJson(response, VagasJSON.class);
-                vagas = vagasJSON.getVagas();
+                vagas.addAll(vagasJSON.getVagas());
                 carregaRecyclerView();
             }
         });
@@ -237,6 +262,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 // Requisicão feita será: /vagas?idfuncao=&idcidade=?&numPagina=?tipoOrdenacao=1
 
                 // Reseta todos os campos.
+                pos = 1;
                 filtroEscolhido = "";
                 filtroIndex = 1;
                 inputCidade.setText("");
