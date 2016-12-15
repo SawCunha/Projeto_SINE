@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/textView2"
                     android:textSize="20dp"
-                    android:textColor="@color/fonte"
+                    android:textColor="@color/textColorPrimary"
                     android:layout_weight="1" />
 
                 <RadioGroup
@@ -53,7 +53,7 @@
                         <RadioButton
                             android:text="@string/sem_filtro_favorite_activity"
                             android:id="@+id/semfiltro"
-                            android:textColor="@color/fonte"
+                            android:textColor="@color/textColorPrimary"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:checked="true"
@@ -65,7 +65,7 @@
                         android:layout_height="45dp">
                         <RadioButton
                             android:text="@string/ultima_vagas_favorite_activity"                            android:id="@+id/ultimasvagas"
-                            android:textColor="@color/fonte"
+                            android:textColor="@color/textColorPrimary"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:onClick="onRadioButtonClicked"/>
@@ -77,7 +77,7 @@
                         <RadioButton
                             android:text="@string/maior_salario_favorite_activity"
                             android:id="@+id/maiorsalario"
-                            android:textColor="@color/fonte"
+                            android:textColor="@color/textColorPrimary"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:onClick="onRadioButtonClicked"/>
