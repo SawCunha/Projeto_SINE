@@ -13,7 +13,7 @@ public class Conexao {
     /**
      * Método que verifica se há uma conexão com o servidor.
      * @param contexto recebe o contexto da activity atual.
-     * @return um boolena com o status da conexão:
+     * @return um boolean com o status da conexão:
      *  - true: A conexão com o servidor foi realizada com sucesso;
      *  - false: Não há uma conexão com o servidor.
      */

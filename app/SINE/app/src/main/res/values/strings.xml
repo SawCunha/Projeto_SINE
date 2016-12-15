@@ -56,4 +56,8 @@
     <string name="toast_msg_result_activity_desfavoritado">Desfavoritado!!!</string>
     <string name="toast_msg_adapter_list_favoritado">Favoritado!!!</string>
     <string name="toast_msg_adapter_list_desfavoritado">Desfavoritado!!!</string>
+
+    <!-- About view -->
+    <string name="about_app">Desenvolvido pelos alunos do 6º Período do Curso Superior de Tecnologia em Sistemas para Internet</string>
+    <string name="version">Versão 1.1</string>
 </resources>
