@@ -10,6 +10,11 @@ module.exports = function(app){
   controller.getMediaSalarial = (req, res) => {
     const idFuncao = req.query.idfuncao;
 
+    if (!idFuncao) {
+      res.status(400).json('Faltando Parametro(s).');
+      return;
+    }
+
     const url = utils.urlGetMediaSalarial(idFuncao);
 
     rp(url)
