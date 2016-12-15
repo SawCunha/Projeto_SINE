@@ -38,7 +38,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
     private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private LinearLayoutManager mLayoutManager;
     private Button favorite;
     private List<Vaga> vagas;
     private ProgressDialog dialog;
@@ -105,6 +105,26 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
         mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setLayoutFrozen(false);
+        //Define o metodo que ira obter a ação do Scroll.
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                //Verifica se o scroll moveu
+                if(dy > 0){
+                    //Obtem as informações referente aos itens do RecyclerView.
+                    int pastVisiblesItems, visibleItemCount, totalItemCount;
+                    visibleItemCount = mLayoutManager.getChildCount();
+                    totalItemCount = mLayoutManager.getItemCount();
+                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+                    //Verifica se chegou no ultimo elemento do recyclerview.
+                    if((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                        //Aki dentro deve ficar a função...
+                        Toast.makeText(SearchActivity.this, visibleItemCount + pastVisiblesItems +
+                                " = " + totalItemCount, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -161,7 +181,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
 
-        req.requestURL(String.format("http://192.168.0.106:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        req.requestURL(String.format("http://192.168.0.101:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d", funcao, cidadeEstado, 1, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
