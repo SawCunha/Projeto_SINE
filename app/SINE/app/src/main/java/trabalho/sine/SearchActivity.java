@@ -46,7 +46,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private AlertDialog alerta;
     private Button filter;
 
-    private String cidadeEstado, funcao, numPag;
+    private String cidadeEstado = "", funcao = "", numPag;
     private AlertDialog buscaAlert;
     private EditText inputCidade;
     private EditText inputFuncao;
@@ -59,25 +59,20 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        funcao = "";
-        cidadeEstado = "";
         inputCidade = new EditText(this);
         inputFuncao = new EditText(this);
 
         inputCidade.setInputType(InputType.TYPE_CLASS_TEXT);
         inputFuncao.setInputType(InputType.TYPE_CLASS_TEXT);
-
-        mostrarDialogoCarregando();
-
         favorite = (Button) findViewById(R.id.favoriteButton);
         filter = (Button) findViewById(R.id.filterButton);
-
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
-
-        obtemVagasAPI();
 
         //Toolbar e MenuDrawer
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        mostrarDialogoCarregando();
+        obtemVagasAPI();
         createToolbar();
 
     }
@@ -112,11 +107,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         verifica();
         createRecyclerView();
@@ -128,10 +118,12 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         VagaDAO vagaDAO = new VagaDAO(getApplicationContext());
         List<Vaga> vagasBd = vagaDAO.getAll();
 
-        // Processamento 100%. Se algum mestre tiver uma ideia de otimizar os dois blocos abaixo, vlw.
+        //Define todos os favoritos da vagas para false...
         for(Vaga v : vagas)
             v.setFavoritado(false);
 
+        //Depois verificar quais estão no banco e retornado pela api.
+        //Definir para true o campo favoritado.
         for (Vaga vbd : vagasBd)
             for (Vaga vs : vagas)
                 if (vbd.getId().toString().equalsIgnoreCase(vs.getId().toString()))
@@ -168,11 +160,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
 
-        //Testa a requisição.
-        Log.d("teste_req", String.format("http://192.168.2.104:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
-                "&tipoOrdenacao=%d",funcao, cidadeEstado, 1, filtroIndex));
-
-        req.requestURL(String.format("http://192.168.2.104:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        req.requestURL(String.format("http://192.168.0.101:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d", funcao, cidadeEstado, 1, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
@@ -261,6 +249,14 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
                 mostrarDialogoCarregando();
                 obtemVagasAPI();
+            }
+        });
+
+        // Ação que irá ocorrer quando o jovem clicar no botão Reseta.
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                alerta.dismiss();
             }
         });
 
