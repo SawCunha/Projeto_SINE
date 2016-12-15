@@ -2,6 +2,7 @@
 
 module.exports = (app) => {
   const vagasController = app.controllers.vaga;
+  const mediaSalarialController = app.controllers.mediaSalarial;
 
   app.get('/', (req, res) => {
       res.send('API SINE - TP ANDROID');
@@ -15,4 +16,7 @@ module.exports = (app) => {
   app.get('/idfuncao/:funcao', vagasController.getIdFuncoes);
 
   app.get('/idcidade/:cidade', vagasController.getIdCidades);
+
+  // media-salarial?idfuncao={idfuncao}
+  app.get('/media-salarial', mediaSalarialController.getMediaSalarial);
 };
