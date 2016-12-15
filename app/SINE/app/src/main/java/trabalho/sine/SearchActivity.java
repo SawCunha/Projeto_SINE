@@ -124,6 +124,8 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                     //Verifica se chegou no ultimo elemento do recyclerview.
                     if((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                        pos++;
+                        mRecyclerView.clearOnScrollListeners();
+                        mostrarDialogoCarregando();
                        obtemVagasAPI();
                        totalItemCount--;
                     }
@@ -186,7 +188,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
 
-        req.requestURL(String.format("http://192.168.0.101:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        req.requestURL(String.format("http://192.168.0.106:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d", funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
@@ -249,7 +251,13 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 */
                 layout.removeAllViews();
 
+               // Reseta o scroll
+                mRecyclerView.scrollToPosition(0);
+                mRecyclerView.clearOnScrollListeners();
+
                 mostrarDialogoCarregando();
+                vagas.clear();
+                pos = 1;
                 obtemVagasAPI();
             }
         });
@@ -262,6 +270,12 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 // Requisicão feita será: /vagas?idfuncao=&idcidade=?&numPagina=?tipoOrdenacao=1
 
                 // Reseta todos os campos.
+
+                // Reseta o scroll.
+                mRecyclerView.scrollToPosition(0);
+                mRecyclerView.clearOnScrollListeners();
+
+                vagas.clear();
                 pos = 1;
                 filtroEscolhido = "";
                 filtroIndex = 1;
