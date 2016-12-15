@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/titulo"
-            android:textSize="22sp"
+            android:textSize="32sp"
             android:textAlignment="center"
             android:textColorLink="@android:color/background_dark"
             android:textStyle="normal|bold" />
@@ -59,6 +59,15 @@
             android:textAlignment="viewStart"
             android:textColorLink="@android:color/background_dark" />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="249dp"
+            app:srcCompat="@drawable/sine"
+            android:id="@+id/imagemSine"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:isScrollContainer="true"
+            android:background="@android:color/transparent"/>
 
     </LinearLayout>
 

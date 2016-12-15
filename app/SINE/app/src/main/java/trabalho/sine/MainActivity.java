@@ -96,5 +96,4 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             default: Log.i("ERRO","POSITION ERROR"); break;
         }
     }
-
 }

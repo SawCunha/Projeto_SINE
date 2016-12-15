@@ -1,6 +1,7 @@
 package trabalho.sine;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ public class InfoActivity extends AppCompatActivity implements FragmentDrawer.Fr
     private FragmentDrawer mDrawerFragment;
 
     private TextView titulo, desenvolvedores, versao, professor;
+    private ImageView imagemSine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,9 @@ public class InfoActivity extends AppCompatActivity implements FragmentDrawer.Fr
         versao = (TextView) findViewById(R.id.versao);
         desenvolvedores = (TextView) findViewById(R.id.desenvolvedor);
         professor = (TextView) findViewById(R.id.professor);
+
+        imagemSine = (ImageView) findViewById(R.id.imagemSine);
+        imagemSine.setBackgroundColor(Color.TRANSPARENT);
     }
 
     //Responsavel pela criação e definção do toolbar
