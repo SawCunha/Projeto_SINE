@@ -161,7 +161,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
 
-        req.requestURL(String.format("http://192.168.0.101:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        req.requestURL(String.format("http://192.168.0.106:10555/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d", funcao, cidadeEstado, 1, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
@@ -253,13 +253,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
             }
         });
 
-        // Ação que irá ocorrer quando o jovem clicar no botão Reseta.
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                alerta.dismiss();
-            }
-        });
 
         filtroIndex = tempFiltroIndex;
         builder.setCancelable(false);
