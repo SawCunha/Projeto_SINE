@@ -78,22 +78,4 @@ public class CargoSuggestionAdapter extends ArrayAdapter<String> {
             }};
         return filter;
     }
-
-    private List<Cargo> findBooks(String bookTitle) {
-        String url = "http://192.168.2.104:10555/idfuncao/";
-
-        RequestTask requestTask = new RequestTask();
-        try {
-            String result = requestTask.execute(url + bookTitle).get();
-            Gson gson = new Gson();
-            CargoJSON cargoJSON = gson.fromJson(result, CargoJSON.class);
-
-            return cargoJSON.getFuncoes();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }
