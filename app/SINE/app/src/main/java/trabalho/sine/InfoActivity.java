@@ -14,31 +14,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.function.Conexao;
 
 public class InfoActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener{
 
-    private Toolbar mToolbar;
+
+
+    @BindView(R.id.toolbar) Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
 
-    private TextView titulo, desenvolvedores, versao;
-    private ImageView imagemSine;
+    @BindView(R.id.titulo) TextView titulo;
+    @BindView(R.id.developers)TextView desenvolvedores;
+    @BindView(R.id.versao)TextView versao;
+    @BindView(R.id.imagemSine) ImageView imagemSine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        //Define o ButterKnife para gerenciar as activities e ativa o modo de debugação.
+        ButterKnife.bind(this);
+        ButterKnife.setDebug(true);
+
         createToolbar();
 
-        titulo = (TextView) findViewById(R.id.titulo);
-        versao = (TextView) findViewById(R.id.versao);
-        desenvolvedores = (TextView) findViewById(R.id.developers);
-
-        imagemSine = (ImageView) findViewById(R.id.imagemSine);
         imagemSine.setBackgroundColor(Color.TRANSPARENT);
     }
 

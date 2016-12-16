@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.dao.VagaDAO;
@@ -25,32 +27,32 @@ import trabalho.sine.model.Vaga;
 
 public class ResultActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
-    private ImageButton favoriteBtn;
-    private ImageButton shareBtn;
+    @BindView(R.id.favoritoBTN) ImageButton favoriteBtn;
+    @BindView(R.id.shareBTN) ImageButton shareBtn;
     private Vaga vaga;
-    private ImageView openLink;
+    @BindView(R.id.openLinkImage) ImageView openLink;
 
-    private TextView title, money, city, address, company, function, des, url;
+    @BindView(R.id.titleValue) TextView title;
+    @BindView(R.id.moneyValue) TextView money;
+    @BindView(R.id.cityValue) TextView city;
+    @BindView(R.id.addressValue) TextView address;
+    @BindView(R.id.companyValue) TextView company;
+    @BindView(R.id.functionValue) TextView function;
+    @BindView(R.id.descriptionValue) TextView des;
+    @BindView(R.id.urlValue) TextView url;
 
-    private Toolbar mToolbar;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+
     private FragmentDrawer mDrawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        title = (TextView) findViewById(R.id.titleValue);
-        money = (TextView) findViewById(R.id.moneyValue);
-        city = (TextView) findViewById(R.id.cityValue);
-        address = (TextView) findViewById(R.id.addressValue);
-        company = (TextView) findViewById(R.id.companyValue);
-        function = (TextView) findViewById(R.id.functionValue);
-        des = (TextView) findViewById(R.id.descriptionValue);
-        url = (TextView) findViewById(R.id.urlValue);
-        openLink = (ImageView) findViewById(R.id.openLinkImage);
-        favoriteBtn = (ImageButton) findViewById(R.id.favoritoBTN);
-        shareBtn = (ImageButton) findViewById(R.id.shareBTN);
+
+        //Define o ButterKnife para gerenciar as activities e ativa o modo de debugação.
+        ButterKnife.bind(this);
+        ButterKnife.setDebug(true);
 
         createToolbar();
         carregaInforActivity(getIntent().getExtras());
@@ -146,7 +148,7 @@ public class ResultActivity extends AppCompatActivity implements FragmentDrawer.
         share.putExtra(Intent.EXTRA_SUBJECT, vaga.getTitulo());
         share.putExtra(Intent.EXTRA_TEXT, vaga.getUrl_sine());
 
-        startActivity(Intent.createChooser(share, "Compartilhar"));
+        startActivity(Intent.createChooser(share,"Compartilhar"));
 
     }
 

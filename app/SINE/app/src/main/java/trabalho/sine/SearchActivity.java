@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.adapter.AdapterListView;
@@ -43,8 +44,9 @@ import trabalho.sine.utils.Constantes;
 
 public class SearchActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
+    @BindView(R.id.list_empregos) RecyclerView mRecyclerView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
 
-    private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
     private LinearLayoutManager mLayoutManager;
     private List<Vaga> vagas;
@@ -58,7 +60,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private AutoCompleteTextView inputCidade;
     private AutoCompleteTextView inputFuncao;
 
-    private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
     private int pos = 1;
     private int totalItemCount;
@@ -68,17 +69,17 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        //Define o ButterKnife para gerenciar as activities e ativa o modo de debugação.
+        ButterKnife.bind(this);
+        ButterKnife.setDebug(true);
+
         vagas = new ArrayList<>();
-        mRecyclerView = (RecyclerView)findViewById(R.id.list_empregos);
-                inputCidade = new AutoCompleteTextView(this);
+        inputCidade = new AutoCompleteTextView(this);
         inputFuncao = new AutoCompleteTextView(this);
         totalItemCount = 0;
         inputCidade.setInputType(InputType.TYPE_CLASS_TEXT);
         inputFuncao.setInputType(InputType.TYPE_CLASS_TEXT);
         filter = (Button) findViewById(R.id.filterButton);
-
-        //Toolbar e MenuDrawer
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         criaAutoComplete();
         mostrarDialogoCarregando();
@@ -207,7 +208,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.alert_dialog_title);
-        builder.setView(layout);
+
         builder.setSingleChoiceItems(charSequences, --filtroIndex, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -216,7 +217,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 filtroIndex++;
             }
         });
-
+        builder.setView(layout);
         // Ação que irá ocorrer quando o jovem clicar no botão ok.
         builder.setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
             @Override
@@ -274,7 +275,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
 
         filtroIndex = tempFiltroIndex;
-        builder.setCancelable(false);
+        builder.setCancelable(true);
         alerta = builder.create();
         alerta.show();
     }
