@@ -13,7 +13,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,12 +25,9 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
     private int idfuncao;
-<<<<<<< HEAD
     private String tipo_empresa;
-
-=======
     private WebView webview;
->>>>>>> 518f208bde14f77ec81e1f0235895e990560979b
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,14 +40,8 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         createToolbar();
 
-        //Obtém o id da função da outra activity.
-<<<<<<< HEAD
+        //Obtém os valores da outra activity.
         getValues();
-        Toast.makeText(this, "" + idfuncao, Toast.LENGTH_LONG).show();
-=======
-        idfuncao = getIdfuncao();
-
->>>>>>> 518f208bde14f77ec81e1f0235895e990560979b
 
         // Adicionando o grafico
         webview = (WebView) this.findViewById(R.id.graphic_web_view);
