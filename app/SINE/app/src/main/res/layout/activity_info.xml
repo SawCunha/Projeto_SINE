@@ -55,12 +55,12 @@
 
         <TextView
             android:text="@string/about_app"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:id="@+id/developers"
             android:textSize="@dimen/font_view_about"
-            android:textAlignment="viewStart"
+            android:textAlignment="center"
             android:textColorLink="@android:color/background_dark" />
 
     </LinearLayout>
