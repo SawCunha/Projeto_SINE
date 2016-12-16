@@ -1,26 +1,15 @@
 
 var ctx = document.getElementById("chart");
-var trainee = [];
-var junior = [];
-var pleno = [];
-var senior = [];
-var master = [];
-var funcao = "";
+var salarios = [];
 
 function montarSalarios(obj){
-console.log(obj);
-    funcao = obj.nome_funcao;
-	for(i in obj.salarios){
-		trainee.push(obj.salarios[i]['trainee']);
-		junior.push(obj.salarios[i]['junior']);
-		pleno.push(obj.salarios[i]['pleno']);
-		senior.push(obj.salarios[i]['senior']);
-		master.push(obj.salarios[i]['master']);
-	}
+    for(k in obj['salarios'][tipoEmpresa])
+        salarios.push(obj['salarios'][tipoEmpresa][k]);
 	plotarGrafico();
 }
 
-function init(id){
+function init(id,empresa){
+    tipoEmpresa = empresa;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('GET', 'http://162.243.119.96:10555/media-salarial?idfuncao='+id, true);
     xmlhttp.onreadystatechange = function() {
@@ -34,42 +23,17 @@ function init(id){
     xmlhttp.send(null);
 }
 
-
 function plotarGrafico(){
 
     document.querySelector("h4").innerHTML = funcao
 
 	var data = {
-	  labels: ["Pequena", "Média", "Grande"],
+	  labels: ["Trainee", "Junior", "Pleno", "Senior","Master"],
 	  datasets: [{
-	    label: "Trainee",
+	    label: "Salario",
 	    backgroundColor: "blue",
 			//dados de salario do Trainee nas tres empresas
-	    data: trainee
-	  }, {
-	    label: "Júnior",
-	    backgroundColor: "red",
-
-			//dados de salario do JR nas tres empresas
-	    data: junior
-	  }, {
-	    label: "Pleno",
-	    backgroundColor: "green",
-
-			//dados de salario do Trainee nas tres empresas
-	    data: pleno
-	  }, {
-	    label: "Senior",
-	    backgroundColor: "orange",
-
-			//dados de salario do Trainee nas tres empresas
-	    data: senior
-	  }, {
-	    label: "Master",
-	    backgroundColor: "yellow",
-
-			//dados de salario do Trainee nas tres empresas
-	    data: master
+	    data: salarios
 	  }]
 	};
 
