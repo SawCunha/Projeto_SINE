@@ -25,14 +25,14 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
     private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private String cidadeEstado, funcao;
+    private Long cidadeEstado, funcao;
     private int filtroIndex;
     private int totalItemCount;
     private int pos;
     private ProgressDialog dialog;
 
     public AdpterScrollListener(Context context, RecyclerView mRecyclerView, AdapterListView mAdapter,
-                                LinearLayoutManager mLayoutManager, String cidadeEstado, String funcao,
+                                LinearLayoutManager mLayoutManager, Long cidadeEstado, Long funcao,
                                 int filtroIndex, int pos) {
         this.context = context;
         this.mRecyclerView = mRecyclerView;
@@ -60,7 +60,7 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
                 mostrarDialogoCarregando();
                 totalItemCount--;
                 mRecyclerView.scrollToPosition(totalItemCount);
-                req.requestURL(String.format(Constantes.URL_API + "/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+                req.requestURL(String.format(Constantes.URL_API + "/vagas?idfuncao=%d&idcidade=%d&numPagina=%d" +
                         "&tipoOrdenacao=%d", funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
                     @Override
                     public void onSuccess(String response) {
