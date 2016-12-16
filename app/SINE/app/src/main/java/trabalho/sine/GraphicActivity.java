@@ -51,8 +51,8 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         webview.requestFocusFromTouch();
         webview.setWebViewClient(new WebViewClient());
         webview.setWebChromeClient(new WebChromeClient());
-        // A pasta grafico esta dentro da pasta main. Não tenho certeza se isso está certo
-        webview.loadUrl("file:///main/grafico/charts.html"); // confere se isso ta certo, por favor!!!
+
+        webview.loadUrl("file:///android_asset/grafico/charts.html");
     }
 
     private int getIdfuncao(){

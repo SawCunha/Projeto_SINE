@@ -14,10 +14,8 @@ function montarSalarios(obj){
 		senior.push(obj.salarios[i]['senior']);
 		master.push(obj.salarios[i]['master']);
 	}
-
 	plotarGrafico();
 }
-
 
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.open('GET', 'http://localhost:10555/media-salarial?idfuncao=2922', true);
