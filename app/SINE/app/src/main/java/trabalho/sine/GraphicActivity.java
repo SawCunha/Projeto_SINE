@@ -26,8 +26,12 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
     private int idfuncao;
+<<<<<<< HEAD
     private String tipo_empresa;
 
+=======
+    private WebView webview;
+>>>>>>> 518f208bde14f77ec81e1f0235895e990560979b
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,19 +45,27 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         createToolbar();
 
         //Obtém o id da função da outra activity.
+<<<<<<< HEAD
         getValues();
         Toast.makeText(this, "" + idfuncao, Toast.LENGTH_LONG).show();
+=======
+        idfuncao = getIdfuncao();
+
+>>>>>>> 518f208bde14f77ec81e1f0235895e990560979b
 
         // Adicionando o grafico
-        WebView webview = (WebView) this.findViewById(R.id.graphic_web_view);
-        webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        webview = (WebView) this.findViewById(R.id.graphic_web_view);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setBuiltInZoomControls(true);
         webview.requestFocusFromTouch();
-        webview.setWebViewClient(new WebViewClient());
+        webview.setWebViewClient(new WebViewClient(){
+            public void onPageFinished(WebView view, String url){
+                webview.loadUrl("javascript:init('" + idfuncao + "')");
+            }
+        });
         webview.setWebChromeClient(new WebChromeClient());
-
+        webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
         webview.loadUrl("file:///android_asset/grafico/charts.html");
     }
