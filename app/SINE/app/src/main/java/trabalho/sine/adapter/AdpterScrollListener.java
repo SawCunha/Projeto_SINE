@@ -27,7 +27,7 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
     private LinearLayoutManager mLayoutManager;
     private Long cidadeEstado, funcao;
     private int filtroIndex;
-    private int totalItemCount;
+    private static int totalItemCount;
     private int pos;
     private ProgressDialog dialog;
 

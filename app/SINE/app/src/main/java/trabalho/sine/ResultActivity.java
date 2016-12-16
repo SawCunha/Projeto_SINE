@@ -43,6 +43,7 @@ public class ResultActivity extends AppCompatActivity implements FragmentDrawer.
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
 
+    private int position;
     private FragmentDrawer mDrawerFragment;
 
     @Override
@@ -95,13 +96,14 @@ public class ResultActivity extends AppCompatActivity implements FragmentDrawer.
         String vagaJson = new Gson().toJson(vaga);
         Intent returnIntent = new Intent();
         returnIntent.putExtra("resultado",vagaJson);
+        returnIntent.putExtra("position",position);
         setResult(RESULT_OK,returnIntent);
         super.onBackPressed();
     }
 
     private void carregaInforActivity(Bundle bundle) {
         String vagaJson = (String) bundle.get("vaga");
-
+        position = (int) bundle.get("position");
         vaga = new Gson().fromJson(vagaJson, Vaga.class);
 
         populaActivity(vaga);

@@ -149,6 +149,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         verifica();
         createRecyclerView();
+        mRecyclerView.scrollToPosition((int)data.getExtras().get("position"));
     }
 
     // Verifica quais das vagas está no banco de dados.
@@ -213,7 +214,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         else
             radioGroup.check(buttonSalario.getId());
 
-
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
@@ -250,10 +250,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                // Requisicão feita será: /vagas?idfuncao=&idcidade=?&numPagina=?tipoOrdenacao=1
-
-                // Reseta todos os campos.
-
                 // Reseta o scroll.
                 mRecyclerView.scrollToPosition(0);
                 mRecyclerView.clearOnScrollListeners();
@@ -270,7 +266,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 city.setText("");
                 function.setText("");
                 alerta.dismiss();
-                //layout.removeAllViews();
 
                 mostrarDialogoCarregando();
                 obtemVagasAPI();

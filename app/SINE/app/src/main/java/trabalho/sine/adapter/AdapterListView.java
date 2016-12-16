@@ -32,7 +32,7 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
     private static String LOG_TAG = "MyRecyclerViewAdapter";
 
     //Objeto com os Dados as serem exebidos na tela
-    private List<Vaga> mDataset;
+    private static List<Vaga> mDataset;
 
     private static Context context;
 
@@ -127,9 +127,9 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
         //Método responsavel pelo Click.
         @Override
         public void onClick(View v) {
-            Log.i(LOG_TAG, v.getScrollY()+"");
             Intent resultadoActivity = new Intent(context, ResultActivity.class);
             resultadoActivity.putExtra("vaga",transformaVagaJson(vaga));
+            resultadoActivity.putExtra("position",mDataset.indexOf(vaga));
             ((Activity)context).startActivityForResult(resultadoActivity,ACTIVITY_REQUEST);
         }
 
