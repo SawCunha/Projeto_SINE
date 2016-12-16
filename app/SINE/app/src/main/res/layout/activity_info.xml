@@ -12,56 +12,64 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/container_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_sobre" />
-    </LinearLayout>
-
-        <TextView
-            android:text="@string/app_name"
+        <LinearLayout
+            android:id="@+id/container_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/titulo"
-            android:textSize="32sp"
-            android:textAlignment="center"
-            android:textColorLink="@android:color/background_dark"
-            android:textStyle="normal|bold" />
+            android:orientation="vertical">
 
-        <TextView
-            android:text="@string/version"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_sobre" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/versao"
-            android:textSize="@dimen/font_view_about"
-            android:textAlignment="center"
-            android:textColorLink="@android:color/background_dark" />
+            android:layout_weight="1"
+            android:gravity="center">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="249dp"
-            app:srcCompat="@drawable/sine"
-            android:id="@+id/imagemSine"
-            android:adjustViewBounds="true"
-            android:cropToPadding="true"
-            android:isScrollContainer="true"
-            android:background="@android:color/transparent"/>
+            <TextView
+                android:text="@string/app_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/titulo"
+                android:textSize="32sp"
+                android:textAlignment="center"
+                android:textColorLink="@android:color/background_dark"
+                android:textStyle="normal|bold" />
 
-        <TextView
-            android:text="@string/about_app"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:id="@+id/developers"
-            android:textSize="@dimen/font_view_about"
-            android:textAlignment="center"
-            android:textColorLink="@android:color/background_dark" />
+            <TextView
+                android:text="@string/version"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/versao"
+                android:textSize="@dimen/font_view_about"
+                android:textAlignment="center"
+                android:textColorLink="@android:color/background_dark" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="249dp"
+                app:srcCompat="@drawable/sine"
+                android:id="@+id/imagemSine"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:isScrollContainer="true"
+                android:background="@android:color/transparent"/>
+
+            <TextView
+                android:text="@string/about_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:id="@+id/developers"
+                android:textSize="@dimen/font_view_about"
+                android:textAlignment="center"
+                android:textColorLink="@android:color/background_dark" />
+        </LinearLayout>
 
     </LinearLayout>
 
