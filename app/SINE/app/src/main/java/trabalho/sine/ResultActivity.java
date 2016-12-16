@@ -127,12 +127,12 @@ public class ResultActivity extends AppCompatActivity implements FragmentDrawer.
         if (vaga.isFavoritado() == false) {
             vaga.setFavoritado(true);
             vagaDAO.insert(vaga);
-            favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_black);
+            favoriteBtn.setBackgroundResource(R.drawable.starrate);
             Toast.makeText(this, R.string.toast_msg_result_activity_favoritado, Toast.LENGTH_SHORT).show();
         } else {
             vagaDAO.delete(vaga);
             vaga.setFavoritado(false);
-            favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_border_black_48dp);
+            favoriteBtn.setBackgroundResource(R.drawable.starunrate);
             Toast.makeText(this, R.string.toast_msg_result_activity_desfavoritado, Toast.LENGTH_SHORT).show();
         }
 
