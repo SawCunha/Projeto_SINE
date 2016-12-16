@@ -150,6 +150,8 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
         Bundle bundle = new Bundle();
 
         bundle.putInt("idfuncao", cargo.getId().intValue());
+        bundle.putString("cargo", cargo.getDescricao());
+        bundle.putString("tipo_empresa", valueRadioButton);
         graphicIntent.putExtras(bundle);
 
         startActivity(graphicIntent);

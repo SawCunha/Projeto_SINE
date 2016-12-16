@@ -6,7 +6,7 @@ package trabalho.sine.enun;
  */
 public enum TipoEmpresa {
 
-    PEQUENA("Pequeno Porte"), MEDIA("Médio Porte"), GRANDE("Grande Porte");
+    PEQUENA("pequena_empresa"), MEDIA("media_empresa"), GRANDE("grande_empresa");
 
     private String porteEmpresa;
 
