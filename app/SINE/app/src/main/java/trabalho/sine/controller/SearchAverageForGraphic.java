@@ -20,18 +20,18 @@ public class SearchAverageForGraphic {
         this.city = city;
     }
 
-    private String searchIdFunction(){
+    private String searchIdFunction() {
         RequestTask requestTask = new RequestTask();
+
+        String response = null;
         try {
-            try {
-                String response = requestTask.execute(URL_SEARCH_FUNCTION_ID + city).get();
+            response = requestTask.execute(URL_SEARCH_FUNCTION_ID + city).get();
 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
+        return response;
     }
 }

@@ -73,9 +73,7 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
     }
 
     private void verficaFiltroSelecionado() {
-
         obtemVagasBanco(filtroIndex);
-
         createRecyclerView();
     }
 
@@ -106,12 +104,10 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
         switch (filtro){
             case 1:
                 vgs = dao.getAllOrderBy(CampoBD.ID.toString());
-                //Toast.makeText(this, CampoBD.ID.toString(), Toast.LENGTH_LONG).show();
                 break;
 
             case 2:
                 vgs = dao.getAllOrderBy(CampoBD.SALARIO.toString());
-                //Toast.makeText(this, CampoBD.SALARIO.toString(), Toast.LENGTH_LONG).show();
                 Collections.sort(vgs);
                 break;
 
@@ -130,7 +126,6 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
     // Constrói uma caixa de diálogo que pede qual filtro o jovem deseja.
     private void dialogFiltro(){
 
-
         final LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
 
@@ -140,9 +135,8 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
         final CharSequence[] charSequences = new CharSequence[]{"Últimas vagas", "Maior Salario"};
         final Integer[]checados = new Integer[charSequences.length];
 
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Escolha o filtro?");
+        builder.setTitle(R.string.alert_dialog_title);
         builder.setView(layout);
 
         // Ação que irá ocorrer quando o jovem clicar no botão ok.
@@ -158,7 +152,6 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
 
             }
         });
-
 
         filtroIndex = tempFiltroIndex;
         builder.setCancelable(true);
