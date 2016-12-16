@@ -10,8 +10,10 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +21,8 @@ import butterknife.OnClick;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.adapter.CargoSuggestionAdapter;
+import trabalho.sine.model.Cargo;
+import trabalho.sine.utils.Constantes;
 
 public class SearchForGraphicActivity extends AppCompatActivity implements  FragmentDrawer.FragmentDrawerListener{
 
@@ -37,7 +41,15 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
         ButterKnife.setDebug(true);
         initTextView();
 
-        cargoSearchEditText.setAdapter(new CargoSuggestionAdapter(this, cargoSearchEditText.getText().toString(), "http://192.168.2.104:10555/idfuncao/"));
+        cargoSearchEditText.setAdapter(new CargoSuggestionAdapter(this, cargoSearchEditText.getText().toString(), Constantes.URL_API + "/idfuncao/"));
+
+        cargoSearchEditText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Cargo c = (Cargo) adapterView.getItemAtPosition(position);
+                Toast.makeText(SearchForGraphicActivity.this,"ID: " + c.getId(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         createToolbar();

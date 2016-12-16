@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import trabalho.sine.controller.RequestTask;
-import trabalho.sine.model.Cargo;
-import trabalho.sine.model.CargoJSON;
 import trabalho.sine.model.Cidade;
 import trabalho.sine.model.CidadeJSON;
 
@@ -20,14 +18,14 @@ import trabalho.sine.model.CidadeJSON;
  * Created by wagner on 15/12/16.
  */
 
-public class CidadeSuggestionAdapter extends ArrayAdapter<String> {
+public class CidadeSuggestionAdapter extends ArrayAdapter<Cidade> {
     protected static final String TAG = "CidadeSuggestionAdapter";
-    private List<String> suggestions;
+    private List<Cidade> suggestions;
     private final String ENDERECO;
 
     public CidadeSuggestionAdapter(Context context, String nameFilter, String url) {
         super(context, android.R.layout.simple_dropdown_item_1line);
-        this.suggestions = new ArrayList<String>();
+        this.suggestions = new ArrayList<Cidade>();
         this.ENDERECO = url;
     }
 
@@ -37,7 +35,7 @@ public class CidadeSuggestionAdapter extends ArrayAdapter<String> {
     }
 
     @Override
-    public String getItem(int index) {
+    public Cidade getItem(int index) {
         return suggestions.get(index);
     }
 
@@ -54,10 +52,10 @@ public class CidadeSuggestionAdapter extends ArrayAdapter<String> {
                     try {
                         String response = requestTask.execute(ENDERECO + constraint.toString()).get();
                         Gson gson = new Gson();
-                        CidadeJSON cargoJSON = gson.fromJson(response, CidadeJSON.class);
+                        CidadeJSON cidadeJSON = gson.fromJson(response, CidadeJSON.class);
                         suggestions.clear();
 
-                        for (Cidade c : cargoJSON.getCidades()) suggestions.add(c.getDescricao());
+                        suggestions = cidadeJSON.getCidades();
 
                         filterResults.values = suggestions;
                         filterResults.count = suggestions.size();
@@ -79,23 +77,5 @@ public class CidadeSuggestionAdapter extends ArrayAdapter<String> {
                 }
             }};
         return filter;
-    }
-
-    private List<Cargo> findBooks(String bookTitle) {
-        String url = "http://192.168.2.104:10555/idfuncao/";
-
-        RequestTask requestTask = new RequestTask();
-        try {
-            String result = requestTask.execute(url + bookTitle).get();
-            Gson gson = new Gson();
-            CargoJSON cargoJSON = gson.fromJson(result, CargoJSON.class);
-
-            return cargoJSON.getFuncoes();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

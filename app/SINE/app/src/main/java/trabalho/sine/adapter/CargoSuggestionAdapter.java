@@ -18,14 +18,14 @@ import trabalho.sine.model.CargoJSON;
  * Created by wagner on 15/12/16.
  */
 
-public class CargoSuggestionAdapter extends ArrayAdapter<String> {
+public class CargoSuggestionAdapter extends ArrayAdapter<Cargo> {
     protected static final String TAG = "CargoSuggestionAdapter";
-    private List<String> suggestions;
+    private List<Cargo> suggestions;
     private final String ENDERECO;
 
     public CargoSuggestionAdapter(Context context, String nameFilter, String url) {
         super(context, android.R.layout.simple_dropdown_item_1line);
-        this.suggestions = new ArrayList<String>();
+        this.suggestions = new ArrayList<Cargo>();
         this.ENDERECO = url;
     }
 
@@ -35,7 +35,7 @@ public class CargoSuggestionAdapter extends ArrayAdapter<String> {
     }
 
     @Override
-    public String getItem(int index) {
+    public Cargo getItem(int index) {
         return suggestions.get(index);
     }
 
@@ -53,9 +53,9 @@ public class CargoSuggestionAdapter extends ArrayAdapter<String> {
                         String response = requestTask.execute(ENDERECO + constraint.toString()).get();
                         Gson gson = new Gson();
                         CargoJSON cargoJSON = gson.fromJson(response, CargoJSON.class);
-                        suggestions.clear();
 
-                        for (Cargo c : cargoJSON.getFuncoes()) suggestions.add(c.getDescricao());
+                        suggestions.clear();
+                        suggestions = cargoJSON.getFuncoes();
 
                         filterResults.values = suggestions;
                         filterResults.count = suggestions.size();
@@ -77,23 +77,5 @@ public class CargoSuggestionAdapter extends ArrayAdapter<String> {
                 }
             }};
         return filter;
-    }
-
-    private List<Cargo> findBooks(String bookTitle) {
-        String url = "http://192.168.2.104:10555/idfuncao/";
-
-        RequestTask requestTask = new RequestTask();
-        try {
-            String result = requestTask.execute(url + bookTitle).get();
-            Gson gson = new Gson();
-            CargoJSON cargoJSON = gson.fromJson(result, CargoJSON.class);
-
-            return cargoJSON.getFuncoes();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }
