@@ -20,9 +20,10 @@ import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
 
 public class GraphicActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
-    @BindView(R.id.graphic_web_view) WebView graphicWebView;
 
-    private Toolbar mToolbar;
+    @BindView(R.id.graphic_web_view) WebView graphicWebView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+
     private FragmentDrawer mDrawerFragment;
     private int idfuncao;
     private String tipo_empresa;
@@ -38,7 +39,6 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         ButterKnife.bind(this);
         ButterKnife.setDebug(true);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         createToolbar();
 
         //Obtém os valores da outra activity.

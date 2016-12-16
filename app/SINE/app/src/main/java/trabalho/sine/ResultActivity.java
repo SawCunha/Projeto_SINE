@@ -111,7 +111,7 @@ public class ResultActivity extends AppCompatActivity implements FragmentDrawer.
     public void populaActivity(Vaga vaga){
         favoriteBtn.setBackgroundResource(
                 (vaga.isFavoritado() == false ?
-                        R.drawable.ic_favorite_border_black_48dp : R.drawable.ic_favorite_black));
+                        R.drawable.starunrate : R.drawable.starrate));
         title.setText(vaga.getTitulo());
         money.setText(vaga.getSalario());
         city.setText(vaga.getCidade());

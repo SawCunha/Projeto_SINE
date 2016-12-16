@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.adapter.AdapterListView;
@@ -49,7 +50,10 @@ import trabalho.sine.utils.Constantes;
 public class SearchActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
 
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.list_empregos) RecyclerView mRecyclerView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.filterButton) Button filter;
+
     private AdapterListView mAdapter;
     private LinearLayoutManager mLayoutManager;
     private List<Vaga> vagas;
@@ -57,13 +61,11 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private String filtroEscolhido = "";
     private int filtroIndex = 1;
     private AlertDialog alerta;
-    private Button filter;
+
+    private String cityValue = "", functionValue = "";
 
     private Long cidadeEstado = 0l, funcao = 0l;
-    private AutoCompleteTextView inputCidade;
-    private AutoCompleteTextView inputFuncao;
 
-    private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
     private int pos = 1;
     private int totalItemCount;
@@ -73,33 +75,28 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        //Define o ButterKnife para gerenciar as activities e ativa o modo de debugação.
+        ButterKnife.bind(this);
+        ButterKnife.setDebug(true);
+
         vagas = new ArrayList<>();
-        mRecyclerView = (RecyclerView)findViewById(R.id.list_empregos);
-        inputCidade = new AutoCompleteTextView(this);
-        inputFuncao = new AutoCompleteTextView(this);
         totalItemCount = 0;
-        inputCidade.setInputType(InputType.TYPE_CLASS_TEXT);
-        inputFuncao.setInputType(InputType.TYPE_CLASS_TEXT);
-        filter = (Button) findViewById(R.id.filterButton);
 
-        //Toolbar e MenuDrawer
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        criaAutoComplete();
         mostrarDialogoCarregando();
         obtemVagasAPI();
         createToolbar();
 
     }
 
-    private void criaAutoComplete() {
-        inputFuncao.setAdapter(new CargoSuggestionAdapter(this, inputFuncao.getText().toString(), Constantes.URL_API + "/idfuncao/"));
+    private void criaAutoComplete(AutoCompleteTextView inputCargo, AutoCompleteTextView inputCidade) {
+        inputCargo.setAdapter(new CargoSuggestionAdapter(this, inputCargo.getText().toString(), Constantes.URL_API + "/idfuncao/"));
 
-        inputFuncao.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        inputCargo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Cargo c = (Cargo) adapterView.getItemAtPosition(position);
                 funcao = c.getId();
+                functionValue = c.getDescricao();
             }
         });
 
@@ -110,6 +107,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Cidade c = (Cidade) adapterView.getItemAtPosition(position);
                 cidadeEstado = c.getId();
+                cityValue = c.getDescricao();
             }
         });
     }
@@ -202,12 +200,13 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         final RadioButton buttonUltimas = (RadioButton) forms.findViewById(R.id.ultimasVagas);
         final RadioButton buttonSalario = (RadioButton) forms.findViewById(R.id.maiorSalario);
 
-        AutoCompleteTextView city = (AutoCompleteTextView) forms.findViewById(R.id.cidade);
-        AutoCompleteTextView function = (AutoCompleteTextView) forms.findViewById(R.id.funcao);
+        final AutoCompleteTextView city = (AutoCompleteTextView) forms.findViewById(R.id.cidade);
+        final AutoCompleteTextView function = (AutoCompleteTextView) forms.findViewById(R.id.funcao);
 
-        //inputCidade = city;
-        //inputFuncao = function;
+        city.setText(cityValue);
+        function.setText(functionValue);
 
+        criaAutoComplete(function,city);
 
         if(filtroIndex == 1)
             radioGroup.check(buttonUltimas.getId());
@@ -231,19 +230,10 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
                 alerta.dismiss();
 
-                /* Remove os input's do layout, como eles são variavéis de classe(fiz isso pra manter o estado da última pesquisa),
-                   o estado de qual layout eles pertence é mantido, assim se o jovem fechar o alert e abrir de novo não seria
-                   possível add's em novo layout, por isso esse comando abaixo.
-                */
-                // layout.removeAllViews();
-
-                // Reseta o scroll
-
                 if(radioGroup.getCheckedRadioButtonId() == buttonUltimas.getId())
                     filtroIndex = 1;
                 else
                     filtroIndex = 2;
-                Toast.makeText(getBaseContext(), "id: " + filtroIndex, Toast.LENGTH_LONG).show();
 
                 mRecyclerView.scrollToPosition(0);
                 mRecyclerView.clearOnScrollListeners();
@@ -272,12 +262,13 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 pos = 1;
                 filtroEscolhido = "";
                 filtroIndex = 1;
-                inputCidade.setText("");
-                inputFuncao.setText("");
 
                 cidadeEstado = 0l;
                 funcao = 0l;
-
+                cityValue = "";
+                functionValue = "";
+                city.setText("");
+                function.setText("");
                 alerta.dismiss();
                 //layout.removeAllViews();
 

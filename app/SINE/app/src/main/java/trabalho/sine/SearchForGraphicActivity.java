@@ -28,7 +28,7 @@ import trabalho.sine.utils.Constantes;
 
 public class SearchForGraphicActivity extends AppCompatActivity implements  FragmentDrawer.FragmentDrawerListener{
 
-    private Toolbar mToolbar;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
     private Resources resources;
     private Cargo cargo;
@@ -55,7 +55,6 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
             }
         });
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         createToolbar();
     }
 
