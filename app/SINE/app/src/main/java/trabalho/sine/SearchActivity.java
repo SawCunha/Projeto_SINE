@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.adapter.AdapterListView;
@@ -49,7 +50,10 @@ import trabalho.sine.utils.Constantes;
 public class SearchActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
 
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.list_empregos) RecyclerView mRecyclerView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.filterButton) Button filter;
+
     private AdapterListView mAdapter;
     private LinearLayoutManager mLayoutManager;
     private List<Vaga> vagas;
@@ -57,13 +61,11 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private String filtroEscolhido = "";
     private int filtroIndex = 1;
     private AlertDialog alerta;
-    private Button filter;
 
     private String cityValue = "", functionValue = "";
 
     private Long cidadeEstado = 0l, funcao = 0l;
 
-    private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
     private int pos = 1;
     private int totalItemCount;
@@ -73,13 +75,12 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        vagas = new ArrayList<>();
-        mRecyclerView = (RecyclerView)findViewById(R.id.list_empregos);
-        totalItemCount = 0;
-        filter = (Button) findViewById(R.id.filterButton);
+        //Define o ButterKnife para gerenciar as activities e ativa o modo de debugação.
+        ButterKnife.bind(this);
+        ButterKnife.setDebug(true);
 
-        //Toolbar e MenuDrawer
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        vagas = new ArrayList<>();
+        totalItemCount = 0;
 
         mostrarDialogoCarregando();
         obtemVagasAPI();
