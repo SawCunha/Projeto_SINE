@@ -33,10 +33,14 @@
         <activity
             android:name=".FavoriteActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".GraphicActivity" />
-        <activity android:name=".SearchForGraphicActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".InfoActivity"></activity>
+        <activity android:name=".GraphicActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".SearchForGraphicActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".SearchActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".InfoActivity"
+                  android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
