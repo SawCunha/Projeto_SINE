@@ -1,19 +1,22 @@
 <!DOCTYPE>
 <html>
 	<head>
-		<meta charset="utf-8">			
+		<meta charset="utf-8">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
 		<title>Graficos</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">	
-	</head>
-	
-	<body>		
-		<canvas id="myChart" width="20" height="20">
-			<script src="charts.js">
-			</script>
-		</canvas>
-	
-	</body>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+		<style>
+			#chart{
+				width: 100%;
+				max-width: 500px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<canvas id="chart" width="400" height="400"></canvas>
+	</body>
+	<script src="main.js"></script>
 </html>
