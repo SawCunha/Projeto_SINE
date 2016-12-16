@@ -59,6 +59,8 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private AlertDialog alerta;
     private Button filter;
 
+    private String cityValue = "", functionValue = "";
+
     private Long cidadeEstado = 0l, funcao = 0l;
 
     private Toolbar mToolbar;
@@ -93,6 +95,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Cargo c = (Cargo) adapterView.getItemAtPosition(position);
                 funcao = c.getId();
+                functionValue = c.getDescricao();
             }
         });
 
@@ -103,6 +106,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Cidade c = (Cidade) adapterView.getItemAtPosition(position);
                 cidadeEstado = c.getId();
+                cityValue = c.getDescricao();
             }
         });
     }
@@ -198,6 +202,9 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         final AutoCompleteTextView city = (AutoCompleteTextView) forms.findViewById(R.id.cidade);
         final AutoCompleteTextView function = (AutoCompleteTextView) forms.findViewById(R.id.funcao);
 
+        city.setText(cityValue);
+        function.setText(functionValue);
+
         criaAutoComplete(function,city);
 
         if(filtroIndex == 1)
@@ -257,7 +264,8 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
                 cidadeEstado = 0l;
                 funcao = 0l;
-
+                cityValue = "";
+                functionValue = "";
                 city.setText("");
                 function.setText("");
                 alerta.dismiss();
