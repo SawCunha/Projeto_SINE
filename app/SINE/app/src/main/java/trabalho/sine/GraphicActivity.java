@@ -26,6 +26,7 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
     private int idfuncao;
+    private String tipo_empresa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         createToolbar();
 
         //Obtém o id da função da outra activity.
-        idfuncao = getIdfuncao();
+        getValues();
         Toast.makeText(this, "" + idfuncao, Toast.LENGTH_LONG).show();
 
         // Adicionando o grafico
@@ -57,10 +58,11 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         webview.loadUrl("file:///android_asset/grafico/charts.html");
     }
 
-    private int getIdfuncao(){
+    private void getValues(){
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        return bundle.getInt("idfuncao");
+        idfuncao = bundle.getInt("idfuncao");
+        tipo_empresa = bundle.getString("tipo_empresa");
     }
 
     private void createToolbar(){
