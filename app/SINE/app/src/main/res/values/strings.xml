@@ -72,5 +72,5 @@
     <string name="about_app">Desenvolvido pelos formandos do 6º Período do Curso Superior de Tecnologia em Sistemas para Internet, no ano de 2016.</string>
     <string name="version">Versão 1.1</string>
 
-    <string name="campo_cargo_vazio">Por favor, preencha o seu cargo e tente novamente.</string>
+    <string name="campo_cargo_vazio">Por favor, digite um nome de cargo válido e tente novamente.</string>
 </resources>
