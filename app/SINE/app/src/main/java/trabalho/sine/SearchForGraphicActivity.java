@@ -89,7 +89,7 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
 
     //Valida dos dados dos campos de texto.
     private boolean validateFields(){
-        if (TextUtils.isEmpty(cargoSearchEditText.getEditableText().toString().trim())){
+        if (TextUtils.isEmpty(cargoSearchEditText.getEditableText().toString().trim()) || cargo == null){
             cargoSearchEditText.requestFocus();
             cargoSearchEditText.setError(resources.getString(R.string.campo_cargo_vazio));
             return false;
@@ -146,6 +146,8 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
     //Realiza a chamada a outra activity, enviando o id da função para que seja gerado o gráfico.
     @OnClick(R.id.search_button)
     public void getAverages(){
+        if (!validateFields()) return;
+
         Intent graphicIntent = new Intent(SearchForGraphicActivity.this, GraphicActivity.class);
         Bundle bundle = new Bundle();
 

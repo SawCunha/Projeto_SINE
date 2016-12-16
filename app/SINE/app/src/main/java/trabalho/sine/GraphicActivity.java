@@ -26,8 +26,9 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
     private FragmentDrawer mDrawerFragment;
     private int idfuncao;
     private String tipo_empresa;
+    private String cargo;
     private WebView webview;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +67,7 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         Bundle bundle = intent.getExtras();
         idfuncao = bundle.getInt("idfuncao");
         tipo_empresa = bundle.getString("tipo_empresa");
+        cargo = bundle.getString("cargo");
     }
 
     private void createToolbar(){
