@@ -24,25 +24,7 @@
             layout="@layout/toolbar_media_salarial" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/label_empresa_grafico"
-        android:textSize="@dimen/font_size_activity_graphic_title"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:text="@string/label_grafico"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/nome_empresa_grafico"
-        android:textSize="@dimen/font_size_activity_graphic"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:text=""/>
-
-    <WebView
+        <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/graphic_web_view"/>

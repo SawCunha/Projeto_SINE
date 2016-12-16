@@ -5,8 +5,11 @@ var junior = [];
 var pleno = [];
 var senior = [];
 var master = [];
+var funcao = "";
 
 function montarSalarios(obj){
+console.log(obj);
+    funcao = obj.nome_funcao;
 	for(i in obj.salarios){
 		trainee.push(obj.salarios[i]['trainee']);
 		junior.push(obj.salarios[i]['junior']);
@@ -17,19 +20,25 @@ function montarSalarios(obj){
 	plotarGrafico();
 }
 
-var xmlhttp = new XMLHttpRequest();
-xmlhttp.open('GET', 'http://192.168.0.16:10555/media-salarial?idfuncao=2922', true);
-xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4) {
-        if(xmlhttp.status == 200) {
-            var obj = JSON.parse(xmlhttp.responseText);
-						montarSalarios(obj.media_salarial);
-         }
-    }
-};
-xmlhttp.send(null);
+function init(id){
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('GET', 'http://162.243.119.96:10555/media-salarial?idfuncao='+id, true);
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            if(xmlhttp.status == 200) {
+                var obj = JSON.parse(xmlhttp.responseText);
+                            montarSalarios(obj.media_salarial);
+             }
+        }
+    };
+    xmlhttp.send(null);
+}
+
 
 function plotarGrafico(){
+
+    document.querySelector("h4").innerHTML = funcao
+
 	var data = {
 	  labels: ["Pequena", "Média", "Grande"],
 	  datasets: [{
@@ -69,6 +78,7 @@ function plotarGrafico(){
 	  data: data,
 	  options: {
 	    barValueSpacing: 20,
+	    animation:false,
 	    scales: {
 	      yAxes: [{
 	        ticks: {
