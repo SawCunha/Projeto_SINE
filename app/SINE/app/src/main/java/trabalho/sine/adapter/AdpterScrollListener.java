@@ -9,11 +9,11 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
-import trabalho.sine.Servidor;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.model.Vaga;
 import trabalho.sine.model.VagasJSON;
+import trabalho.sine.utils.Constantes;
 
 /**
  * Created by saw on 15/12/16.
@@ -60,7 +60,7 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
                 mostrarDialogoCarregando();
                 totalItemCount--;
                 mRecyclerView.scrollToPosition(totalItemCount);
-                req.requestURL(String.format(Servidor.ENDERECO_SERVIDOR + "/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+                req.requestURL(String.format(Constantes.URL_API + "/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                         "&tipoOrdenacao=%d", funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
                     @Override
                     public void onSuccess(String response) {

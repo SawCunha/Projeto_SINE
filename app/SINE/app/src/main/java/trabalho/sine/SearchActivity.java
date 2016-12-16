@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -30,10 +29,9 @@ import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.adapter.AdpterScrollListener;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
-import trabalho.sine.enun.Filtro;
 import trabalho.sine.model.Vaga;
 import trabalho.sine.model.VagasJSON;
-import trabalho.sine.Servidor;
+import trabalho.sine.utils.Constantes;
 
 public class SearchActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
@@ -141,7 +139,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
 
-        req.requestURL(String.format(Servidor.ENDERECO_SERVIDOR + "/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        req.requestURL(String.format(Constantes.URL_API + "/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
                 "&tipoOrdenacao=%d", funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
