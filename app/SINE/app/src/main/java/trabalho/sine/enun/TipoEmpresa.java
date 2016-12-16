@@ -13,4 +13,9 @@ public enum TipoEmpresa {
     TipoEmpresa(String porteEmpresa) {
         this.porteEmpresa = porteEmpresa;
     }
+
+    @Override
+    public String toString() {
+        return porteEmpresa;
+    }
 }

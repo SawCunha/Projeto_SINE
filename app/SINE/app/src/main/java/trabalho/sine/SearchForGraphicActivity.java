@@ -1,5 +1,6 @@
 package trabalho.sine;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -21,6 +23,7 @@ import butterknife.OnClick;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.adapter.CargoSuggestionAdapter;
+import trabalho.sine.enun.TipoEmpresa;
 import trabalho.sine.model.Cargo;
 import trabalho.sine.utils.Constantes;
 
@@ -29,6 +32,8 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
     private Resources resources;
+    private Cargo cargo;
+    private String valueRadioButton;
 
     @BindView(R.id.cargo_search_edit_text) AutoCompleteTextView cargoSearchEditText;
 
@@ -43,11 +48,11 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
 
         cargoSearchEditText.setAdapter(new CargoSuggestionAdapter(this, cargoSearchEditText.getText().toString(), Constantes.URL_API + "/idfuncao/"));
 
+        //Obtém as informações do cargo selecionado pelo usuário.
         cargoSearchEditText.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Cargo c = (Cargo) adapterView.getItemAtPosition(position);
-                Toast.makeText(SearchForGraphicActivity.this,"ID: " + c.getId(), Toast.LENGTH_SHORT).show();
+                cargo = (Cargo) adapterView.getItemAtPosition(position);
             }
         });
 
@@ -55,6 +60,7 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
         createToolbar();
     }
 
+    //Gerencia os eventos da caixa de texto.
     private void initTextView(){
         resources = getResources();
 
@@ -77,10 +83,12 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
         };
     }
 
+    //Dispara o evento e exibe uma mensagem de erro caso o campo texto esteja vazio.
     private void callClearErrors(Editable editable){
         if(!editable.toString().isEmpty()) clearErrorFields(cargoSearchEditText);
     }
 
+    //Valida dos dados dos campos de texto.
     private boolean validateFields(){
         if (TextUtils.isEmpty(cargoSearchEditText.getEditableText().toString().trim())){
             cargoSearchEditText.requestFocus();
@@ -90,6 +98,7 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
         return true;
     }
 
+    //Limpa as mensagens de erro dos campos de texto da activity.
     private void clearErrorFields(EditText... editTexts){
         for (EditText editText : editTexts) editText.setError(null);
     }
@@ -120,4 +129,26 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
             default: Log.i("ERRO","POSITION ERROR"); break;
         }
     }
-}
+
+    //Verifica a opção selecionada no checked box.
+    public void onRadioButtonClicked(View view){
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch (view.getId()){
+            case R.id.pequeno_porte_radio:
+                if (checked){ valueRadioButton = TipoEmpresa.PEQUENA.toString(); } break;
+            case R.id.medio_porte_radio:
+                if (checked) { valueRadioButton = TipoEmpresa.MEDIA.toString(); } break;
+            case R.id.grande_porte_radio:
+                if (checked) { valueRadioButton = TipoEmpresa.MEDIA.toString(); } break;
+        }
+    }//onRadioButtonClicked()
+
+    @OnClick(R.id.search_button)
+    public void getAverages(){
+        Intent graphicIntent = new Intent(SearchForGraphicActivity.this, GraphicActivity.class);
+        Toast.makeText(this, "" + cargo.getId(), Toast.LENGTH_LONG).show();
+        graphicIntent.putExtra("idfuncao", cargo.getId());
+        startActivity(graphicIntent);
+    }//getAverages()
+}//class SearchForGraphicActivity
