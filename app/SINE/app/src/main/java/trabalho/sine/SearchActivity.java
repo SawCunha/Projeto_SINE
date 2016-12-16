@@ -1,6 +1,7 @@
 package trabalho.sine;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,12 +14,16 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -27,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.adapter.AdapterListView;
@@ -44,9 +48,8 @@ import trabalho.sine.utils.Constantes;
 
 public class SearchActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
-    @BindView(R.id.list_empregos) RecyclerView mRecyclerView;
-    @BindView(R.id.toolbar) Toolbar mToolbar;
 
+    private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
     private LinearLayoutManager mLayoutManager;
     private List<Vaga> vagas;
@@ -60,6 +63,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private AutoCompleteTextView inputCidade;
     private AutoCompleteTextView inputFuncao;
 
+    private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
     private int pos = 1;
     private int totalItemCount;
@@ -69,17 +73,17 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        //Define o ButterKnife para gerenciar as activities e ativa o modo de debugação.
-        ButterKnife.bind(this);
-        ButterKnife.setDebug(true);
-
         vagas = new ArrayList<>();
+        mRecyclerView = (RecyclerView)findViewById(R.id.list_empregos);
         inputCidade = new AutoCompleteTextView(this);
         inputFuncao = new AutoCompleteTextView(this);
         totalItemCount = 0;
         inputCidade.setInputType(InputType.TYPE_CLASS_TEXT);
         inputFuncao.setInputType(InputType.TYPE_CLASS_TEXT);
         filter = (Button) findViewById(R.id.filterButton);
+
+        //Toolbar e MenuDrawer
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         criaAutoComplete();
         mostrarDialogoCarregando();
@@ -189,35 +193,37 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     // Constrói uma caixa de diálogo que pede qual filtro o jovem deseja.
     private void dialogFiltro(){
 
-        // Os blocos abaixo define os input's para a entrada de texto.
-        inputCidade.setHint(R.string.dialog_filter_hint_one);
-        inputFuncao.setHint(R.string.dialog_filter_hint_two);
-
-        final LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        layout.addView(inputCidade);
-        layout.addView(inputFuncao);
-
-        // Guardar o ultimo filtro clicado, se o jovem nao clicar em um novo, volta ao que estava.
         final int tempFiltroIndex = filtroIndex;
 
-        final CharSequence[] charSequences = new CharSequence[]{"Últimas vagas", "Maior FaixaSalarial"};
-        final Integer[]checados = new Integer[charSequences.length];
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View forms = inflater.inflate(R.layout.alert_dialog, null, false);
 
+        final RadioGroup radioGroup = (RadioGroup) forms.findViewById(R.id.grupo);
+        final RadioButton buttonUltimas = (RadioButton) forms.findViewById(R.id.ultimasVagas);
+        final RadioButton buttonSalario = (RadioButton) forms.findViewById(R.id.maiorSalario);
+
+        AutoCompleteTextView city = (AutoCompleteTextView) forms.findViewById(R.id.cidade);
+        AutoCompleteTextView function = (AutoCompleteTextView) forms.findViewById(R.id.funcao);
+
+        //inputCidade = city;
+        //inputFuncao = function;
+
+
+        if(filtroIndex == 1)
+            radioGroup.check(buttonUltimas.getId());
+        else
+            radioGroup.check(buttonSalario.getId());
+
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        layout.addView(forms);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.alert_dialog_title);
-
-        builder.setSingleChoiceItems(charSequences, --filtroIndex, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                filtroEscolhido = charSequences[i].toString();
-                filtroIndex = i;
-                filtroIndex++;
-            }
-        });
+        builder.setTitle("Escolha o filtro?");
         builder.setView(layout);
+
         // Ação que irá ocorrer quando o jovem clicar no botão ok.
         builder.setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
             @Override
@@ -229,9 +235,16 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                    o estado de qual layout eles pertence é mantido, assim se o jovem fechar o alert e abrir de novo não seria
                    possível add's em novo layout, por isso esse comando abaixo.
                 */
-                layout.removeAllViews();
+                // layout.removeAllViews();
 
-               // Reseta o scroll
+                // Reseta o scroll
+
+                if(radioGroup.getCheckedRadioButtonId() == buttonUltimas.getId())
+                    filtroIndex = 1;
+                else
+                    filtroIndex = 2;
+                Toast.makeText(getBaseContext(), "id: " + filtroIndex, Toast.LENGTH_LONG).show();
+
                 mRecyclerView.scrollToPosition(0);
                 mRecyclerView.clearOnScrollListeners();
 
@@ -266,16 +279,16 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 funcao = 0l;
 
                 alerta.dismiss();
-                layout.removeAllViews();
+                //layout.removeAllViews();
 
                 mostrarDialogoCarregando();
                 obtemVagasAPI();
             }
         });
 
-
         filtroIndex = tempFiltroIndex;
-        builder.setCancelable(true);
+        // filtroIndex = tempFiltroIndex;
+        builder.setCancelable(false);
         alerta = builder.create();
         alerta.show();
     }
