@@ -7,8 +7,11 @@ import android.support.v7.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
+import java.util.List;
+
 import trabalho.sine.Servidor;
 import trabalho.sine.controller.RequestURL;
+import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.model.Vaga;
 import trabalho.sine.model.VagasJSON;
 
@@ -65,8 +68,16 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
                         Gson gson = new Gson();
                         VagasJSON vagasJSON = gson.fromJson(response, VagasJSON.class);
 
-                        for(Vaga v : vagasJSON.getVagas())
-                            mAdapter.addItem(v,position++);
+                        VagaDAO vagaDAO = new VagaDAO(context);
+                        List<Vaga> vagasBd = vagaDAO.getAll();
+
+                        for(Vaga v : vagasJSON.getVagas()) {
+                            for (Vaga vs : vagasBd) {
+                                if (vs.getId().toString().equalsIgnoreCase(v.getId().toString()))
+                                    v.setFavoritado(true);
+                            }
+                            mAdapter.addItem(v, position++);
+                        }
                         dialog.dismiss();
                     }
                 });
@@ -75,7 +86,7 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
         }
     }
 
-    public void mostrarDialogoCarregando(){
+    private void mostrarDialogoCarregando(){
         dialog = new ProgressDialog(context);
         dialog.setMessage("Carregando dados");
         dialog.setIndeterminate(true);

@@ -7,5 +7,5 @@ package trabalho.sine;
  */
 //TODO: Remover esta classe ao colocar a API online
 public class Servidor {
-     public static String ENDERECO_SERVIDOR = "http://192.168.1.67:10555";
+     public static String ENDERECO_SERVIDOR = "http://192.168.0.101:10555";
 }
