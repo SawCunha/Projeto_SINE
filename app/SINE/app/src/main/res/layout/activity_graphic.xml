@@ -21,7 +21,7 @@
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
+            layout="@layout/toolbar_media_salarial" />
     </LinearLayout>
 
     <TextView

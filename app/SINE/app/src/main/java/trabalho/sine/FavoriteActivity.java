@@ -1,7 +1,9 @@
 package trabalho.sine;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -12,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -33,11 +37,16 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
     private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private RadioButton semfiltro, ultimasvagas, maiorsalario;
     private List<Vaga> vagas;
 
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
+
+    private String filtroEscolhido = "";
+    private int filtroIndex = 1;
+    private AlertDialog alerta;
+
+    private Button filtroButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +55,8 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos_favoritos);
-        semfiltro = (RadioButton) findViewById(R.id.semfiltro);
-        ultimasvagas = (RadioButton) findViewById(R.id.ultimasvagas);
-        maiorsalario = (RadioButton) findViewById(R.id.maiorsalario);
+
+        filtroButton = (Button) findViewById(R.id.filterButton);
 
         createToolbar();
         verficaFiltroSelecionado();
@@ -65,9 +73,8 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
     }
 
     private void verficaFiltroSelecionado() {
-        if(semfiltro.isChecked()) obtemVagasBanco(Filtro.SEM_FITRO);
-        else if(maiorsalario.isChecked()) obtemVagasBanco(Filtro.MAIOR_SALARIO);
-        else obtemVagasBanco(Filtro.ULTIMAS_VAGAS);
+
+        obtemVagasBanco(filtroIndex);
 
         createRecyclerView();
     }
@@ -91,21 +98,23 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
     }
 
     //Obtem as Vagas salvas no Banco de Dados.
-    public void obtemVagasBanco(Filtro filtro){
+    public void obtemVagasBanco(int filtro){
         List<Vaga> vgs = new ArrayList<>();
 
         VagaDAO dao = new VagaDAO(getApplicationContext());
 
         switch (filtro){
-            case SEM_FITRO:
-                vgs = dao.getAll();
-                break;
-            case MAIOR_SALARIO:
-                vgs = dao.getAllOrderBy(CampoBD.SALARIO.toString());
-                break;
-            case ULTIMAS_VAGAS:
+            case 1:
                 vgs = dao.getAllOrderBy(CampoBD.ID.toString());
+                //Toast.makeText(this, CampoBD.ID.toString(), Toast.LENGTH_LONG).show();
                 break;
+
+            case 2:
+                vgs = dao.getAllOrderBy(CampoBD.SALARIO.toString());
+                //Toast.makeText(this, CampoBD.SALARIO.toString(), Toast.LENGTH_LONG).show();
+                Collections.sort(vgs);
+                break;
+
             default:
                 break;
         }
@@ -116,28 +125,47 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
         this.vagas = vgs;
     }
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
+    /************************************* Filtros ******************************** */
 
-        // Check which radio button was clicked
-        switch(view.getId()) {
-            case R.id.semfiltro:
-                if (checked) checkedFiltro(true, false, false,Filtro.SEM_FITRO); break;
-            case R.id.maiorsalario:
-                if (checked) checkedFiltro(false, false, true,Filtro.MAIOR_SALARIO); break;
-            case R.id.ultimasvagas:
-                if (checked) checkedFiltro(false, true, false,Filtro.ULTIMAS_VAGAS); break;
-        }
+    // Constrói uma caixa de diálogo que pede qual filtro o jovem deseja.
+    private void dialogFiltro(){
+
+
+        final LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        // Guardar o ultimo filtro clicado, se o jovem nao clicar em um novo, volta ao que estava.
+        final int tempFiltroIndex = filtroIndex;
+
+        final CharSequence[] charSequences = new CharSequence[]{"Últimas vagas", "Maior Salario"};
+        final Integer[]checados = new Integer[charSequences.length];
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Escolha o filtro?");
+        builder.setView(layout);
+
+        // Ação que irá ocorrer quando o jovem clicar no botão ok.
+        builder.setSingleChoiceItems(charSequences, --filtroIndex, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                filtroEscolhido = charSequences[i].toString();
+                filtroIndex = i;
+                filtroIndex++;
+                verficaFiltroSelecionado();
+                alerta.dismiss();
+
+            }
+        });
+
+
+        filtroIndex = tempFiltroIndex;
+        builder.setCancelable(true);
+        alerta = builder.create();
+        alerta.show();
     }
 
-    private void checkedFiltro(Boolean s, Boolean u, Boolean m, Filtro filtro){
-        semfiltro.setChecked(s);
-        maiorsalario.setChecked(m);
-        ultimasvagas.setChecked(u);
-        obtemVagasBanco(filtro);
-        createRecyclerView();
-    }
 
     @Override
     public void onBackPressed() {
@@ -173,6 +201,11 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
             case 4: LoadActivities.info(this); break;
             default: Log.i("ERRO","POSITION ERROR"); break;
         }
+    }
+
+    // responsável pelo click do botão filtro.
+    public void filterClick(View view){
+        dialogFiltro();
     }
 
 }

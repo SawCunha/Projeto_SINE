@@ -1,11 +1,13 @@
 package trabalho.sine.model;
 
+import android.util.Log;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 
 @DatabaseTable(tableName = "vagas")
-public class Vaga {
+public class Vaga implements Comparable<Vaga>{
     @DatabaseField(id = true) private Long id;
     @DatabaseField private String titulo;
     @DatabaseField private String descricao;
@@ -99,4 +101,28 @@ public class Vaga {
         this.url_sine = url_sine;
     }
 
+    @Override
+    public int compareTo(Vaga vaga) {
+
+        if(this.getSalario() == null)
+            this.salario = "R$0,00";
+        if(vaga.getSalario() == null)
+            vaga.setSalario("R$0,00");
+
+        String sal = this.salario, sal2 = vaga.getSalario();
+
+        sal = sal.replaceAll("R\\$","");
+        sal2 = sal2.replaceAll("R\\$","");
+        sal = sal.replaceAll(",00","");
+        sal2 = sal2.replaceAll(",00","");
+
+        Log.d("Foi", sal);
+
+        if(Float.parseFloat(sal) > Float.parseFloat(sal2))
+            return -1;
+        else if(Float.parseFloat(sal) < Float.parseFloat(sal2))
+            return 1;
+
+        return 0;
+    }
 }
