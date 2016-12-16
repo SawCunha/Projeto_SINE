@@ -19,6 +19,18 @@ class Vaga {
   createUrl(cidade, funcao, id) {
     return constants.URL.SINE + '/vagas-empregos-em-' + utils.formatarUrl(this.cidade) + '/' + utils.formatarUrl(this.funcao) + '/' + this.id
   }
+
+  ajustarCampos(){
+    if(this.empresa.length < 1)
+      this.empresa = "Não informado";
+
+    if(this.telefone.length < 1)
+      this.telefone = "Não informado";
+
+    if(this.empresa.indexOf("confidencial") != -1){
+      this.empresa = "Confidencial"
+    }
+  }
 }
 
 module.exports = Vaga;

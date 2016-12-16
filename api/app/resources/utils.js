@@ -50,7 +50,7 @@ module.exports = {
     }
     return ret;
   },
-  
+
   formatarUrl(str) {
       str = this.removerAcentos(str);
       return str.replace(/_/g, '-')
@@ -61,6 +61,8 @@ module.exports = {
           .replace(/[^a-zA-Z0-9\-]+/g, '')
           .replace(/-{2,}/g, '-')
           .toLowerCase();
+  }, cleanString(str) {
+    return str.replace(/(\r\n|\n|\r)/gm, '').replace(/ +(?= )/g, '').trim();
   },
 
   //Substitui as keys pelo estilo underscore

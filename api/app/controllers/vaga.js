@@ -21,11 +21,12 @@ module.exports = function (app) {
     request(url)
     .then((html) => {
         let $ = cheerio.load(html);
-        vaga.descricao = cleanString($('dd[itemprop="description"]').text());
-        vaga.cidade = cleanString($('.label_cidade_resultado').text());
-        vaga.empresa = cleanString($('.label_empresa_resultado').text());
-        vaga.titulo = cleanString($('h1[itemprop="title"]').text());
-        vaga.telefone = cleanString($('#ctl00_cphConteudo_ddTelefone').text());
+        vaga.descricao = utils.cleanString($('dd[itemprop="description"]').text());
+        vaga.cidade = utils.cleanString($('.label_cidade_resultado').text());
+        vaga.empresa = utils.cleanString($('.label_empresa_resultado').text());
+        vaga.titulo = utils.cleanString($('h1[itemprop="title"]').text());
+        vaga.telefone = utils.cleanString($('#ctl00_cphConteudo_ddTelefone').text());
+        vaga.ajustarCampos();
         try {
           vaga.salario = cleanString($('#ctl00_cphConteudo_hplMediaSalarial').get(0).prev.data);
         } catch (err) {
@@ -147,7 +148,3 @@ module.exports = function (app) {
 
   return controller;
 };
-
-function cleanString(str) {
-  return str.replace(/(\r\n|\n|\r)/gm, '').replace(/ +(?= )/g, '').trim();
-}
