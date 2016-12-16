@@ -84,6 +84,7 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         verficaFiltroSelecionado();
+        mRecyclerView.scrollToPosition((int)data.getExtras().get("position"));
     }
 
     private void createRecyclerView(){

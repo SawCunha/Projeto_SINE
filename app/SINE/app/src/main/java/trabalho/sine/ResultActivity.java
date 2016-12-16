@@ -93,9 +93,7 @@ public class ResultActivity extends AppCompatActivity implements FragmentDrawer.
 
     @Override
     public void onBackPressed() {
-        String vagaJson = new Gson().toJson(vaga);
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("resultado",vagaJson);
         returnIntent.putExtra("position",position);
         setResult(RESULT_OK,returnIntent);
         super.onBackPressed();
