@@ -17,28 +17,28 @@ module.exports = function (app) {
   };
 
   controller.createVaga = function (req, res, vaga) {
-    let url = vaga.url_sine;
-    request(url)
-    .then((html) => {
-        let $ = cheerio.load(html);
-        vaga.descricao = utils.cleanString($('dd[itemprop="description"]').text());
-        vaga.cidade = utils.cleanString($('.label_cidade_resultado').text());
-        vaga.empresa = utils.cleanString($('.label_empresa_resultado').text());
-        vaga.titulo = utils.cleanString($('h1[itemprop="title"]').text());
-        vaga.telefone = utils.cleanString($('#ctl00_cphConteudo_ddTelefone').text());
-        vaga.ajustarCampos();
-        try {
-          vaga.salario = cleanString($('#ctl00_cphConteudo_hplMediaSalarial').get(0).prev.data);
-        } catch (err) {
-          res.json('Erro na vaga');
-        }
+     let url = vaga.url_sine;
+     request(url)
+     .then((html) => {
+         let $ = cheerio.load(html);
+         vaga.descricao = utils.cleanString($('dd[itemprop="description"]').text());
+         vaga.cidade = utils.cleanString($('.label_cidade_resultado').text());
+         vaga.empresa = utils.cleanString($('.label_empresa_resultado').text());
+         vaga.titulo = utils.cleanString($('h1[itemprop="title"]').text());
+         vaga.telefone = utils.cleanString($('#ctl00_cphConteudo_ddTelefone').text());
+         vaga.ajustarCampos();
+         try {
+           vaga.salario = utils.cleanString($('#ctl00_cphConteudo_hplMediaSalarial').get(0).prev.data);
+         } catch (err) {
+           res.json('Erro ao obter salario');
+         }
 
-        res.status(200).json(vaga);
-      }).catch((err) => {
-        console.error('Erro ao acessar URL: ' + url);
-        console.error(err);
-      });
-  };
+         res.status(200).json(vaga);
+       }).catch((err) => {
+         console.error('Erro ao acessar URL: ' + url);
+         console.error(err);
+       });
+   };
 
   controller.getVagas = (req, res) => {
     const idFuncao = !req.query.idfuncao ? 0 : req.query.idfuncao;
