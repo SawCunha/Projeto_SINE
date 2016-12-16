@@ -51,7 +51,8 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         webview.requestFocusFromTouch();
         webview.setWebViewClient(new WebViewClient(){
             public void onPageFinished(WebView view, String url){
-                webview.loadUrl("javascript:init('" + idfuncao + "')");
+                webview.loadUrl("javascript:init("+idfuncao+",\""+tipo_empresa+"\" )");
+                Log.d("MAURICIO",tipo_empresa);
             }
         });
         webview.setWebChromeClient(new WebChromeClient());

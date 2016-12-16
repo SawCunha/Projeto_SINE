@@ -1,14 +1,19 @@
 
 var ctx = document.getElementById("chart");
 var salarios = [];
-
+var tipoEmpresa
+var funcao = ""
 function montarSalarios(obj){
+    funcao = obj.nome_funcao;
     for(k in obj['salarios'][tipoEmpresa])
         salarios.push(obj['salarios'][tipoEmpresa][k]);
 	plotarGrafico();
 }
 
 function init(id,empresa){
+console.log('INIT');
+console.log(id);
+console.log(empresa);
     tipoEmpresa = empresa;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open('GET', 'http://162.243.119.96:10555/media-salarial?idfuncao='+id, true);
