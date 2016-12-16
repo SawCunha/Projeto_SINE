@@ -174,8 +174,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
 
-        req.requestURL(String.format(Constantes.URL_API + "/vagas?idfuncao=%d&idcidade=%d&numPagina=%d" +
-                "&tipoOrdenacao=%d", funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
+        req.requestURL(String.format(Constantes.URL_API + Constantes.URL_API_VAGAS, funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
                 Gson gson = new Gson();
