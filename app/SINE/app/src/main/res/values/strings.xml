@@ -73,4 +73,11 @@
     <string name="version">Versão 1.1</string>
 
     <string name="campo_cargo_vazio">Por favor, digite um nome de cargo válido e tente novamente.</string>
+    <string name="funcao_nao_informada">Função não informada</string>
+    <string name="empresa_nao_informada">Empresa não informada</string>
+    <string name="endereco_nao_informado">Endereço não informado</string>
+    <string name="cidade_nao_informada">Cidade não informada</string>
+    <string name="descricao_nao_informada">Descrição não informada</string>
+    <string name="titulo_nao_informado">Título não informado</string>
+    <string name="salario_nao_informado">Salário não informado</string>
 </resources>

@@ -114,13 +114,41 @@ public class ResultActivity extends AppCompatActivity implements FragmentDrawer.
         favoriteBtn.setBackgroundResource(
                 (vaga.isFavoritado() == false ?
                         R.drawable.starunrate : R.drawable.starrate));
-        title.setText(vaga.getTitulo());
-        money.setText(vaga.getSalario());
-        city.setText(vaga.getCidade());
-        address.setText(vaga.getEndereco());
-        company.setText(vaga.getEmpresa());
-        function.setText(vaga.getFuncao());
-        des.setText(vaga.getDescricao());
+        if (vaga.getTitulo() != null && vaga.getTitulo().trim().length() > 0)
+            title.setText(vaga.getTitulo());
+        else
+            title.setText(R.string.titulo_nao_informado);
+
+        if (vaga.getSalario() != null && vaga.getSalario().trim().length() > 0)
+            money.setText(vaga.getSalario());
+        else
+            money.setText(R.string.salario_nao_informado);
+
+        if (vaga.getCidade() != null && vaga.getCidade().trim().length() > 0)
+            city.setText(vaga.getCidade());
+        else
+            city.setText(R.string.cidade_nao_informada);
+
+        if (vaga.getEndereco() != null && vaga.getEndereco().trim().length() > 0)
+            address.setText(vaga.getEndereco());
+        else
+            address.setText(R.string.endereco_nao_informado);
+
+        if (vaga.getEmpresa() != null && vaga.getEmpresa().trim().length() > 0)
+            company.setText(vaga.getEmpresa());
+        else
+            company.setText(R.string.empresa_nao_informada);
+
+        if (vaga.getFuncao() != null && vaga.getFuncao().trim().length() > 0)
+            function.setText(vaga.getFuncao());
+        else
+            function.setText(R.string.funcao_nao_informada);
+
+        if (vaga.getDescricao() != null && vaga.getDescricao().trim().length() > 0)
+            des.setText(vaga.getDescricao());
+        else
+            des.setText(R.string.descricao_nao_informada);
+        
         url.setText(vaga.getUrl_sine());
     }
 
