@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -144,11 +143,15 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
         }
     }//onRadioButtonClicked()
 
+    //Realiza a chamada a outra activity, enviando o id da função para que seja gerado o gráfico.
     @OnClick(R.id.search_button)
     public void getAverages(){
         Intent graphicIntent = new Intent(SearchForGraphicActivity.this, GraphicActivity.class);
-        Toast.makeText(this, "" + cargo.getId(), Toast.LENGTH_LONG).show();
-        graphicIntent.putExtra("idfuncao", cargo.getId());
+        Bundle bundle = new Bundle();
+
+        bundle.putInt("idfuncao", cargo.getId().intValue());
+        graphicIntent.putExtras(bundle);
+
         startActivity(graphicIntent);
     }//getAverages()
 }//class SearchForGraphicActivity

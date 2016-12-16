@@ -1,9 +1,9 @@
 package trabalho.sine;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -19,13 +19,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
-import trabalho.sine.function.Conexao;
 
 public class GraphicActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
     @BindView(R.id.graphic_web_view) WebView graphicWebView;
 
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
+    private int idfuncao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,10 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         createToolbar();
 
+        //Obtém o id da função da outra activity.
+        idfuncao = getIdfuncao();
+        Toast.makeText(this, "" + idfuncao, Toast.LENGTH_LONG).show();
+
         // Adicionando o grafico
         WebView webview = (WebView) this.findViewById(R.id.graphic_web_view);
         WebSettings webSettings = webview.getSettings();
@@ -49,6 +53,12 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         webview.setWebChromeClient(new WebChromeClient());
         // A pasta grafico esta dentro da pasta main. Não tenho certeza se isso está certo
         webview.loadUrl("file:///main/grafico/charts.html"); // confere se isso ta certo, por favor!!!
+    }
+
+    private int getIdfuncao(){
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        return bundle.getInt("idfuncao");
     }
 
     private void createToolbar(){
