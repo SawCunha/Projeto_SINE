@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.adapter.AdapterListView;
@@ -34,12 +36,13 @@ import trabalho.sine.model.Vaga;
 
 public class FavoriteActivity extends AppCompatActivity implements  FragmentDrawer.FragmentDrawerListener{
 
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.list_empregos_favoritos) RecyclerView mRecyclerView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+
     private AdapterListView mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Vaga> vagas;
 
-    private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
 
     private String filtroEscolhido = "";
@@ -53,8 +56,9 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos_favoritos);
+        //Define o ButterKnife para gerenciar as activities e ativa o modo de debugação.
+        ButterKnife.bind(this);
+        ButterKnife.setDebug(true);
 
         filtroButton = (Button) findViewById(R.id.filterButton);
 

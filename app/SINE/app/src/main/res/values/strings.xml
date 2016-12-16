@@ -65,7 +65,7 @@
     <string name="filter_name_ultimas_vagas">Últimas vagas</string>
     <string name="filter_name_maior_salario">Maior Salário</string>
 
-
+    <string name="share_result">Compartilhar</string>
     <string name="alert_dialog_title">Escolha o filtro?</string>
 
     <!-- About view -->

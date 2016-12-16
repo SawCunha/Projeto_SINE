@@ -109,7 +109,8 @@ public class Vaga implements Comparable<Vaga>{
         if(vaga.getSalario() == null)
             vaga.setSalario("R$0,00");
 
-        String sal = this.salario, sal2 = vaga.getSalario();
+        String sal = this.salario,
+               sal2 = vaga.getSalario();
 
         sal = sal.replaceAll("R\\$","");
         sal2 = sal2.replaceAll("R\\$","");
