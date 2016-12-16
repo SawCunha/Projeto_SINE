@@ -33,13 +33,12 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true">
 
-
             <ImageButton
                 android:id="@+id/shareBTN"
                 android:onClick="shareClick"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:background="@drawable/ic_to_share"
+                android:background="@drawable/sharelink"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true" />
 
@@ -49,10 +48,20 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:onClick="favoriteClick"
-                android:background="@drawable/ic_favorite_black"
+                android:background="@drawable/starunrate"
                 android:layout_marginEnd="46dp"
                 android:layout_alignTop="@+id/compartilhar"
                 android:layout_alignParentEnd="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/openlink"
+                android:onClick="openLink"
+                android:id="@+id/openLinkImage"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="26dp" />
 
 
         </RelativeLayout>
@@ -63,10 +72,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/titleLabel"
-            android:layout_marginStart="27dp"
+            android:layout_marginStart="22dp"
             android:id="@+id/titleValue"
             android:layout_alignBottom="@+id/titleLabel"
-            android:layout_alignTop="@+id/titleLabel" />
+            android:layout_alignTop="@+id/titleLabel"
+
+            />
 
 
         <TextView
@@ -75,21 +86,23 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/moneyLabel"
             android:layout_alignStart="@+id/titleValue"
-            android:id="@+id/moneyValue" />
+            android:id="@+id/moneyValue"
+            />
 
 
-        <TextView
-            android:text="Cidade: "
+        <ImageView
+            android:layout_marginTop="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/moneyLabel"
             android:layout_alignStart="@+id/moneyLabel"
-            android:layout_marginTop="23dp"
-            android:id="@+id/cityLabel" />
+            android:id="@+id/cityLabel"
+            android:src="@drawable/city"/>
 
 
         <TextView
             android:text=""
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/cityLabel"
@@ -97,17 +110,19 @@
             android:id="@+id/cityValue" />
 
 
-        <TextView
-            android:text="Endereço: "
+        <ImageView
+            android:layout_marginTop="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/cityLabel"
             android:layout_alignStart="@+id/cityLabel"
-            android:layout_marginTop="23dp"
-            android:id="@+id/addressLabel" />
+
+            android:id="@+id/addressLabel"
+            android:src="@drawable/location"/>
 
 
         <TextView
+
             android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -117,17 +132,19 @@
             android:id="@+id/addressValue" />
 
 
-        <TextView
-            android:text="Empresa: "
+        <ImageView
+            android:layout_marginTop="25dp"
+            android:src="@drawable/company"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/addressLabel"
             android:layout_alignStart="@+id/addressLabel"
-            android:layout_marginTop="23dp"
+
             android:id="@+id/companyLabel" />
 
 
         <TextView
+
             android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -137,17 +154,19 @@
             android:id="@+id/companyValue" />
 
 
-        <TextView
-            android:text="Função: "
+        <ImageView
+            android:layout_marginTop="25dp"
+            android:src="@drawable/function"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/companyLabel"
             android:layout_alignStart="@+id/companyLabel"
-            android:layout_marginTop="23dp"
+
             android:id="@+id/functionLabel" />
 
 
         <TextView
+
             android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -157,17 +176,18 @@
             android:id="@+id/functionValue" />
 
 
-        <TextView
-            android:text="Descrição: "
+        <ImageView
+            android:src="@drawable/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/functionLabel"
             android:layout_alignStart="@+id/functionLabel"
-            android:layout_marginTop="23dp"
+            android:layout_marginTop="25dp"
             android:id="@+id/descriptionLabel" />
 
 
         <TextView
+
             android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -175,15 +195,6 @@
             android:layout_alignStart="@id/functionValue"
             android:layout_toEndOf="@+id/addressValue"
             android:id="@+id/descriptionValue" />
-
-
-        <TextView
-            android:text="Url: "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/urLabel"
-            android:layout_alignTop="@+id/openLinkImage"
-            android:layout_alignStart="@+id/descriptionLabel" />
 
 
         <TextView
@@ -195,35 +206,27 @@
             android:layout_toEndOf="@+id/descriptionValue" />
 
 
+
+
+        <ImageView
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:id="@+id/moneyLabel"
+            android:layout_below="@+id/titleLabel"
+            android:layout_alignStart="@+id/titleLabel"
+            android:src="@drawable/money"/>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/openlink"
-            android:layout_marginStart="52dp"
-            android:onClick="openLink"
-            android:id="@+id/openLinkImage"
-            android:layout_below="@+id/descriptionValue"
-            android:layout_toEndOf="@+id/urlValue"
-            android:layout_marginTop="24dp" />
-
-        <TextView
-            android:text="Salário: "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="47dp"
-            android:id="@+id/moneyLabel"
-            android:layout_below="@+id/titleLabel"
-            android:layout_alignStart="@+id/titleLabel" />
-
-        <TextView
-            android:text="Título: "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="10dp"
             android:id="@+id/titleLabel"
             android:layout_below="@+id/container_toolbar"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="22dp" />
+            android:layout_marginTop="22dp"
+            android:src="@drawable/title"/>
 
 
     </RelativeLayout>

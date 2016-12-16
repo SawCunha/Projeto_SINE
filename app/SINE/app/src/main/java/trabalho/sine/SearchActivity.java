@@ -14,26 +14,35 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import trabalho.sine.activity.FragmentDrawer;
 import trabalho.sine.activity.LoadActivities;
 import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.adapter.AdpterScrollListener;
+import trabalho.sine.adapter.CargoSuggestionAdapter;
+import trabalho.sine.adapter.CidadeSuggestionAdapter;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
+import trabalho.sine.model.Cargo;
+import trabalho.sine.model.Cidade;
 import trabalho.sine.model.Vaga;
 import trabalho.sine.model.VagasJSON;
 import trabalho.sine.utils.Constantes;
 
 public class SearchActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
+
 
     private RecyclerView mRecyclerView;
     private AdapterListView mAdapter;
@@ -45,9 +54,9 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     private AlertDialog alerta;
     private Button filter;
 
-    private String cidadeEstado = "", funcao = "";
-    private EditText inputCidade;
-    private EditText inputFuncao;
+    private Long cidadeEstado = 0l, funcao = 0l;
+    private AutoCompleteTextView inputCidade;
+    private AutoCompleteTextView inputFuncao;
 
     private Toolbar mToolbar;
     private FragmentDrawer mDrawerFragment;
@@ -60,22 +69,44 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         setContentView(R.layout.activity_search);
 
         vagas = new ArrayList<>();
-
-        inputCidade = new EditText(this);
-        inputFuncao = new EditText(this);
+        mRecyclerView = (RecyclerView)findViewById(R.id.list_empregos);
+                inputCidade = new AutoCompleteTextView(this);
+        inputFuncao = new AutoCompleteTextView(this);
         totalItemCount = 0;
         inputCidade.setInputType(InputType.TYPE_CLASS_TEXT);
         inputFuncao.setInputType(InputType.TYPE_CLASS_TEXT);
         filter = (Button) findViewById(R.id.filterButton);
-        mRecyclerView = (RecyclerView) findViewById(R.id.list_empregos);
 
         //Toolbar e MenuDrawer
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        criaAutoComplete();
         mostrarDialogoCarregando();
         obtemVagasAPI();
         createToolbar();
 
+    }
+
+    private void criaAutoComplete() {
+        inputFuncao.setAdapter(new CargoSuggestionAdapter(this, inputFuncao.getText().toString(), Constantes.URL_API + "/idfuncao/"));
+
+        inputFuncao.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Cargo c = (Cargo) adapterView.getItemAtPosition(position);
+                funcao = c.getId();
+            }
+        });
+
+        inputCidade.setAdapter(new CidadeSuggestionAdapter(this, inputCidade.getText().toString(), Constantes.URL_API + "/idcidade/"));
+
+        inputCidade.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Cidade c = (Cidade) adapterView.getItemAtPosition(position);
+                cidadeEstado = c.getId();
+            }
+        });
     }
 
     private void createToolbar(){
@@ -139,7 +170,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
     public void obtemVagasAPI(){
         RequestURL req = new RequestURL(this);
 
-        req.requestURL(String.format(Constantes.URL_API + "/vagas?idfuncao=%s&idcidade=%s&numPagina=%d" +
+        req.requestURL(String.format(Constantes.URL_API + "/vagas?idfuncao=%d&idcidade=%d&numPagina=%d" +
                 "&tipoOrdenacao=%d", funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
@@ -191,9 +222,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                cidadeEstado = inputCidade.getText().toString().replaceAll(" ", "").trim();
-                funcao = inputFuncao.getText().toString().replaceAll(" ", "").trim();
-
                 alerta.dismiss();
 
                 /* Remove os input's do layout, como eles são variavéis de classe(fiz isso pra manter o estado da última pesquisa),
@@ -233,8 +261,8 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
                 inputCidade.setText("");
                 inputFuncao.setText("");
 
-                cidadeEstado = "";
-                funcao = "";
+                cidadeEstado = 0l;
+                funcao = 0l;
 
                 alerta.dismiss();
                 layout.removeAllViews();
