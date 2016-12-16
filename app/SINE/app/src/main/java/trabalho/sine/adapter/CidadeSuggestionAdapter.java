@@ -17,7 +17,6 @@ import trabalho.sine.model.CidadeJSON;
 /**
  * Created by wagner on 15/12/16.
  */
-
 public class CidadeSuggestionAdapter extends ArrayAdapter<Cidade> {
     protected static final String TAG = "CidadeSuggestionAdapter";
     private List<Cidade> suggestions;
