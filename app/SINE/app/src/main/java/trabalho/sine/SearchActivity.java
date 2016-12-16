@@ -274,7 +274,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
         filtroIndex = tempFiltroIndex;
         // filtroIndex = tempFiltroIndex;
-        builder.setCancelable(false);
+        builder.setCancelable(true);
         alerta = builder.create();
         alerta.show();
     }
