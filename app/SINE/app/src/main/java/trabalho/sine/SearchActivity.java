@@ -202,7 +202,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         // Guardar o ultimo filtro clicado, se o jovem nao clicar em um novo, volta ao que estava.
         final int tempFiltroIndex = filtroIndex;
 
-        final CharSequence[] charSequences = new CharSequence[]{"Últimas vagas", "Maior Salario"};
+        final CharSequence[] charSequences = new CharSequence[]{"Últimas vagas", "Maior FaixaSalarial"};
         final Integer[]checados = new Integer[charSequences.length];
 
 

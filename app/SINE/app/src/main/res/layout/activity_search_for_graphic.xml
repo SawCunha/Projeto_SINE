@@ -77,6 +77,7 @@
                 android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
                 android:text="@string/pequeno_porte_label"/>
 
 
@@ -84,6 +85,7 @@
                 android:id="@+id/medio_porte_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
                 android:text="@string/medio_porte_label"/>
 
 
@@ -91,6 +93,7 @@
                 android:id="@+id/grande_porte_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
                 android:text="@string/grande_porte_label"/>
         </RadioGroup>
 

@@ -4,11 +4,16 @@ var express = require('express');
 var expressLoad = require('express-load');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var cors = require('cors')
+
+
+
 const Cidade = require('../app/models/cidade');
 const constants = require('../app/resources/constants');
 
 module.exports = function () {
   var app = express();
+  app.use(cors());
   app.set('port', constants.SERVER.PORT);
 
   // let c = new Cidade('Acrelândia','AC');
