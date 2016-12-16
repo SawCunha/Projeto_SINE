@@ -27,7 +27,7 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
     private LinearLayoutManager mLayoutManager;
     private Long cidadeEstado, funcao;
     private int filtroIndex;
-    private static int totalItemCount;
+    private int totalItemCount;
     private int pos;
     private ProgressDialog dialog;
 
@@ -60,8 +60,8 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
                 mostrarDialogoCarregando();
                 totalItemCount--;
                 mRecyclerView.scrollToPosition(totalItemCount);
-                req.requestURL(String.format(Constantes.URL_API + "/vagas?idfuncao=%d&idcidade=%d&numPagina=%d" +
-                        "&tipoOrdenacao=%d", funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
+                req.requestURL(String.format(Constantes.URL_API + Constantes.URL_API_VAGAS,
+                        funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
                     @Override
                     public void onSuccess(String response) {
                         int position = totalItemCount;
