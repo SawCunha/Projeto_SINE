@@ -41,7 +41,6 @@
             android:id="@+id/versao"
             android:textSize="@dimen/font_view_about"
             android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
             android:textColorLink="@android:color/background_dark" />
 
         <ImageView
@@ -61,8 +60,7 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:id="@+id/developers"
             android:textSize="@dimen/font_view_about"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
+            android:textAlignment="viewStart"
             android:textColorLink="@android:color/background_dark" />
 
     </LinearLayout>
