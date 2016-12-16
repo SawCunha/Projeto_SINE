@@ -45,12 +45,14 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
 
         // Adicionando o grafico
         WebView webview = (WebView) this.findViewById(R.id.graphic_web_view);
+        webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setBuiltInZoomControls(true);
         webview.requestFocusFromTouch();
         webview.setWebViewClient(new WebViewClient());
         webview.setWebChromeClient(new WebChromeClient());
+
 
         webview.loadUrl("file:///android_asset/grafico/charts.html");
     }

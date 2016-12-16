@@ -18,7 +18,7 @@ function montarSalarios(obj){
 }
 
 var xmlhttp = new XMLHttpRequest();
-xmlhttp.open('GET', 'http://localhost:10555/media-salarial?idfuncao=2922', true);
+xmlhttp.open('GET', 'http://192.168.0.16:10555/media-salarial?idfuncao=2922', true);
 xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4) {
         if(xmlhttp.status == 200) {
