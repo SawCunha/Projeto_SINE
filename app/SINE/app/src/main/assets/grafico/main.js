@@ -16,7 +16,7 @@ console.log(id);
 console.log(empresa);
     tipoEmpresa = empresa;
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open('GET', 'http://162.243.119.96:10555/media-salarial?idfuncao='+id, true);
+    xmlhttp.open('GET', 'https://sine-api-tsi.herokuapp.com/media-salarial?idfuncao='+id, true);
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4) {
             if(xmlhttp.status == 200) {

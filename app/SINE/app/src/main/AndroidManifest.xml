@@ -32,15 +32,19 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".FavoriteActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:label="@string/title_vagas_favoritas"/>
         <activity android:name=".GraphicActivity"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"
+            android:label="@string/label_grafico"/>
         <activity android:name=".SearchForGraphicActivity"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"
+            android:label="@string/label_grafico"/>
         <activity android:name=".SearchActivity"
                   android:screenOrientation="portrait"/>
         <activity android:name=".InfoActivity"
-                  android:screenOrientation="portrait"></activity>
+                  android:screenOrientation="portrait"
+            android:label="@string/title_sobre"></activity>
     </application>
 
 </manifest>

@@ -52,8 +52,8 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         webview.requestFocusFromTouch();
         webview.setWebViewClient(new WebViewClient(){
             public void onPageFinished(WebView view, String url){
+                if(tipo_empresa == null || tipo_empresa.isEmpty()) tipo_empresa = "Pequena";
                 webview.loadUrl("javascript:init("+idfuncao+",\""+tipo_empresa+"\" )");
-                Log.d("MAURICIO",tipo_empresa);
             }
         });
         webview.setWebChromeClient(new WebChromeClient());
