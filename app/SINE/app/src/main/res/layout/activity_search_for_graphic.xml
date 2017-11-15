@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="trabalho.sine.SearchForGraphicActivity">
+    tools:context="trabalho.sine.activity.SearchForGraphicActivity">
 
 
     <LinearLayout

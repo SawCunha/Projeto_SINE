@@ -50,7 +50,7 @@
 
 
                 <ImageView
-                    android:src="@drawable/ic_lupa_emprego"
+                    android:src="@drawable/lupa_employment"
                     android:layout_above="@+id/search_vaga"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/lupa"
@@ -80,7 +80,7 @@
 
 
                 <ImageView
-                    android:src="@drawable/ic_favorite_border_black_48dp"
+                    android:src="@drawable/favorite_border"
                     android:layout_above="@+id/vagasfavoritas"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/estrela"
@@ -110,7 +110,7 @@
                     android:textSize="20dp" />
 
                 <ImageView
-                    android:src="@drawable/ic_grafico"
+                    android:src="@drawable/graphic"
                     android:layout_above="@+id/mediasalarial"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/grafico"
@@ -138,7 +138,7 @@
                     android:textSize="20dp" />
 
                 <ImageView
-                    android:src="@drawable/info"
+                    android:src="@drawable/about"
                     android:layout_above="@+id/info"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/sobre"

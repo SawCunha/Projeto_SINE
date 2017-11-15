@@ -72,7 +72,7 @@
     <string name="about_app">Aplicação não oficial do website SINE - Site Nacional de Empregos. \n
         Desenvolvido pelos formandos do 6º Período do Curso Superior de Tecnologia em Sistemas para
         Internet, no ano de 2016.s</string>
-    <string name="version">Versão 1.1</string>
+    <string name="version">Versão 1.2</string>
 
     <string name="campo_cargo_vazio">Por favor, digite um nome de cargo válido e tente novamente.</string>
     <string name="funcao_nao_informada">Função não informada</string>
@@ -82,4 +82,12 @@
     <string name="descricao_nao_informada">Descrição não informada</string>
     <string name="titulo_nao_informado">Título não informado</string>
     <string name="salario_nao_informado">Salário não informado</string>
+    <string name="wagner_da_silva_almeida">Wagner da Silva Almeida</string>
+    <string name="vitor_caio_de_paula">Vitor Caio de Paula</string>
+    <string name="samuel_gon_alves_cunha">Samuel Gonçalves Cunha</string>
+    <string name="richardson_william_tobias_rosa">Richardson William Tobias Rosa</string>
+    <string name="renato_augusto_neves_j_nior">Renato Augusto Neves Júnior</string>
+    <string name="mauricio_jos_da_silva_j_nior">Mauricio José da Silva Júnior</string>
+    <string name="b_rbara_costa_silverio">Bárbara Costa Silverio</string>
+    <string name="armando_valede_assun_o">Armando Valede Assunção</string>
 </resources>

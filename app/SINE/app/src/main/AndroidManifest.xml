@@ -8,7 +8,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/sine"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
@@ -19,7 +19,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,21 +28,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ResultActivity"
+            android:name=".activity.ResultActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FavoriteActivity"
+            android:name=".activity.FavoriteActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_vagas_favoritas"/>
-        <activity android:name=".GraphicActivity"
+        <activity android:name=".activity.GraphicActivity"
                   android:screenOrientation="portrait"
             android:label="@string/label_grafico"/>
-        <activity android:name=".SearchForGraphicActivity"
+        <activity android:name=".activity.SearchForGraphicActivity"
                   android:screenOrientation="portrait"
             android:label="@string/label_grafico"/>
-        <activity android:name=".SearchActivity"
+        <activity android:name=".activity.SearchActivity"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".InfoActivity"
+        <activity android:name=".activity.InfoActivity"
                   android:screenOrientation="portrait"
             android:label="@string/title_sobre"></activity>
     </application>

@@ -1,16 +1,10 @@
 package trabalho.sine.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import trabalho.sine.FavoriteActivity;
-import trabalho.sine.InfoActivity;
-import trabalho.sine.MainActivity;
 import trabalho.sine.R;
-import trabalho.sine.SearchActivity;
-import trabalho.sine.SearchForGraphicActivity;
 import trabalho.sine.function.Conexao;
 
 /**

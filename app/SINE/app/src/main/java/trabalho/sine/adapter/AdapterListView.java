@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +13,19 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import trabalho.sine.R;
-import trabalho.sine.ResultActivity;
+import trabalho.sine.activity.ResultActivity;
+import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.model.Vaga;
+import trabalho.sine.utils.Constantes;
 
 /**
  * Created by saw on 08/12/16.
  */
-
 public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataObjectHolder> {
 
     //Cria uma TAG para o logs
@@ -55,31 +55,56 @@ public class AdapterListView extends RecyclerView.Adapter<AdapterListView.DataOb
     @Override
     public void onBindViewHolder(final DataObjectHolder holder, final int position) {
 
-
         holder.setVaga(mDataset.get(position));
-        holder.vagaNome.setText(mDataset.get(position).getFuncao());
-        holder.vagaEmpresa.setText(mDataset.get(position).getEmpresa());
-        holder.vagaEndereco.setText(mDataset.get(position).getCidade());
+        try {
+            holder.vagaNome.setText(new String(mDataset.get(position).getFuncao().
+                    getBytes(),"UTF-8"));
+            holder.vagaEmpresa.setText(mDataset.get(position).getEmpresa());
+            holder.vagaEndereco.setText(mDataset.get(position).getCidade());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
         holder.favoriteBtn.setBackgroundResource(
                 (mDataset.get(position).isFavoritado() == false ?
-                        R.drawable.ic_favorite_border_black_48dp:R.drawable.ic_favorite_black));
+                        R.drawable.favorite_border:R.drawable.favorite_black));
 
         holder.favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Vaga vaga = getItemPosition(position);
-                VagaDAO vagaDAO = new VagaDAO(context.getApplicationContext());
+                final VagaDAO vagaDAO = new VagaDAO(context.getApplicationContext());
+
                 if(vaga.isFavoritado() == false){
-                    vaga.setFavoritado(true);
-                    vagaDAO.insert(vaga);
-                    holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_black);
-                    Toast.makeText(context,R.string.toast_msg_adapter_list_favoritado,Toast.LENGTH_SHORT).show();
+                    RequestURL req = new RequestURL(context);
+                    try {
+                        req.requestURL(String.format(Constantes.URL_API + Constantes.URL_API_VAGA,
+                                new String(mDataset.get(position).getCidade().getBytes("UTF-8"),"UTF-8")
+                                        .replace(" ","%20"),
+                                new String(mDataset.get(position).getFuncao().getBytes("UTF-8"),"UTF-8")
+                                        .replace(" ","%20"),
+                                mDataset.get(position).getId()),
+                                new RequestURL.VolleyCallback() {
+                                    @Override
+                                    public void onSuccess(String response) {
+                                        Gson gson = new Gson();
+                                        Vaga vagaJSON = gson.fromJson(response, Vaga.class);
+                                        vagaJSON.setFavoritado(true);
+                                        vagaDAO.insert(vagaJSON);
+                                        holder.favoriteBtn.setBackgroundResource(R.drawable.favorite_black);
+                                        Toast.makeText(context,R.string.toast_msg_adapter_list_favoritado,Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                 }else{
                     vagaDAO.delete(vaga);
                     vaga.setFavoritado(false);
-                    holder.favoriteBtn.setBackgroundResource(R.drawable.ic_favorite_border_black_48dp);
+                    holder.favoriteBtn.setBackgroundResource(R.drawable.favorite_border);
                     Toast.makeText(context,R.string.toast_msg_adapter_list_desfavoritado,Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
     }
