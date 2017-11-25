@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,8 +24,9 @@ import butterknife.OnClick;
 import trabalho.sine.R;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.model.Vaga;
+import trabalho.sine.utils.NavigationSine;
 
-public class ResultActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
+public class ResultActivity extends AppCompatActivity{
 
     @BindView(R.id.favoriteFloat) FloatingActionButton favoriteBtn;
     @BindView(R.id.shareBTN) FloatingActionButton shareBtn;
@@ -37,10 +41,10 @@ public class ResultActivity extends AppCompatActivity implements FragmentDrawer.
     @BindView(R.id.functionValue) TextView function;
     @BindView(R.id.descriptionValue) TextView des;
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
 
     private int position;
-    private FragmentDrawer mDrawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,48 +55,31 @@ public class ResultActivity extends AppCompatActivity implements FragmentDrawer.
         ButterKnife.bind(this);
         ButterKnife.setDebug(true);
 
-        createToolbar();
+        createNavigationView();
         carregaInforActivity(getIntent().getExtras());
 
     }
 
-    //Responsavel pela criação e definção do toolbar
-    private void createToolbar() {
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        mDrawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_result);
-        mDrawerFragment.setUp(R.id.fragment_navigation_drawer_result, (DrawerLayout) findViewById(R.id.activity_result), mToolbar);
-        mDrawerFragment.setDrawerListener(this);
-    }
+    private void createNavigationView(){
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.drawer_layout_result);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,-1,this));
     }
 
     @Override
     public void onBackPressed() {
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("position",position);
-        setResult(RESULT_OK,returnIntent);
-        super.onBackPressed();
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void carregaInforActivity(Bundle bundle) {
@@ -179,18 +166,6 @@ public class ResultActivity extends AppCompatActivity implements FragmentDrawer.
     public void openLink(View view){
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(vaga.getUrl_sine()));
         startActivity(intent);
-    }
-
-    @Override
-    public void onDrawerItemSelected(View view, int position) {
-        switch (position){
-            case 0: LoadActivities.home(this); break;
-            case 1: LoadActivities.searchActivity(this); break;
-            case 2: LoadActivities.favoriteActivity(this); break;
-            case 3: LoadActivities.searchForGraphicActivity(this);break;
-            case 4: LoadActivities.info(this); break;
-            default: Log.i("ERRO","POSITION ERROR"); break;
-        }
     }
 
 }

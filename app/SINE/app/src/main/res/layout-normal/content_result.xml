@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="trabalho.sine.activity.ResultActivity"
+    tools:showIn="@layout/app_bar_result">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_below="@+id/container_toolbar"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/relativeLayout"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/titleValue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/titleLabel"
+                                android:layout_alignTop="@+id/titleLabel"
+                                android:layout_toEndOf="@+id/titleLabel"
+                                android:layout_weight="1"
+
+                                android:ellipsize="none"
+                                android:fontFamily="serif"
+                                android:gravity="center_vertical"
+                                android:text="Titulo da Vaga"
+                                android:textAlignment="center"
+                                android:textAllCaps="false"
+                                android:textColor="@color/cast_expanded_controller_background_color"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/moneyLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignStart="@+id/titleLabel"
+                                android:layout_below="@+id/titleLabel"
+                                android:paddingRight="5dp"
+                                android:src="@drawable/money" />
+
+                            <TextView
+                                android:id="@+id/moneyValue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/moneyLabel"
+                                android:layout_alignStart="@+id/titleValue"
+                                android:layout_weight="1"
+                                android:ellipsize="none"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/cityLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignStart="@+id/moneyLabel"
+                                android:layout_below="@+id/moneyLabel"
+                                android:paddingRight="5dp"
+                                android:src="@drawable/city" />
+
+                            <TextView
+                                android:id="@+id/cityValue"
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignStart="@+id/moneyValue"
+                                android:layout_alignTop="@+id/cityLabel"
+                                android:layout_weight="1"
+                                android:ellipsize="none"
+                                android:gravity="center_vertical"
+                                android:text=""
+                                android:textSize="16sp"
+                                android:paddingLeft="5dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/addressLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignStart="@+id/cityLabel"
+                                android:layout_below="@+id/cityLabel"
+                                android:paddingRight="5dp"
+                                android:src="@drawable/address" />
+
+                            <TextView
+
+                                android:id="@+id/addressValue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignStart="@id/cityValue"
+                                android:layout_alignTop="@+id/addressLabel"
+                                android:layout_toEndOf="@+id/titleValue"
+                                android:layout_weight="1"
+                                android:ellipsize="none"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/companyLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/company" />
+
+                            <TextView
+
+                                android:id="@+id/companyValue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="none"
+                                android:gravity="center_vertical"
+                                android:text=""
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/functionLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignStart="@+id/companyLabel"
+                                android:layout_below="@+id/companyLabel"
+                                android:paddingRight="5dp"
+                                android:src="@drawable/function" />
+
+                            <TextView
+
+                                android:id="@+id/functionValue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/functionLabel"
+                                android:layout_toEndOf="@+id/companyValue"
+                                android:layout_weight="1"
+                                android:ellipsize="none"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/descriptionLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignStart="@+id/functionLabel"
+                                android:layout_below="@+id/functionLabel"
+                                android:paddingRight="5dp"
+                                android:src="@drawable/description" />
+
+                            <TextView
+                                android:id="@+id/descriptionValue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignStart="@id/functionValue"
+                                android:layout_alignTop="@+id/descriptionLabel"
+                                android:layout_toEndOf="@+id/addressValue"
+                                android:layout_weight="1"
+                                android:ellipsize="none"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="5dp"
+                                android:text=""
+                                android:textSize="16sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <android.support.constraint.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <android.support.design.widget.FloatingActionButton
+                                    android:id="@+id/shareBTN"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="16dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/share" />
+
+
+                                <android.support.design.widget.FloatingActionButton
+                                    android:id="@+id/favoriteFloat"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginTop="8dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/favorite_border" />
+
+                                <android.support.design.widget.FloatingActionButton
+                                    android:id="@+id/openLink"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:layout_marginRight="16dp"
+                                    android:layout_marginTop="8dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/open" />
+
+                            </android.support.constraint.ConstraintLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

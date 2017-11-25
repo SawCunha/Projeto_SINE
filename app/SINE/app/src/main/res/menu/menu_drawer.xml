@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="none">
+        <item android:title="@string/in_cio">
+            <menu>
+                <item
+                    android:id="@+id/home"
+                    android:title="Home" />
+            </menu>
+        </item>
+    </group>
+
+    <group android:checkableBehavior="none">
+        <item android:title="@string/pesquisa">
+            <menu>
+                <item
+                    android:id="@+id/searchActivity"
+                    android:icon="@drawable/lupa_employment"
+                    android:title="@string/pesquisar_vaga" />
+
+                <item
+                    android:id="@+id/searchForGraphicActivity"
+                    android:icon="@drawable/graphic"
+                    android:title="@string/media_salarial" />
+            </menu>
+        </item>
+    </group>
+
+    <item android:title="@string/suas_vagas">
+        <menu>
+            <item
+                android:id="@+id/favoriteActivity"
+                android:icon="@drawable/favorite_border"
+                android:title="@string/favorite_vaga" />
+        </menu>
+    </item>
+
+    <item android:title="@string/extras">
+        <menu>
+            <item
+                android:id="@+id/infoActivity"
+                android:icon="@drawable/about"
+                android:title="@string/title_sobre" />
+        </menu>
+    </item>
+
+</menu>

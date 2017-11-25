@@ -26,7 +26,7 @@
     <string name="title_sobre">Sobre</string>
 
     <!-- Tela geração de gráfico -->
-    <string name="label_grafico">Média Salárial dos Profissionais</string>
+    <string name="label_grafico">Média Salárial</string>
 
     <!-- Tela pesquisa de faixa salária -->
     <string name="activity_search_graphic_title">Pesquisar Médias Saláriais</string>
@@ -90,4 +90,16 @@
     <string name="mauricio_jos_da_silva_j_nior">Mauricio José da Silva Júnior</string>
     <string name="b_rbara_costa_silverio">Bárbara Costa Silverio</string>
     <string name="armando_valede_assun_o">Armando Valede Assunção</string>
+    <string name="title_activity_teste">Teste</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="pesquisa">Pesquisa</string>
+    <string name="pesquisar_vaga">Pesquisar Vaga</string>
+    <string name="filtro">Filtro</string>
+    <string name="extras">Extras</string>
+    <string name="in_cio">Início</string>
+    <string name="suas_vagas">Suas Vagas</string>
+    <string name="detalhes">Detalhes</string>
+    <string name="vagas_disponiveis">Vagas Disponíveis</string>
 </resources>

@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -29,6 +32,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import trabalho.sine.R;
 import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.adapter.AdpterScrollListener;
@@ -41,12 +45,12 @@ import trabalho.sine.model.Cidade;
 import trabalho.sine.model.Vaga;
 import trabalho.sine.model.VagasJSON;
 import trabalho.sine.utils.Constantes;
+import trabalho.sine.utils.NavigationSine;
 
-public class SearchActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
+public class SearchActivity extends AppCompatActivity{
 
 
     @BindView(R.id.list_empregos) RecyclerView mRecyclerView;
-    @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.filterButton) Button filter;
 
     private AdapterListView mAdapter;
@@ -61,7 +65,9 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
 
     private Long cidadeEstado = 0l, funcao = 0l;
 
-    private FragmentDrawer mDrawerFragment;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+
     private int pos = 1;
     private int totalItemCount;
 
@@ -74,13 +80,36 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         ButterKnife.bind(this);
         ButterKnife.setDebug(true);
 
+        createNavigationView();
+
         vagas = new ArrayList<>();
         totalItemCount = 0;
 
         mostrarDialogoCarregando();
         obtemVagasAPI();
-        createToolbar();
 
+    }
+
+    private void createNavigationView(){
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.drawer_layout_search);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,R.id.searchActivity,this));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void criaAutoComplete(AutoCompleteTextView inputCargo, AutoCompleteTextView inputCidade) {
@@ -107,14 +136,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         });
     }
 
-    private void createToolbar(){
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        mDrawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_search);
-        mDrawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.activity_search), mToolbar);
-        mDrawerFragment.setDrawerListener(this);
-    }
 
     private void carregaRecyclerView() {
         verifica();
@@ -273,6 +294,7 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         alerta.show();
     }
 
+    @OnClick(R.id.filterButton)
     // responsável pelo click do botão filtro.
     public void filterClick(View view){
         dialogFiltro();
@@ -284,18 +306,6 @@ public class SearchActivity extends AppCompatActivity implements FragmentDrawer.
         dialog.setIndeterminate(true);
         dialog.setCancelable(true);
         dialog.show();
-    }
-
-    @Override
-    public void onDrawerItemSelected(View view, int position) {
-        switch (position){
-            case 0: LoadActivities.home(this); break;
-            case 1: break;
-            case 2: LoadActivities.favoriteActivity(this); break;
-            case 3: LoadActivities.searchForGraphicActivity(this);break;
-            case 4: LoadActivities.info(this); break;
-            default: Log.i("ERRO","POSITION ERROR"); break;
-        }
     }
 
 }

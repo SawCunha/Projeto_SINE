@@ -3,7 +3,10 @@ package trabalho.sine.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -24,13 +27,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import trabalho.sine.R;
 import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.enun.CampoBD;
 import trabalho.sine.model.Vaga;
+import trabalho.sine.utils.NavigationSine;
 
-public class FavoriteActivity extends AppCompatActivity implements  FragmentDrawer.FragmentDrawerListener{
+public class FavoriteActivity extends AppCompatActivity{
 
     @BindView(R.id.list_empregos_favoritos) RecyclerView mRecyclerView;
     @BindView(R.id.toolbar) Toolbar mToolbar;
@@ -39,7 +44,8 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Vaga> vagas;
 
-    private FragmentDrawer mDrawerFragment;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
 
     private String filtroEscolhido = "";
     private int filtroIndex = 1;
@@ -56,20 +62,33 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
         ButterKnife.bind(this);
         ButterKnife.setDebug(true);
 
-        filtroButton = (Button) findViewById(R.id.filterButton);
+        createNavigationView();
 
-        createToolbar();
+        filtroButton = findViewById(R.id.filterButton);
+
         verficaFiltroSelecionado();
     }
 
-    //Responsavel pela criação e definção do toolbar
-    private void createToolbar(){
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        mDrawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_favorite);
-        mDrawerFragment.setUp(R.id.fragment_navigation_drawer_favorite, (DrawerLayout) findViewById(R.id.activity_favorite), mToolbar);
-        mDrawerFragment.setDrawerListener(this);
+    private void createNavigationView(){
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.drawer_layout_favorite);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,R.id.favoriteActivity,this));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void verficaFiltroSelecionado() {
@@ -160,43 +179,7 @@ public class FavoriteActivity extends AppCompatActivity implements  FragmentDraw
         alerta.show();
     }
 
-
-    @Override
-    public void onBackPressed() {
-        Intent returnIntent = new Intent();
-        setResult(2,returnIntent);
-        super.onBackPressed();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onDrawerItemSelected(View view, int position) {
-        switch (position){
-            case 0: LoadActivities.home(this); break;
-            case 1: LoadActivities.searchActivity(this); break;
-            case 2: break;
-            case 3: LoadActivities.searchForGraphicActivity(this);break;
-            case 4: LoadActivities.info(this); break;
-            default: Log.i("ERRO","POSITION ERROR"); break;
-        }
-    }
-
+    @OnClick(R.id.filter)
     // responsável pelo click do botão filtro.
     public void filterClick(View view){
         dialogFiltro();

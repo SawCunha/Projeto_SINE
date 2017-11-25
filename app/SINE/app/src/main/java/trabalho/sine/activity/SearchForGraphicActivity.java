@@ -3,7 +3,10 @@ package trabalho.sine.activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -24,11 +27,13 @@ import trabalho.sine.adapter.CargoSuggestionAdapter;
 import trabalho.sine.enun.TipoEmpresa;
 import trabalho.sine.model.Cargo;
 import trabalho.sine.utils.Constantes;
+import trabalho.sine.utils.NavigationSine;
 
-public class SearchForGraphicActivity extends AppCompatActivity implements  FragmentDrawer.FragmentDrawerListener{
+public class SearchForGraphicActivity extends AppCompatActivity{
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
-    private FragmentDrawer mDrawerFragment;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+
     private Resources resources;
     private Cargo cargo;
     private String valueRadioButton;
@@ -54,7 +59,29 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
             }
         });
 
-        createToolbar();
+        createNavigationView();
+    }
+
+    private void createNavigationView(){
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.drawer_layout_search_for_graphic);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,R.id.searchForGraphicActivity,this));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     //Gerencia os eventos da caixa de texto.
@@ -103,28 +130,6 @@ public class SearchForGraphicActivity extends AppCompatActivity implements  Frag
     @OnClick(R.id.search_button)
     public void pesquisarCargo(){
         validateFields();
-    }
-
-    //Responsavel pela criação e definção do toolbar
-    private void createToolbar(){
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        mDrawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_graphic);
-        mDrawerFragment.setUp(R.id.fragment_navigation_drawer_graphic, (DrawerLayout) findViewById(R.id.activity_graphic), mToolbar);
-        mDrawerFragment.setDrawerListener(this);
-    }
-
-    @Override
-    public void onDrawerItemSelected(View view, int position) {
-        switch (position){
-            case 0: LoadActivities.home(this); break;
-            case 1: LoadActivities.searchActivity(this); break;
-            case 2: LoadActivities.favoriteActivity(this); break;
-            case 3: break;
-            case 4: LoadActivities.info(this); break;
-            default: Log.i("ERRO","POSITION ERROR"); break;
-        }
     }
 
     //Verifica a opção selecionada no checked box.

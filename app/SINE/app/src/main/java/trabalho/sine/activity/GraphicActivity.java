@@ -2,7 +2,10 @@ package trabalho.sine.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,13 +20,15 @@ import android.webkit.WebViewClient;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import trabalho.sine.R;
+import trabalho.sine.utils.NavigationSine;
 
-public class GraphicActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
+public class GraphicActivity extends AppCompatActivity{
 
     @BindView(R.id.graphic_web_view) WebView graphicWebView;
-    @BindView(R.id.toolbar) Toolbar mToolbar;
 
-    private FragmentDrawer mDrawerFragment;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+
     private int idfuncao;
     private String tipo_empresa;
     private String cargo;
@@ -38,7 +43,7 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         ButterKnife.bind(this);
         ButterKnife.setDebug(true);
 
-        createToolbar();
+        createNavigationView();
 
         //Obtém os valores da outra activity.
         getValues();
@@ -61,49 +66,33 @@ public class GraphicActivity extends AppCompatActivity implements FragmentDrawer
         webview.loadUrl("file:///android_asset/grafico/charts.html");
     }
 
+    private void createNavigationView(){
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.drawer_layout_graphic);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,-1,this));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private void getValues(){
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         idfuncao = bundle.getInt("idfuncao");
         tipo_empresa = bundle.getString("tipo_empresa");
         cargo = bundle.getString("cargo");
-    }
-
-    private void createToolbar(){
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        mDrawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer_graphic);
-        mDrawerFragment.setUp(R.id.fragment_navigation_drawer_graphic, (DrawerLayout) findViewById(R.id.activity_graphic), mToolbar);
-        mDrawerFragment.setDrawerListener(this);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onDrawerItemSelected(View view, int position) {
-        switch (position){
-            case 0: LoadActivities.home(this); break;
-            case 1: LoadActivities.searchActivity(this); break;
-            case 2: LoadActivities.favoriteActivity(this); break;
-            case 3: LoadActivities.searchForGraphicActivity(this);break;
-            case 4: LoadActivities.info(this); break;
-            default: Log.i("ERRO","POSITION ERROR"); break;
-        }
     }
 }

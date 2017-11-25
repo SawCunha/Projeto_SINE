@@ -1,9 +1,11 @@
 package trabalho.sine.activity;
 
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,14 +16,17 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import trabalho.sine.R;
 import trabalho.sine.function.Conexao;
+import trabalho.sine.utils.NavigationSine;
 
-public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
+public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
 
-    private FragmentDrawer mDrawerFragment;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,75 +37,55 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         ButterKnife.bind(this);
         ButterKnife.setDebug(true);
 
-        createToolbar();
+        createNavigationView();
     }
 
-    private void createToolbar(){
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        mDrawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-        mDrawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-        mDrawerFragment.setDrawerListener(this);
-    }
+    private void createNavigationView(){
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.drawer_layout_main);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
-    public void searchActivity(View view){
-        if(Conexao.isConectado(this)) {
-            Intent searchActivity = new Intent(this, SearchActivity.class);
-            startActivity(searchActivity);
-        }else
-            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
-    }
-
-    public void favoriteActivity(View view){
-        Intent favoriteActivity = new Intent(this, FavoriteActivity.class);
-        startActivity(favoriteActivity);
-    }
-
-    public void searchForGraphicActivity(View view){
-        if(Conexao.isConectado(this)) {
-            Intent searchForGraphicActivity = new Intent(this, SearchForGraphicActivity.class);
-            startActivity(searchForGraphicActivity);
-        }else
-            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
-    }
-
-    public void infoActivity(View view) {
-        Intent infoActivity = new Intent(this, InfoActivity.class);
-        startActivity(infoActivity);
-    }
-
-    private void info() {
-        Intent info = new Intent(this, InfoActivity.class);
-        startActivity(info);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,R.id.home,this));
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onDrawerItemSelected(View view, int position) {
-        switch (position){
-            case 0: break;
-            case 1: searchActivity(view); break;
-            case 2: favoriteActivity(view); break;
-            case 3: searchForGraphicActivity(view);break;
-            case 4: info(); break;
-            default: Log.i("ERRO","POSITION ERROR"); break;
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
+
+    @OnClick(R.id.searchActivity)
+    public void searchActivity(View view){
+        if(Conexao.isConectado(this)) {
+            this.startActivity(new Intent(this, SearchActivity.class));
+        }else
+            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
+    }
+
+    @OnClick(R.id.favoriteActivity)
+    public void favoriteActivity(View view){
+        this.startActivity(new Intent(this, FavoriteActivity.class));
+    }
+
+    @OnClick(R.id.searchForGraphicActivity)
+    public void searchForGraphicActivity(View view){
+        if(Conexao.isConectado(this)) {
+            this.startActivity(new Intent(this, SearchForGraphicActivity.class));
+        }else
+            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
+    }
+
+    @OnClick(R.id.infoActivity)
+    public void infoActivity(View view) {
+        this.startActivity(new Intent(this, InfoActivity.class));
+    }
+
 }

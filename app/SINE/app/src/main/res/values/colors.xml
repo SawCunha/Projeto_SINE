@@ -7,5 +7,12 @@
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#01579b</color>
 
+    <color name="Sine1">#0b5401</color>
+    <color name="Sine2">#2d6301</color>
+    <color name="Sine3">#fdbb01</color>
+    <color name="Sine4">#fda901</color>
+    <color name="Sine5">#16419f</color>
+
     <color name="colorToolbarSobre">#c8e6c9</color>
+    <color name="black">#000</color>
 </resources>

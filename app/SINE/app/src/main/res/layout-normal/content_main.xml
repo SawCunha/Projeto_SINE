@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="trabalho.sine.activity.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?android:attr/selectableItemBackground">
+
+        <LinearLayout
+            android:id="@+id/searchActivity"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            android:background="@color/Sine4"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/search_vaga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="18dp"
+                android:textColor="@color/black"
+                android:id="@+id/search_vaga"
+                android:textSize="20dp" />
+
+
+            <ImageView
+                android:src="@drawable/lupa_employment"
+                android:layout_above="@+id/search_vaga"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/lupa"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/favoriteActivity"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            android:background="@color/Sine3"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/favorite_vaga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="18dp"
+                android:textColor="@color/black"
+                android:id="@+id/vagasfavoritas"
+                android:textSize="20dp" />
+
+
+            <ImageView
+                android:src="@drawable/favorite_border"
+                android:layout_above="@+id/vagasfavoritas"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/estrela"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/searchForGraphicActivity"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            android:background="@color/Sine2"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/media_salarial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="18dp"
+                android:textColor="#000"
+                android:id="@+id/mediasalarial"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:src="@drawable/graphic"
+                android:layout_above="@+id/mediasalarial"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/grafico"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/infoActivity"
+            android:layout_width="match_parent"
+            android:layout_height="127dp"
+            android:background="@color/Sine1"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:text="@string/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="18dp"
+                android:textColor="#000"
+                android:id="@+id/info"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:src="@drawable/about"
+                android:layout_above="@+id/info"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/sobre"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
