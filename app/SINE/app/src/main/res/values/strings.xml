@@ -102,4 +102,8 @@
     <string name="suas_vagas">Suas Vagas</string>
     <string name="detalhes">Detalhes</string>
     <string name="vagas_disponiveis">Vagas Disponíveis</string>
+    <string name="cidade_uf">cidade/uf</string>
+    <string name="fun_o">função</string>
+    <string name="titulo_da_vaga">Titulo da Vaga</string>
+    <string name="todo">TODO</string>
 </resources>

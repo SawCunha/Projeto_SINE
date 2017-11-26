@@ -1,24 +1,27 @@
 package trabalho.sine.activity;
 
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,9 +30,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import trabalho.sine.R;
-import trabalho.sine.adapter.AdapterListView;
+import trabalho.sine.adapter.FavoriteJobAdapter;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.enun.CampoBD;
 import trabalho.sine.model.Vaga;
@@ -40,18 +42,13 @@ public class FavoriteActivity extends AppCompatActivity{
     @BindView(R.id.list_empregos_favoritos) RecyclerView mRecyclerView;
     @BindView(R.id.toolbar) Toolbar mToolbar;
 
-    private AdapterListView mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private List<Vaga> vagas;
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
 
-    private String filtroEscolhido = "";
     private int filtroIndex = 1;
-    private AlertDialog alerta;
-
-    private Button filtroButton;
+    private Dialog alerta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +60,6 @@ public class FavoriteActivity extends AppCompatActivity{
         ButterKnife.setDebug(true);
 
         createNavigationView();
-
-        filtroButton = findViewById(R.id.filterButton);
 
         verficaFiltroSelecionado();
     }
@@ -80,6 +75,24 @@ public class FavoriteActivity extends AppCompatActivity{
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,R.id.favoriteActivity,this));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_filter, menu);
+        MenuItem filterMenu = menu.findItem(R.id.filterMenu);
+        Drawable newIcon = (Drawable)filterMenu.getIcon();
+        newIcon.mutate().setColorFilter(Color.argb(255, 255, 255, 255), PorterDuff.Mode.SRC_IN);
+        filterMenu.setIcon(newIcon);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.filterMenu) dialogFiltro();
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -103,16 +116,18 @@ public class FavoriteActivity extends AppCompatActivity{
     }
 
     private void createRecyclerView(){
-        //Remove os itens do Recycler, para add os novos valores.
-        mRecyclerView.removeAllViewsInLayout();
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new AdapterListView(vagas,this);
-        mRecyclerView.setAdapter(mAdapter);
-        RecyclerView.ItemDecoration itemDecoration =
-                new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
-        mRecyclerView.addItemDecoration(itemDecoration);
+        mRecyclerView.setAdapter(new FavoriteJobAdapter(vagas, FavoriteActivity.this));
+
+        RecyclerView.LayoutManager layout = new LinearLayoutManager(FavoriteActivity.this,
+                LinearLayoutManager.VERTICAL, false);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+                LinearLayoutManager.VERTICAL);
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
+
+        mRecyclerView.setLayoutManager(layout);
+
+        mRecyclerView.setLayoutFrozen(false);
     }
 
     //Obtem as Vagas salvas no Banco de Dados.
@@ -132,6 +147,7 @@ public class FavoriteActivity extends AppCompatActivity{
                 break;
 
             default:
+                vgs = dao.getAll();
                 break;
         }
 
@@ -146,43 +162,53 @@ public class FavoriteActivity extends AppCompatActivity{
     // Constrói uma caixa de diálogo que pede qual filtro o jovem deseja.
     private void dialogFiltro(){
 
-        final LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        // Guardar o ultimo filtro clicado, se o jovem nao clicar em um novo, volta ao que estava.
         final int tempFiltroIndex = filtroIndex;
 
-        final CharSequence[] charSequences = new CharSequence[]{"Últimas vagas", "Maior FaixaSalarial"};
-        final Integer[]checados = new Integer[charSequences.length];
+        alerta = new Dialog(this);
+        alerta.setContentView(R.layout.alert_dialog_favorite);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.alert_dialog_title);
-        builder.setView(layout);
+        final RadioGroup radioGroup = alerta.findViewById(R.id.grupo);
+        final RadioButton buttonUltimas = alerta.findViewById(R.id.ultimasVagas);
+        final RadioButton buttonSalario = alerta.findViewById(R.id.maiorSalario);
+        Button filterBtn = alerta.findViewById(R.id.filterBtn);
+        Button clearBtn = alerta.findViewById(R.id.clearBtn);
 
-        // Ação que irá ocorrer quando o jovem clicar no botão ok.
-        builder.setSingleChoiceItems(charSequences, --filtroIndex, new DialogInterface.OnClickListener() {
+        if(filtroIndex == 1)
+            radioGroup.check(buttonUltimas.getId());
+        else
+            radioGroup.check(buttonSalario.getId());
+
+        filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                filtroEscolhido = charSequences[i].toString();
-                filtroIndex = i;
-                filtroIndex++;
-                verficaFiltroSelecionado();
+            public void onClick(View v) {
                 alerta.dismiss();
 
+                if(radioGroup.getCheckedRadioButtonId() == buttonUltimas.getId())
+                    filtroIndex = 1;
+                else
+                    filtroIndex = 2;
+
+                mRecyclerView.scrollToPosition(0);
+                mRecyclerView.clearOnScrollListeners();
+
+                vagas.clear();
+                verficaFiltroSelecionado();
             }
         });
 
-        filtroIndex = tempFiltroIndex;
-        builder.setCancelable(true);
-        alerta = builder.create();
-        alerta.show();
-    }
+        clearBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filtroIndex = 0;
+                verficaFiltroSelecionado();
+            }
+        });
 
-    @OnClick(R.id.filter)
-    // responsável pelo click do botão filtro.
-    public void filterClick(View view){
-        dialogFiltro();
+        alerta.getWindow().setBackgroundDrawable(
+                new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        filtroIndex = tempFiltroIndex;
+        alerta.show();
     }
 
 }

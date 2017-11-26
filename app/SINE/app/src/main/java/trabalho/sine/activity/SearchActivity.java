@@ -1,30 +1,34 @@
 package trabalho.sine.activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -32,12 +36,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import trabalho.sine.R;
-import trabalho.sine.adapter.AdapterListView;
 import trabalho.sine.adapter.AdpterScrollListener;
 import trabalho.sine.adapter.CargoSuggestionAdapter;
 import trabalho.sine.adapter.CidadeSuggestionAdapter;
+import trabalho.sine.adapter.JobAdapter;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.model.Cargo;
@@ -49,17 +52,12 @@ import trabalho.sine.utils.NavigationSine;
 
 public class SearchActivity extends AppCompatActivity{
 
-
     @BindView(R.id.list_empregos) RecyclerView mRecyclerView;
-    @BindView(R.id.filterButton) Button filter;
 
-    private AdapterListView mAdapter;
-    private LinearLayoutManager mLayoutManager;
     private List<Vaga> vagas;
     private ProgressDialog dialog;
-    private String filtroEscolhido = "";
     private int filtroIndex = 1;
-    private AlertDialog alerta;
+    private Dialog alerta;
 
     private String cityValue = "", functionValue = "";
 
@@ -86,13 +84,20 @@ public class SearchActivity extends AppCompatActivity{
         totalItemCount = 0;
 
         mostrarDialogoCarregando();
-        obtemVagasAPI();
+        obtemVagasGeral();
 
     }
 
     private void createNavigationView(){
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
+
         drawerLayout = findViewById(R.id.drawer_layout_search);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -101,6 +106,24 @@ public class SearchActivity extends AppCompatActivity{
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,R.id.searchActivity,this));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_filter, menu);
+        MenuItem filterMenu = menu.findItem(R.id.filterMenu);
+        Drawable newIcon = filterMenu.getIcon();
+        newIcon.mutate().setColorFilter(Color.argb(255, 255, 255, 255), PorterDuff.Mode.SRC_IN);
+        filterMenu.setIcon(newIcon);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.filterMenu) dialogFiltro();
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -144,20 +167,26 @@ public class SearchActivity extends AppCompatActivity{
     }
 
     private void createRecyclerView(){
+
         //Remove os itens do Recycler, para add os novos valores.
         mRecyclerView.removeAllViewsInLayout();
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new AdapterListView(vagas,this);
-        mRecyclerView.setAdapter(mAdapter);
-        RecyclerView.ItemDecoration itemDecoration =
-                new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
-        mRecyclerView.addItemDecoration(itemDecoration);
+        mRecyclerView.setAdapter(new JobAdapter(vagas, SearchActivity.this));
+
+        RecyclerView.LayoutManager layout = new LinearLayoutManager(SearchActivity.this,
+                LinearLayoutManager.VERTICAL, false);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+                LinearLayoutManager.VERTICAL);
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
+
+        mRecyclerView.setLayoutManager(layout);
+
         mRecyclerView.setLayoutFrozen(false);
         mRecyclerView.scrollToPosition(totalItemCount);
         //Define o metodo que ira obter a ação do Scroll.
-        mRecyclerView.addOnScrollListener(new AdpterScrollListener(this,mRecyclerView,mAdapter,mLayoutManager,
+        mRecyclerView.addOnScrollListener(new AdpterScrollListener(this,mRecyclerView,
+                (JobAdapter) mRecyclerView.getAdapter(),layout,
                 cidadeEstado,funcao,filtroIndex,pos));
     }
 
@@ -198,6 +227,40 @@ public class SearchActivity extends AppCompatActivity{
                 vagas.addAll(vagasJSON.getVagas());
                 carregaRecyclerView();
             }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                try {
+                    Log.e("Error",error.getMessage());
+                }catch (Exception e){
+                    Log.e("Error",error.getMessage());
+                }
+            }
+        });
+
+    }
+
+    // obtem todas as vagas da api.
+    public void obtemVagasGeral(){
+        RequestURL req = new RequestURL(this);
+
+        req.requestURL(Constantes.URL_API_VAGAS, new RequestURL.VolleyCallback() {
+            @Override
+            public void onSuccess(String response) {
+                Gson gson = new Gson();
+                VagasJSON vagasJSON = gson.fromJson(response, VagasJSON.class);
+                vagas.addAll(vagasJSON.getVagas());
+                carregaRecyclerView();
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                try {
+                    Log.e("Error",error.getMessage());
+                }catch (Exception e){
+                    Log.e("Error",error.getMessage());
+                }
+            }
         });
 
     }
@@ -209,15 +272,16 @@ public class SearchActivity extends AppCompatActivity{
 
         final int tempFiltroIndex = filtroIndex;
 
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View forms = inflater.inflate(R.layout.alert_dialog, null, false);
+        alerta = new Dialog(this);
+        alerta.setContentView(R.layout.alert_dialog_search);
 
-        final RadioGroup radioGroup = (RadioGroup) forms.findViewById(R.id.grupo);
-        final RadioButton buttonUltimas = (RadioButton) forms.findViewById(R.id.ultimasVagas);
-        final RadioButton buttonSalario = (RadioButton) forms.findViewById(R.id.maiorSalario);
-
-        final AutoCompleteTextView city = (AutoCompleteTextView) forms.findViewById(R.id.cidade);
-        final AutoCompleteTextView function = (AutoCompleteTextView) forms.findViewById(R.id.funcao);
+        final RadioGroup radioGroup = alerta.findViewById(R.id.grupo);
+        final RadioButton buttonUltimas = alerta.findViewById(R.id.ultimasVagas);
+        final RadioButton buttonSalario = alerta.findViewById(R.id.maiorSalario);
+        Button filterBtn = alerta.findViewById(R.id.filterBtn);
+        Button clearBtn = alerta.findViewById(R.id.clearBtn);
+        final AutoCompleteTextView city = alerta.findViewById(R.id.cidade);
+        final AutoCompleteTextView function = alerta.findViewById(R.id.funcao);
 
         city.setText(cityValue);
         function.setText(functionValue);
@@ -229,20 +293,9 @@ public class SearchActivity extends AppCompatActivity{
         else
             radioGroup.check(buttonSalario.getId());
 
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        layout.addView(forms);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Escolha o filtro?");
-        builder.setView(layout);
-
-        // Ação que irá ocorrer quando o jovem clicar no botão ok.
-        builder.setPositiveButton(R.string.positive_button, new DialogInterface.OnClickListener() {
+        filterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
+            public void onClick(View v) {
                 alerta.dismiss();
 
                 if(radioGroup.getCheckedRadioButtonId() == buttonUltimas.getId())
@@ -260,18 +313,15 @@ public class SearchActivity extends AppCompatActivity{
             }
         });
 
-        // Ação que irá ocorrer quando o jovem clicar no botão Reseta.
-        builder.setNegativeButton(R.string.negative_button, new DialogInterface.OnClickListener() {
+        clearBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
+            public void onClick(View v) {
                 // Reseta o scroll.
                 mRecyclerView.scrollToPosition(0);
                 mRecyclerView.clearOnScrollListeners();
 
                 vagas.clear();
                 pos = 1;
-                filtroEscolhido = "";
                 filtroIndex = 1;
 
                 cidadeEstado = 0l;
@@ -287,24 +337,17 @@ public class SearchActivity extends AppCompatActivity{
             }
         });
 
-        filtroIndex = tempFiltroIndex;
-        // filtroIndex = tempFiltroIndex;
-        builder.setCancelable(true);
-        alerta = builder.create();
-        alerta.show();
-    }
+        alerta.getWindow().setBackgroundDrawable(
+                new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
-    @OnClick(R.id.filterButton)
-    // responsável pelo click do botão filtro.
-    public void filterClick(View view){
-        dialogFiltro();
+        filtroIndex = tempFiltroIndex;
+        alerta.show();
     }
 
     public void mostrarDialogoCarregando(){
         dialog = new ProgressDialog(this);
         dialog.setMessage("Carregando dados");
         dialog.setIndeterminate(true);
-        dialog.setCancelable(true);
         dialog.show();
     }
 

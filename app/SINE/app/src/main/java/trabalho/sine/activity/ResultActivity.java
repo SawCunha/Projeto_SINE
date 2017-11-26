@@ -78,6 +78,9 @@ public class ResultActivity extends AppCompatActivity{
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("position",position);
+            setResult(RESULT_OK,returnIntent);
             super.onBackPressed();
         }
     }

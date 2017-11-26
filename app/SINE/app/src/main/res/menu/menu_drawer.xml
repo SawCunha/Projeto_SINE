@@ -8,6 +8,7 @@
             <menu>
                 <item
                     android:id="@+id/home"
+                    android:icon="@drawable/home"
                     android:title="Home" />
             </menu>
         </item>

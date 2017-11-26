@@ -13,13 +13,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:text="@string/filtro"
-            android:id="@+id/filter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list_empregos_favoritos"
             android:layout_width="match_parent"

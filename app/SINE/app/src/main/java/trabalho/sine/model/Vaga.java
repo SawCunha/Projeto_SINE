@@ -103,27 +103,30 @@ public class Vaga implements Comparable<Vaga>{
 
     @Override
     public int compareTo(Vaga vaga) {
+        try {
+            if (this.getSalario() == null)
+                this.salario = "R$0,00";
+            if (vaga.getSalario() == null)
+                vaga.setSalario("R$0,00");
 
-        if(this.getSalario() == null)
-            this.salario = "R$0,00";
-        if(vaga.getSalario() == null)
-            vaga.setSalario("R$0,00");
+            String sal = this.salario,
+                    sal2 = vaga.getSalario();
 
-        String sal = this.salario,
-               sal2 = vaga.getSalario();
+            sal = sal.replaceAll("R\\$", "");
+            sal2 = sal2.replaceAll("R\\$", "");
+            sal = sal.replaceAll(",00", "");
+            sal2 = sal2.replaceAll(",00", "");
 
-        sal = sal.replaceAll("R\\$","");
-        sal2 = sal2.replaceAll("R\\$","");
-        sal = sal.replaceAll(",00","");
-        sal2 = sal2.replaceAll(",00","");
+            Log.d("Foi", sal);
 
-        Log.d("Foi", sal);
-
-        if(Float.parseFloat(sal) > Float.parseFloat(sal2))
-            return -1;
-        else if(Float.parseFloat(sal) < Float.parseFloat(sal2))
+            if (Float.parseFloat(sal) > Float.parseFloat(sal2))
+                return -1;
+            else if (Float.parseFloat(sal) < Float.parseFloat(sal2))
+                return 1;
+        }catch (Exception e){
+            e.printStackTrace();
             return 1;
-
+        }
         return 0;
     }
 }

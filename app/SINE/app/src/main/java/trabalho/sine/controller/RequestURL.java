@@ -32,11 +32,7 @@ public class RequestURL {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                try {
-                    Log.i("Error Request: ", error.getMessage());
-                }catch (NullPointerException e){
-                    Log.i("Erro ao Conectar... \n",e.getMessage());
-                }
+                callback.onErrorResponse(error);
             }
         });
         queue.add(stringRequest);
@@ -44,6 +40,7 @@ public class RequestURL {
 
     public interface VolleyCallback {
         void onSuccess(String response);
+        void onErrorResponse(VolleyError error);
     }
 }//class RequestURL
 

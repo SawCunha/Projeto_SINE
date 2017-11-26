@@ -15,11 +15,10 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_below="@+id/container_toolbar"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/relativeLayout"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            tools:ignore="UselessParent">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -56,15 +55,10 @@
                                 android:id="@+id/titleValue"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignBottom="@+id/titleLabel"
-                                android:layout_alignTop="@+id/titleLabel"
-                                android:layout_toEndOf="@+id/titleLabel"
-                                android:layout_weight="1"
-
                                 android:ellipsize="none"
                                 android:fontFamily="serif"
                                 android:gravity="center_vertical"
-                                android:text="Titulo da Vaga"
+                                android:text="@string/titulo_da_vaga"
                                 android:textAlignment="center"
                                 android:textAllCaps="false"
                                 android:textColor="@color/cast_expanded_controller_background_color"
@@ -79,31 +73,27 @@
                             android:layout_margin="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:id="@+id/moneyLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignStart="@+id/titleLabel"
-                                android:layout_below="@+id/titleLabel"
-                                android:paddingRight="5dp"
-                                android:src="@drawable/money" />
+                                android:src="@drawable/money"
+                                android:contentDescription="@string/todo" />
 
                             <TextView
                                 android:id="@+id/moneyValue"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignBottom="@+id/moneyLabel"
-                                android:layout_alignStart="@+id/titleValue"
-                                android:layout_weight="1"
                                 android:ellipsize="none"
                                 android:gravity="center_vertical"
-                                android:paddingLeft="5dp"
+                                android:paddingStart="5dp"
                                 android:text=""
-                                android:textSize="18sp" />
+                                android:textSize="18sp"
+                                tools:ignore="RtlSymmetry" />
                         </LinearLayout>
-
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -111,30 +101,28 @@
                             android:layout_margin="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:id="@+id/cityLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignStart="@+id/moneyLabel"
-                                android:layout_below="@+id/moneyLabel"
-                                android:paddingRight="5dp"
-                                android:src="@drawable/city" />
+                                android:paddingEnd="5dp"
+                                android:src="@drawable/city"
+                                tools:ignore="RtlSymmetry"
+                                android:contentDescription="@string/todo" />
 
                             <TextView
                                 android:id="@+id/cityValue"
-
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignStart="@+id/moneyValue"
-                                android:layout_alignTop="@+id/cityLabel"
-                                android:layout_weight="1"
                                 android:ellipsize="none"
                                 android:gravity="center_vertical"
-                                android:paddingLeft="5dp"
+                                android:paddingStart="5dp"
                                 android:text=""
-                                android:textSize="18sp" />
+                                android:textSize="18sp"
+                                tools:ignore="RtlSymmetry" />
 
                         </LinearLayout>
 
@@ -144,31 +132,29 @@
                             android:layout_margin="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:id="@+id/addressLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignStart="@+id/cityLabel"
-                                android:layout_below="@+id/cityLabel"
-                                android:paddingRight="5dp"
-                                android:src="@drawable/address" />
+                                android:paddingEnd="5dp"
+                                android:src="@drawable/address"
+                                tools:ignore="RtlSymmetry"
+                                android:contentDescription="@string/todo" />
 
                             <TextView
 
                                 android:id="@+id/addressValue"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignStart="@id/cityValue"
-                                android:layout_alignTop="@+id/addressLabel"
-                                android:layout_toEndOf="@+id/titleValue"
-                                android:layout_weight="1"
                                 android:ellipsize="none"
                                 android:gravity="center_vertical"
-                                android:paddingLeft="5dp"
+                                android:paddingStart="5dp"
                                 android:text=""
-                                android:textSize="18sp" />
+                                android:textSize="18sp"
+                                tools:ignore="RtlSymmetry" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -177,13 +163,15 @@
                             android:layout_margin="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:id="@+id/companyLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/company" />
+                                android:src="@drawable/company"
+                                android:contentDescription="@string/todo" />
 
                             <TextView
 
@@ -201,32 +189,30 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
-                            android:layout_weight="1"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:id="@+id/functionLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignStart="@+id/companyLabel"
-                                android:layout_below="@+id/companyLabel"
-                                android:paddingRight="5dp"
-                                android:src="@drawable/function" />
+                                android:paddingEnd="5dp"
+                                android:src="@drawable/function"
+                                tools:ignore="RtlSymmetry"
+                                android:contentDescription="@string/todo" />
 
                             <TextView
 
                                 android:id="@+id/functionValue"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignBottom="@+id/functionLabel"
-                                android:layout_toEndOf="@+id/companyValue"
-                                android:layout_weight="1"
                                 android:ellipsize="none"
                                 android:gravity="center_vertical"
-                                android:paddingLeft="5dp"
+                                android:paddingStart="5dp"
                                 android:text=""
-                                android:textSize="18sp" />
+                                android:textSize="18sp"
+                                tools:ignore="RtlSymmetry" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -235,30 +221,28 @@
                             android:layout_margin="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            tools:ignore="UseCompoundDrawables">
 
                             <ImageView
                                 android:id="@+id/descriptionLabel"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignStart="@+id/functionLabel"
-                                android:layout_below="@+id/functionLabel"
-                                android:paddingRight="5dp"
-                                android:src="@drawable/description" />
+                                android:paddingEnd="5dp"
+                                android:src="@drawable/description"
+                                tools:ignore="RtlSymmetry"
+                                android:contentDescription="@string/todo" />
 
                             <TextView
                                 android:id="@+id/descriptionValue"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignStart="@id/functionValue"
-                                android:layout_alignTop="@+id/descriptionLabel"
-                                android:layout_toEndOf="@+id/addressValue"
-                                android:layout_weight="1"
                                 android:ellipsize="none"
                                 android:gravity="center_vertical"
-                                android:paddingLeft="5dp"
+                                android:paddingStart="5dp"
                                 android:text=""
-                                android:textSize="18sp" />
+                                android:textSize="18sp"
+                                tools:ignore="RtlSymmetry" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -277,7 +261,7 @@
                                     android:id="@+id/shareBTN"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="248dp"
+                                    android:layout_marginStart="248dp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintLeft_toLeftOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
@@ -309,7 +293,8 @@
                                     app:layout_constraintRight_toRightOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintVertical_bias="0.0"
-                                    app:srcCompat="@drawable/open" />
+                                    app:srcCompat="@drawable/open"
+                                    tools:ignore="RtlHardcoded" />
 
                             </android.support.constraint.ConstraintLayout>
 

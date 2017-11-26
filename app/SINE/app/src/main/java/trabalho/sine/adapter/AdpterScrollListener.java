@@ -4,11 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 
 import java.util.List;
 
+import trabalho.sine.R;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.model.Vaga;
@@ -23,16 +26,16 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
 
     private Context context;
     private RecyclerView mRecyclerView;
-    private AdapterListView mAdapter;
-    private LinearLayoutManager mLayoutManager;
+    private JobAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
     private Long cidadeEstado, funcao;
     private int filtroIndex;
     private int totalItemCount;
     private int pos;
     private ProgressDialog dialog;
 
-    public AdpterScrollListener(Context context, RecyclerView mRecyclerView, AdapterListView mAdapter,
-                                LinearLayoutManager mLayoutManager, Long cidadeEstado, Long funcao,
+    public AdpterScrollListener(Context context, RecyclerView mRecyclerView, JobAdapter mAdapter,
+                                RecyclerView.LayoutManager mLayoutManager, Long cidadeEstado, Long funcao,
                                 int filtroIndex, int pos) {
         this.context = context;
         this.mRecyclerView = mRecyclerView;
@@ -52,7 +55,7 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
             int pastVisiblesItems, visibleItemCount;
             visibleItemCount = mLayoutManager.getChildCount();
             totalItemCount = mLayoutManager.getItemCount();
-            pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+            pastVisiblesItems = ((LinearLayoutManager)mLayoutManager).findFirstVisibleItemPosition();
             //Verifica se chegou no ultimo elemento do recyclerview.
             if((visibleItemCount + pastVisiblesItems) == totalItemCount) {
                 pos++;
@@ -60,7 +63,7 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
                 mostrarDialogoCarregando();
                 totalItemCount--;
                 mRecyclerView.scrollToPosition(totalItemCount);
-                req.requestURL(String.format(Constantes.URL_API + Constantes.URL_API_VAGAS,
+                req.requestURL(String.format(Constantes.URL_API + Constantes.URL_API_VAGAS_,
                         funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
                     @Override
                     public void onSuccess(String response) {
@@ -79,6 +82,15 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
                             mAdapter.addItem(v, position++);
                         }
                         dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        try {
+                            Log.e("Error",error.getMessage());
+                        }catch (Exception e){
+                            Log.e("Error",error.getMessage());
+                        }
                     }
                 });
 
