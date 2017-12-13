@@ -22,8 +22,12 @@ console.log(empresa);
             if(xmlhttp.status == 200) {
                 var obj = JSON.parse(xmlhttp.responseText);
                             montarSalarios(obj.media_salarial);
+             }else{
+                console.log(xmlhttp.status);
              }
-        }
+        }else{
+             console.log(xmlhttp.readyState);
+          }
     };
     xmlhttp.send(null);
 }

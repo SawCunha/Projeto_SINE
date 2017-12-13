@@ -9,12 +9,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -48,6 +48,7 @@ import trabalho.sine.model.Cidade;
 import trabalho.sine.model.Vaga;
 import trabalho.sine.model.VagasJSON;
 import trabalho.sine.utils.Constantes;
+import trabalho.sine.utils.Functions;
 import trabalho.sine.utils.NavigationSine;
 
 public class SearchActivity extends AppCompatActivity{
@@ -80,10 +81,13 @@ public class SearchActivity extends AppCompatActivity{
 
         createNavigationView();
 
-        vagas = new ArrayList<>();
         totalItemCount = 0;
 
-        mostrarDialogoCarregando();
+        vagas = new ArrayList();
+        vagas.add(null);
+
+        carregaRecyclerView();
+
         obtemVagasGeral();
 
     }
@@ -131,7 +135,7 @@ public class SearchActivity extends AppCompatActivity{
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            NavUtils.navigateUpFromSameTask(this);
         }
     }
 
@@ -163,7 +167,6 @@ public class SearchActivity extends AppCompatActivity{
     private void carregaRecyclerView() {
         verifica();
         createRecyclerView();
-        dialog.dismiss();
     }
 
     private void createRecyclerView(){
@@ -175,10 +178,6 @@ public class SearchActivity extends AppCompatActivity{
 
         RecyclerView.LayoutManager layout = new LinearLayoutManager(SearchActivity.this,
                 LinearLayoutManager.VERTICAL, false);
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
-                LinearLayoutManager.VERTICAL);
-        mRecyclerView.addItemDecoration(dividerItemDecoration);
 
         mRecyclerView.setLayoutManager(layout);
 
@@ -204,15 +203,16 @@ public class SearchActivity extends AppCompatActivity{
         List<Vaga> vagasBd = vagaDAO.getAll();
 
         //Define todos os favoritos da vagas para false...
-        for(Vaga v : vagas)
-            v.setFavoritado(false);
+        for (Vaga v : vagas)
+            if (v != null) v.setFavoritado(false);
 
         //Depois verificar quais estão no banco e retornado pela api.
         //Definir para true o campo favoritado.
         for (Vaga vbd : vagasBd)
             for (Vaga vs : vagas)
-                if (vbd.getId().toString().equalsIgnoreCase(vs.getId().toString()))
-                    vs.setFavoritado(true);
+                if (vs != null)
+                    if (vbd.getId().toString().equalsIgnoreCase(vs.getId().toString()))
+                        vs.setFavoritado(true);
     }
 
     // obtem todas as vagas da api.
@@ -224,6 +224,7 @@ public class SearchActivity extends AppCompatActivity{
             public void onSuccess(String response) {
                 Gson gson = new Gson();
                 VagasJSON vagasJSON = gson.fromJson(response, VagasJSON.class);
+                vagas.remove(0);
                 vagas.addAll(vagasJSON.getVagas());
                 carregaRecyclerView();
             }
@@ -233,7 +234,8 @@ public class SearchActivity extends AppCompatActivity{
                 try {
                     Log.e("Error",error.getMessage());
                 }catch (Exception e){
-                    Log.e("Error",error.getMessage());
+                    Functions.DialogErro(SearchActivity.this, "Erro", "Não foi possivel obter as Vagas.");
+                    e.printStackTrace();
                 }
             }
         });
@@ -244,11 +246,12 @@ public class SearchActivity extends AppCompatActivity{
     public void obtemVagasGeral(){
         RequestURL req = new RequestURL(this);
 
-        req.requestURL(Constantes.URL_API_VAGAS, new RequestURL.VolleyCallback() {
+        req.requestURL(Constantes.URL_API_VAGAS_GERAL, new RequestURL.VolleyCallback() {
             @Override
             public void onSuccess(String response) {
                 Gson gson = new Gson();
                 VagasJSON vagasJSON = gson.fromJson(response, VagasJSON.class);
+                vagas.remove(0);
                 vagas.addAll(vagasJSON.getVagas());
                 carregaRecyclerView();
             }
@@ -258,7 +261,8 @@ public class SearchActivity extends AppCompatActivity{
                 try {
                     Log.e("Error",error.getMessage());
                 }catch (Exception e){
-                    Log.e("Error",error.getMessage());
+                    Functions.DialogErro(SearchActivity.this, "Erro", "Não foi possivel obter as Vagas.");
+                    e.printStackTrace();
                 }
             }
         });
@@ -306,8 +310,10 @@ public class SearchActivity extends AppCompatActivity{
                 mRecyclerView.scrollToPosition(0);
                 mRecyclerView.clearOnScrollListeners();
 
-                mostrarDialogoCarregando();
                 vagas.clear();
+                vagas.add(null);
+                createRecyclerView();
+
                 pos = 1;
                 obtemVagasAPI();
             }
@@ -332,7 +338,10 @@ public class SearchActivity extends AppCompatActivity{
                 function.setText("");
                 alerta.dismiss();
 
-                mostrarDialogoCarregando();
+                vagas.clear();
+                vagas.add(null);
+                createRecyclerView();
+
                 obtemVagasAPI();
             }
         });
@@ -343,12 +352,4 @@ public class SearchActivity extends AppCompatActivity{
         filtroIndex = tempFiltroIndex;
         alerta.show();
     }
-
-    public void mostrarDialogoCarregando(){
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Carregando dados");
-        dialog.setIndeterminate(true);
-        dialog.show();
-    }
-
 }

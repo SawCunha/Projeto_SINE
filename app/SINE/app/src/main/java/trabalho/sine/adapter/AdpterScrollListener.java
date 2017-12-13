@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
-import trabalho.sine.R;
 import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.model.Vaga;
@@ -49,8 +48,9 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        //Verifica se o scroll moveu
+        JobAdapter jobAdapter = (JobAdapter) recyclerView.getAdapter();
         if(dy > 0){
+
             //Obtem as informações referente aos itens do RecyclerView.
             int pastVisiblesItems, visibleItemCount;
             visibleItemCount = mLayoutManager.getChildCount();
@@ -60,14 +60,15 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
             if((visibleItemCount + pastVisiblesItems) == totalItemCount) {
                 pos++;
                 RequestURL req = new RequestURL(context);
-                mostrarDialogoCarregando();
                 totalItemCount--;
                 mRecyclerView.scrollToPosition(totalItemCount);
-                req.requestURL(String.format(Constantes.URL_API + Constantes.URL_API_VAGAS_,
+                req.requestURL(String.format(Constantes.URL_API + Constantes.URL_API_VAGAS,
                         funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
                     @Override
                     public void onSuccess(String response) {
                         int position = totalItemCount;
+                        int positionRemove = position++;
+                        mAdapter.addItem(null, positionRemove);
                         Gson gson = new Gson();
                         VagasJSON vagasJSON = gson.fromJson(response, VagasJSON.class);
 
@@ -81,7 +82,7 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
                             }
                             mAdapter.addItem(v, position++);
                         }
-                        dialog.dismiss();
+                        mAdapter.removeItem(positionRemove);
                     }
 
                     @Override
@@ -89,20 +90,12 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
                         try {
                             Log.e("Error",error.getMessage());
                         }catch (Exception e){
-                            Log.e("Error",error.getMessage());
+                            e.printStackTrace();
                         }
                     }
                 });
 
             }
         }
-    }
-
-    private void mostrarDialogoCarregando(){
-        dialog = new ProgressDialog(context);
-        dialog.setMessage("Carregando dados");
-        dialog.setIndeterminate(true);
-        dialog.setCancelable(true);
-        dialog.show();
     }
 }
