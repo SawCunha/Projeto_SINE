@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="trabalho.sine.activity.SearchForGraphicActivity"
-    tools:showIn="@layout/app_bar_graphic">
+    tools:showIn="@layout/app_bar_search_for_graphic">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,6 +20,7 @@
             android:textSize="@dimen/font_size_activity_graphic_title"
             android:textAlignment="center"
             android:textStyle="bold"
+            android:fontFamily="@font/bitter"
             android:text="@string/activity_search_graphic_title"
             android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
@@ -29,6 +30,7 @@
             android:text="@string/cargo_label"
             android:id="@+id/cargo_text_view"
             android:textStyle="bold"
+            android:fontFamily="@font/bitter"
             android:textSize="@dimen/font_size_activity_graphic" />
 
         <AutoCompleteTextView
@@ -36,6 +38,7 @@
             android:layout_height="wrap_content"
             android:inputType="textAutoComplete"
             android:id="@+id/cargo_search_edit_text"
+            android:fontFamily="@font/bitter"
             tools:ignore="LabelFor" />
 
         <TextView
@@ -45,6 +48,7 @@
             android:textSize="@dimen/font_size_activity_graphic"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:fontFamily="@font/bitter"
             android:textStyle="bold"/>
 
         <RadioGroup
@@ -53,6 +57,7 @@
             android:id="@+id/porte_radio_group"
             android:orientation="vertical"
             android:textSize="@dimen/font_size_activity_graphic"
+            android:fontFamily="@font/bitter"
             android:layout_marginBottom="@dimen/activity_vertical_margin">
 
             <RadioButton
@@ -60,18 +65,21 @@
                 android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/bitter"
                 android:text="@string/pequeno_porte_label"/>
 
             <RadioButton
                 android:id="@+id/medio_porte_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/bitter"
                 android:text="@string/medio_porte_label"/>
 
             <RadioButton
                 android:id="@+id/grande_porte_radio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/bitter"
                 android:text="@string/grande_porte_label"/>
         </RadioGroup>
 
@@ -79,6 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/search_button"
+            android:fontFamily="@font/bitter"
             android:textSize="@dimen/font_size_activity_graphic"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:text="@string/search"/>

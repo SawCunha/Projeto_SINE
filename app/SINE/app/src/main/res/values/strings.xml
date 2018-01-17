@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SINE</string>
+    <string name="app_name">SIVE</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
     <string name="drawer_open">Open</string>
@@ -72,7 +72,7 @@
     <string name="about_app">Aplicação não oficial do website SINE - Site Nacional de Empregos. \n
         Desenvolvido pelos formandos do 6º Período do Curso Superior de Tecnologia em Sistemas para
         Internet, no ano de 2016.s</string>
-    <string name="version">Versão 1.2</string>
+    <string name="version">Versão: 0.1.2 01/18</string>
 
     <string name="campo_cargo_vazio">Por favor, digite um nome de cargo válido e tente novamente.</string>
     <string name="funcao_nao_informada">Função não informada</string>
