@@ -25,7 +25,7 @@ public class CargoSuggestionAdapter extends ArrayAdapter<Cargo> {
 
     public CargoSuggestionAdapter(Context context, String nameFilter, String url) {
         super(context, android.R.layout.simple_dropdown_item_1line);
-        this.suggestions = new ArrayList<Cargo>();
+        this.suggestions = new ArrayList<>();
         this.ENDERECO = url;
     }
 

@@ -24,7 +24,7 @@ public class CidadeSuggestionAdapter extends ArrayAdapter<Cidade> {
 
     public CidadeSuggestionAdapter(Context context, String nameFilter, String url) {
         super(context, android.R.layout.simple_dropdown_item_1line);
-        this.suggestions = new ArrayList<Cidade>();
+        this.suggestions = new ArrayList<>();
         this.ENDERECO = url;
     }
 

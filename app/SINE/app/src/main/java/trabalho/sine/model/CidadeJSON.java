@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CidadeJSON {
     private Long error;
-    private List<Cidade> cidades = new ArrayList<Cidade>();
+    private List<Cidade> cidades = new ArrayList<>();
 
     public Long getError() {
         return error;

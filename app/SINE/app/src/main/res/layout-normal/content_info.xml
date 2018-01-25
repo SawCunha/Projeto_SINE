@@ -42,11 +42,11 @@
                     android:textAlignment="center"
                     android:textColor="@color/cast_expanded_controller_background_color"
                     android:textColorLink="@android:color/background_dark"
-                    android:textSize="@dimen/font_view_about" />
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="249dp"
+                    android:layout_height="150dp"
                     app:srcCompat="@drawable/ic_logo_sive"
                     android:id="@+id/imagemSine"
                     android:adjustViewBounds="true"
@@ -63,7 +63,7 @@
                     android:textAlignment="center"
                     android:textColor="@color/cast_expanded_controller_background_color"
                     android:textColorLink="@android:color/background_dark"
-                    android:textSize="@dimen/font_view_about" />
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <android.support.v7.widget.CardView

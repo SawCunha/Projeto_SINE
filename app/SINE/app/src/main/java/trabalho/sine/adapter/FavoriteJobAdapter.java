@@ -7,16 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import trabalho.sine.R;
-import trabalho.sine.controller.RequestURL;
 import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.model.Vaga;
-import trabalho.sine.utils.Constantes;
 
 /**
  * Created by Samuel Cunha on 25/11/17.
