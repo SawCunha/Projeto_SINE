@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
@@ -20,21 +19,18 @@ import trabalho.sine.model.Vaga;
 import trabalho.sine.utils.Constantes;
 
 /**
+ * @version 0.2
  * Created by Samuel Cunha on 25/11/17.
  */
 public class JobAdapter extends RecyclerView.Adapter{
 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
-    boolean isLoading;
-
-    //Cria uma TAG para o logs
-    private static String LOG_TAG = "MyRecyclerViewAdapter";
 
     //Objeto com os Dados as serem exebidos na tela
-    private static List<Vaga> vagas;
+    private List<Vaga> vagas;
 
-    private static Context context;
+    private Context context;
 
     //Construtor da Class
     public JobAdapter(List<Vaga> vagas, Context context) {
@@ -56,12 +52,12 @@ public class JobAdapter extends RecyclerView.Adapter{
         return null;
     }
 
-    public void addItem(Vaga dataObj, int index) {
+    void addItem(Vaga dataObj, int index) {
         vagas.add(dataObj);
         notifyItemInserted(index);
     }
 
-    public void removeItem(int index) {
+    void removeItem(int index) {
         vagas.remove(index);
         notifyItemRemoved(index);
         notifyDataSetChanged();
@@ -72,7 +68,7 @@ public class JobAdapter extends RecyclerView.Adapter{
         return (vagas == null || vagas.get(position) == null) ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
     }
 
-    public Vaga getItemPosition(int position){
+    private Vaga getItemPosition(int position) {
         return vagas.get(position);
     }
 
@@ -93,7 +89,7 @@ public class JobAdapter extends RecyclerView.Adapter{
             }
 
             viewHolder.favoriteBtn.setBackgroundResource(
-                    (vagas.get(position).isFavoritado() == false ?
+                    (!vagas.get(position).isFavoritado() ?
                             R.drawable.favorite_border : R.drawable.favorite_black));
 
             viewHolder.favoriteBtn.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +98,7 @@ public class JobAdapter extends RecyclerView.Adapter{
                     final Vaga vaga = getItemPosition(position);
                     final VagaDAO vagaDAO = new VagaDAO(context.getApplicationContext());
 
-                    if (vaga.isFavoritado() == false) {
+                    if (!vaga.isFavoritado()) {
                         RequestURL req = new RequestURL(context);
                         try {
                             req.requestURL(String.format(Constantes.URL_API + Constantes.URL_API_VAGA,
@@ -130,7 +126,6 @@ public class JobAdapter extends RecyclerView.Adapter{
                                         }
                                     });
                             viewHolder.favoriteBtn.setBackgroundResource(R.drawable.favorite_black);
-                            Toast.makeText(context, R.string.toast_msg_adapter_list_favoritado, Toast.LENGTH_SHORT).show();
                         } catch (UnsupportedEncodingException e) {
                             e.printStackTrace();
                         }
@@ -138,7 +133,6 @@ public class JobAdapter extends RecyclerView.Adapter{
                         vagaDAO.delete(vaga);
                         vaga.setFavoritado(false);
                         viewHolder.favoriteBtn.setBackgroundResource(R.drawable.favorite_border);
-                        Toast.makeText(context, R.string.toast_msg_adapter_list_desfavoritado, Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -150,8 +144,8 @@ public class JobAdapter extends RecyclerView.Adapter{
 
     }
 
-    public void setLoaded() {
-        isLoading = false;
+    public List<Vaga> getVagas() {
+        return vagas;
     }
 
     @Override

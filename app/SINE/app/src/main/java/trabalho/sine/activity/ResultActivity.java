@@ -38,7 +38,6 @@ public class ResultActivity extends AppCompatActivity{
     @BindView(R.id.functionValue) TextView function;
     @BindView(R.id.descriptionValue) TextView des;
 
-    private Toolbar toolbar;
     private DrawerLayout drawerLayout;
 
     private int position;
@@ -58,7 +57,7 @@ public class ResultActivity extends AppCompatActivity{
     }
 
     private void createNavigationView(){
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout_result);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -93,8 +92,8 @@ public class ResultActivity extends AppCompatActivity{
 
     public void populaActivity(Vaga vaga){
         favoriteBtn.setImageResource(
-                (vaga.isFavoritado() == false ?
-                        R.drawable.favorite_border : R.drawable.favorite_black));
+                (!vaga.isFavoritado() ?
+                        R.drawable.favorite_border_white : R.drawable.favorite_white));
         if (vaga.getTitulo() != null && vaga.getTitulo().trim().length() > 0)
             title.setText(vaga.getTitulo());
         else
@@ -134,15 +133,15 @@ public class ResultActivity extends AppCompatActivity{
     @OnClick(R.id.favoriteFloat)
     public void favoriteClick(View view) {
         VagaDAO vagaDAO = new VagaDAO(this.getApplicationContext());
-        if (vaga.isFavoritado() == false) {
+        if (!vaga.isFavoritado()) {
             vaga.setFavoritado(true);
             vagaDAO.insert(vaga);
-            favoriteBtn.setImageResource(R.drawable.favorite_black);
+            favoriteBtn.setImageResource(R.drawable.favorite_white);
             //Toast.makeText(this, R.string.toast_msg_result_activity_favoritado, Toast.LENGTH_SHORT).show();
         } else {
             vagaDAO.delete(vaga);
             vaga.setFavoritado(false);
-            favoriteBtn.setImageResource(R.drawable.favorite_border);
+            favoriteBtn.setImageResource(R.drawable.favorite_border_white);
            // Toast.makeText(this, R.string.toast_msg_result_activity_desfavoritado, Toast.LENGTH_SHORT).show();
         }
 

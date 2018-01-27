@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.appus.splash.Splash;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,11 +33,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        _initSplashScreen();
+
+
         //Define o ButterKnife para gerenciar as activities e ativa o modo de debugação.
         ButterKnife.bind(this);
         ButterKnife.setDebug(true);
 
         createNavigationView();
+    }
+
+    private void _initSplashScreen() {
+        Splash.Builder splash = new Splash.Builder(this, getSupportActionBar());
+        splash.perform();
+        splash.setBackgroundColor(getResources().getColor(R.color.Sine3));
+        splash.setSplashImage(getResources().getDrawable(R.drawable.ic_logo_sive));
+        splash.setSplashImageColor(getResources().getColor(R.color.Sine2));
     }
 
     private void createNavigationView(){

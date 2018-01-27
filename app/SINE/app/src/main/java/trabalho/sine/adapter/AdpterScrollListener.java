@@ -1,6 +1,5 @@
 package trabalho.sine.adapter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +17,8 @@ import trabalho.sine.model.VagasJSON;
 import trabalho.sine.utils.Constantes;
 
 /**
- * Created by saw on 15/12/16.
+ * @version 0.2
+ * Created by Samuel Cunha on 15/12/16.
  */
 
 public class AdpterScrollListener extends RecyclerView.OnScrollListener{
@@ -31,7 +31,6 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
     private int filtroIndex;
     private int totalItemCount;
     private int pos;
-    private ProgressDialog dialog;
 
     public AdpterScrollListener(Context context, RecyclerView mRecyclerView, JobAdapter mAdapter,
                                 RecyclerView.LayoutManager mLayoutManager, Long cidadeEstado, Long funcao,
@@ -48,7 +47,6 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        JobAdapter jobAdapter = (JobAdapter) recyclerView.getAdapter();
         if(dy > 0){
 
             //Obtem as informações referente aos itens do RecyclerView.
@@ -82,6 +80,8 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
                             }
                             mAdapter.addItem(v, position++);
                         }
+
+                        mAdapter.getVagas().remove(positionRemove);
                         mAdapter.removeItem(positionRemove);
                     }
 

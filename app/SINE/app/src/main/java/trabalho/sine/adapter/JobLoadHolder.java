@@ -7,6 +7,7 @@ import android.widget.ProgressBar;
 import trabalho.sine.R;
 
 /**
+ * @version 0.1
  * Created by Samuel Cunha on 27/11/17.
  */
 class JobLoadHolder extends RecyclerView.ViewHolder {

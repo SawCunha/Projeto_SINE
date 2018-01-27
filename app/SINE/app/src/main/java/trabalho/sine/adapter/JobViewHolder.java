@@ -15,6 +15,7 @@ import trabalho.sine.activity.ResultActivity;
 import trabalho.sine.model.Vaga;
 
 /**
+ * @version 0.1
  * Created by Samuel Cunha on 25/11/17.
  */
 class JobViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

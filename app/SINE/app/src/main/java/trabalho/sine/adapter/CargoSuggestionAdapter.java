@@ -15,6 +15,7 @@ import trabalho.sine.model.Cargo;
 import trabalho.sine.model.CargoJSON;
 
 /**
+ * @version 0.1
  * Created by wagner on 15/12/16.
  */
 

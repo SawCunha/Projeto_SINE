@@ -61,7 +61,7 @@
                     android:layout_margin="2dp"
                     android:text="Empresa"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/place_autocomplete_search_text"
+                    android:textColor="@color/text_font"
                     android:textSize="16sp" />
 
                 <TextView
@@ -71,7 +71,7 @@
                     android:layout_margin="2dp"
                     android:text="Endereco"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/place_autocomplete_search_text"
+                    android:textColor="@color/text_font"
                     android:textSize="16sp" />
 
             </LinearLayout>

@@ -15,6 +15,7 @@ import trabalho.sine.model.Cidade;
 import trabalho.sine.model.CidadeJSON;
 
 /**
+ * @version 0.1
  * Created by wagner on 15/12/16.
  */
 public class CidadeSuggestionAdapter extends ArrayAdapter<Cidade> {

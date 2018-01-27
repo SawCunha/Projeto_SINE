@@ -2,27 +2,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:gravity="center_vertical|center_horizontal">
 
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:indeterminate="true"
-        android:progressDrawable="@drawable/side_nav_bar"
-        android:visibility="visible"
-        tools:visibility="visible" />
-
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="Carregando Vagas"
+        android:text="@string/carregando_vagas"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:indeterminate="true"
+        android:visibility="visible"
+        tools:visibility="visible" />
 
 </LinearLayout>

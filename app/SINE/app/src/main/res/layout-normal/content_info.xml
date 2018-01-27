@@ -40,7 +40,7 @@
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:text="@string/version"
                     android:textAlignment="center"
-                    android:textColor="@color/cast_expanded_controller_background_color"
+                    android:textColor="@color/text_font"
                     android:textColorLink="@android:color/background_dark"
                     android:textSize="18sp" />
 
@@ -61,7 +61,7 @@
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:text="@string/about_app"
                     android:textAlignment="center"
-                    android:textColor="@color/cast_expanded_controller_background_color"
+                    android:textColor="@color/text_font"
                     android:textColorLink="@android:color/background_dark"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -69,9 +69,9 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="30dp"
+                app:cardBackgroundColor="@color/cardview_light_background"
                 app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/cardview_dark_background"
+                app:cardElevation="3dp"
                 android:layout_margin="10dp"
                 android:paddingTop="10dp">
 
@@ -84,43 +84,43 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Desenvolvedores:"
+                        android:text="@string/desenvolvedores"
                         android:textAlignment="viewStart"
                         android:textAllCaps="true"
-                        android:textColor="@color/cast_expanded_controller_progress_text_color"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingLeft="20dp"
+                        android:paddingStart="20dp"
                         android:text="@string/armando_valede_assun_o"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:textColor="@color/cast_expanded_controller_text_color"
+                        android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingLeft="20dp"
+                        android:paddingStart="20dp"
                         android:text="@string/b_rbara_costa_silverio"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:textColor="@color/cast_expanded_controller_text_color"
+                        android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Déborah Ferreira Fonseca"
+                        android:paddingStart="20dp"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:textColor="@color/cast_expanded_controller_text_color"
-                        android:paddingLeft="20dp"
+                        android:text="@string/d_borah_ferreira_fonseca"
+                        android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -129,8 +129,8 @@
                         android:layout_height="match_parent"
                         android:text="@string/mauricio_jos_da_silva_j_nior"
                         android:textAllCaps="false"
-                        android:textColor="@color/cast_expanded_controller_text_color"
-                        android:paddingLeft="20dp"
+                        android:paddingStart="20dp"
+                        android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -140,8 +140,8 @@
                         android:text="@string/renato_augusto_neves_j_nior"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:textColor="@color/cast_expanded_controller_text_color"
-                        android:paddingLeft="20dp"
+                        android:paddingStart="20dp"
+                        android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -151,8 +151,8 @@
                         android:text="@string/richardson_william_tobias_rosa"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:textColor="@color/cast_expanded_controller_text_color"
-                        android:paddingLeft="20dp"
+                        android:paddingStart="20dp"
+                        android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -162,8 +162,8 @@
                         android:text="@string/samuel_gon_alves_cunha"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:textColor="@color/cast_expanded_controller_text_color"
-                        android:paddingLeft="20dp"
+                        android:paddingStart="20dp"
+                        android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -173,8 +173,8 @@
                         android:text="@string/vitor_caio_de_paula"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:textColor="@color/cast_expanded_controller_text_color"
-                        android:paddingLeft="20dp"
+                        android:paddingStart="20dp"
+                        android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -184,8 +184,8 @@
                         android:text="@string/wagner_da_silva_almeida"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:textColor="@color/cast_expanded_controller_text_color"
-                        android:paddingLeft="20dp"
+                        android:paddingStart="20dp"
+                        android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 

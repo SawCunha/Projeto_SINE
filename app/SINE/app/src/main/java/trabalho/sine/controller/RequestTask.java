@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
+ * @version 0.2
  * Created by wagner on 25/09/16.
  */
 
@@ -19,8 +20,7 @@ public class RequestTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
 
         try {
-            String resposta = makeRequest(params[0]);
-            return resposta;
+            return makeRequest(params[0]);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ public class RequestTask extends AsyncTask<String, Void, String> {
     //Processa a url recebida, fazendo a requisição e obtendo as informações.
     private String makeRequest(String urlAdress) {
         HttpURLConnection con = null;
-        URL url = null;
+        URL url;
         String response = null;
 
         try {
@@ -42,6 +42,7 @@ public class RequestTask extends AsyncTask<String, Void, String> {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            assert con != null;
             con.disconnect();
         }
         return response;
@@ -54,9 +55,9 @@ public class RequestTask extends AsyncTask<String, Void, String> {
 
         try {
             reader = new BufferedReader(new InputStreamReader(in));
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null){
-                builder.append(line + "\n");
+                builder.append(line).append("\n");
             }
         } catch (IOException e){
             e.printStackTrace();

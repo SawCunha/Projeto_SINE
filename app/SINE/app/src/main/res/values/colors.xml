@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#125688</color>
+    <color name="colorPrimary">#2e5e28</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
@@ -14,9 +14,6 @@
     <color name="Sine5">#16419f</color>
 
     <color name="colorToolbarSobre">#c8e6c9</color>
-    <color name="cast_expanded_controller_background_color">#c8e6c9</color>
-    <color name="cast_expanded_controller_progress_text_color">#c8e6c9</color>
-    <color name="cast_expanded_controller_text_color">#c8e6c9</color>
-    <color name="place_autocomplete_search_text">#c8e6c9</color>
+    <color name="text_font">#363936</color>
     <color name="black">#000</color>
 </resources>
