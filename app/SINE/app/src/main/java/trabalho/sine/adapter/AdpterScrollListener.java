@@ -1,5 +1,6 @@
 package trabalho.sine.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,17 +19,18 @@ import trabalho.sine.utils.Constantes;
 
 /**
  * @version 0.2
- * Created by Samuel Cunha on 15/12/16.
+ *          Created by Samuel Cunha on 15/12/16.
  */
 
-public class AdpterScrollListener extends RecyclerView.OnScrollListener{
+public class AdpterScrollListener extends RecyclerView.OnScrollListener {
 
-    private Context context;
-    private RecyclerView mRecyclerView;
-    private JobAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private Long cidadeEstado, funcao;
-    private int filtroIndex;
+    private final Context context;
+    private final RecyclerView mRecyclerView;
+    private final JobAdapter mAdapter;
+    private final RecyclerView.LayoutManager mLayoutManager;
+    private final Long cidadeEstado;
+    private final Long funcao;
+    private final int filtroIndex;
     private int totalItemCount;
     private int pos;
 
@@ -45,17 +47,18 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
         this.pos = pos;
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        if(dy > 0){
+        if (dy > 0) {
 
             //Obtem as informações referente aos itens do RecyclerView.
             int pastVisiblesItems, visibleItemCount;
             visibleItemCount = mLayoutManager.getChildCount();
             totalItemCount = mLayoutManager.getItemCount();
-            pastVisiblesItems = ((LinearLayoutManager)mLayoutManager).findFirstVisibleItemPosition();
+            pastVisiblesItems = ((LinearLayoutManager) mLayoutManager).findFirstVisibleItemPosition();
             //Verifica se chegou no ultimo elemento do recyclerview.
-            if((visibleItemCount + pastVisiblesItems) == totalItemCount) {
+            if ((visibleItemCount + pastVisiblesItems) == totalItemCount) {
                 pos++;
                 RequestURL req = new RequestURL(context);
                 totalItemCount--;
@@ -73,7 +76,7 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
                         VagaDAO vagaDAO = new VagaDAO(context);
                         List<Vaga> vagasBd = vagaDAO.getAll();
 
-                        for(Vaga v : vagasJSON.getVagas()) {
+                        for (Vaga v : vagasJSON.getVagas()) {
                             for (Vaga vs : vagasBd) {
                                 if (vs.getId().toString().equalsIgnoreCase(v.getId().toString()))
                                     v.setFavoritado(true);
@@ -88,8 +91,8 @@ public class AdpterScrollListener extends RecyclerView.OnScrollListener{
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         try {
-                            Log.e("Error",error.getMessage());
-                        }catch (Exception e){
+                            Log.e("Error", error.getMessage());
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }

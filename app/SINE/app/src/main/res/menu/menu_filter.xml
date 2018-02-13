@@ -5,6 +5,6 @@
         android:id="@+id/filterMenu"
         android:icon="@drawable/filter"
         android:title="@string/filtro"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
 </menu>

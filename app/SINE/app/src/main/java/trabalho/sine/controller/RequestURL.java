@@ -27,7 +27,7 @@ public class RequestURL {
                     public void onResponse(String response) {
                         callback.onSuccess(response);
                     }
-                }, new Response.ErrorListener(){
+                }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -39,6 +39,7 @@ public class RequestURL {
 
     public interface VolleyCallback {
         void onSuccess(String response);
+
         void onErrorResponse(VolleyError error);
     }
 }//class RequestURL

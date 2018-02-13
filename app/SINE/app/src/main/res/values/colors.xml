@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#2e5e28</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="textColorPrimary">#FFFFFF</color>
-    <color name="windowBackground">#FFFFFF</color>
-    <color name="navigationBarColor">#000000</color>
-    <color name="colorAccent">#01579b</color>
+    <color name="textColorPrimary" tools:keep="@color/textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground" tools:keep="@color/windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor" tools:keep="@color/navigationBarColor">#000000</color>
+    <color name="colorAccent" tools:keep="@color/colorAccent">#01579b</color>
 
     <color name="Sine1">#2e5e28</color>
     <color name="Sine2">#446629</color>
     <color name="Sine4">#fad672</color>
     <color name="Sine3">#fcc65c</color>
-    <color name="Sine5">#16419f</color>
+    <color name="Sine5" tools:keep="@color/Sine5">#16419f</color>
 
-    <color name="colorToolbarSobre">#c8e6c9</color>
+    <color name="colorToolbarSobre" tools:keep="@color/colorToolbarSobre">#c8e6c9</color>
     <color name="text_font">#363936</color>
     <color name="black">#000</color>
 </resources>

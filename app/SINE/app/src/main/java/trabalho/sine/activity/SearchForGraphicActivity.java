@@ -18,27 +18,27 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import trabalho.sine.R;
 import trabalho.sine.adapter.CargoSuggestionAdapter;
-import trabalho.sine.enun.TipoEmpresa;
 import trabalho.sine.model.Cargo;
 import trabalho.sine.utils.Constantes;
 import trabalho.sine.utils.NavigationSine;
 
-public class SearchForGraphicActivity extends AppCompatActivity{
+public class SearchForGraphicActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
+    @BindView(R.id.cargo_search_edit_text)
+    AutoCompleteTextView cargoSearchEditText;
+    @BindView(R.id.porte_radio_group)
+    RadioGroup radioGroup;
     private DrawerLayout drawerLayout;
-
     private Resources resources;
     private Cargo cargo;
     private String valueRadioButton;
-
-    @BindView(R.id.cargo_search_edit_text) AutoCompleteTextView cargoSearchEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +62,8 @@ public class SearchForGraphicActivity extends AppCompatActivity{
         createNavigationView();
     }
 
-    private void createNavigationView(){
-        toolbar = findViewById(R.id.toolbar);
+    private void createNavigationView() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout_search_for_graphic);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -72,7 +72,7 @@ public class SearchForGraphicActivity extends AppCompatActivity{
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,R.id.searchForGraphicActivity,this));
+        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout, R.id.searchForGraphicActivity, this));
     }
 
     @Override
@@ -85,7 +85,7 @@ public class SearchForGraphicActivity extends AppCompatActivity{
     }
 
     //Gerencia os eventos da caixa de texto.
-    private void initTextView(){
+    private void initTextView() {
         resources = getResources();
 
         //Cria um objeto para poder exercutarmos operações nos campos editáveis.
@@ -108,13 +108,13 @@ public class SearchForGraphicActivity extends AppCompatActivity{
     }
 
     //Dispara o evento e exibe uma mensagem de erro caso o campo texto esteja vazio.
-    private void callClearErrors(Editable editable){
-        if(!editable.toString().isEmpty()) clearErrorFields(cargoSearchEditText);
+    private void callClearErrors(Editable editable) {
+        if (!editable.toString().isEmpty()) clearErrorFields(cargoSearchEditText);
     }
 
     //Valida dos dados dos campos de texto.
-    private boolean validateFields(){
-        if (TextUtils.isEmpty(cargoSearchEditText.getEditableText().toString().trim()) || cargo == null){
+    private boolean validateFields() {
+        if (TextUtils.isEmpty(cargoSearchEditText.getEditableText().toString().trim()) || cargo == null) {
             cargoSearchEditText.requestFocus();
             cargoSearchEditText.setError(resources.getString(R.string.campo_cargo_vazio));
             return false;
@@ -123,40 +123,33 @@ public class SearchForGraphicActivity extends AppCompatActivity{
     }
 
     //Limpa as mensagens de erro dos campos de texto da activity.
-    private void clearErrorFields(EditText... editTexts){
+    private void clearErrorFields(EditText... editTexts) {
         for (EditText editText : editTexts) editText.setError(null);
     }
 
     @OnClick(R.id.search_button)
-    public void pesquisarCargo(){
+    public void pesquisarCargo() {
         validateFields();
     }
 
-    //Verifica a opção selecionada no checked box.
-    public void onRadioButtonClicked(View view){
-        boolean checked = ((RadioButton) view).isChecked();
-
-        switch (view.getId()){
-            case R.id.pequeno_porte_radio:
-                if (checked){ valueRadioButton = TipoEmpresa.PEQUENA.toString(); } break;
-            case R.id.medio_porte_radio:
-                if (checked) { valueRadioButton = TipoEmpresa.MEDIA.toString(); } break;
-            case R.id.grande_porte_radio:
-                if (checked) { valueRadioButton = TipoEmpresa.MEDIA.toString(); } break;
-        }
-    }//onRadioButtonClicked()
-
     //Realiza a chamada a outra activity, enviando o id da função para que seja gerado o gráfico.
     @OnClick(R.id.search_button)
-    public void getAverages(){
+    public void getAverages() {
         if (!validateFields()) return;
 
-        Intent graphicIntent = new Intent(SearchForGraphicActivity.this, GraphicActivity.class);
+        Intent graphicIntent = new Intent(SearchForGraphicActivity.this, ChartsActivity.class);
         Bundle bundle = new Bundle();
 
         bundle.putInt("idfuncao", cargo.getId().intValue());
         bundle.putString("cargo", cargo.getDescricao());
-        bundle.putString("tipo_empresa", valueRadioButton);
+
+        int selectedId = radioGroup.getCheckedRadioButtonId();
+
+        // find the radiobutton by returned id
+        RadioButton radioButton = findViewById(selectedId);
+
+
+        bundle.putString("tipo_empresa", radioButton.getText().toString());
         graphicIntent.putExtras(bundle);
 
         startActivity(graphicIntent);

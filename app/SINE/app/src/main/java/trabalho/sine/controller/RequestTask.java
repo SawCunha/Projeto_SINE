@@ -11,7 +11,7 @@ import java.net.URL;
 
 /**
  * @version 0.2
- * Created by wagner on 25/09/16.
+ *          Created by wagner on 25/09/16.
  */
 
 public class RequestTask extends AsyncTask<String, Void, String> {
@@ -21,7 +21,7 @@ public class RequestTask extends AsyncTask<String, Void, String> {
 
         try {
             return makeRequest(params[0]);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -56,10 +56,10 @@ public class RequestTask extends AsyncTask<String, Void, String> {
         try {
             reader = new BufferedReader(new InputStreamReader(in));
             String line;
-            while ((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 builder.append(line).append("\n");
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             if (reader != null) {

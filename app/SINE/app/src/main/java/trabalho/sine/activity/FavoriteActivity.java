@@ -24,7 +24,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,14 +36,15 @@ import trabalho.sine.enun.CampoBD;
 import trabalho.sine.model.Vaga;
 import trabalho.sine.utils.NavigationSine;
 
-public class FavoriteActivity extends AppCompatActivity{
+public class FavoriteActivity extends AppCompatActivity {
 
-    @BindView(R.id.list_empregos_favoritos) RecyclerView mRecyclerView;
-    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.list_empregos_favoritos)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     private List<Vaga> vagas;
 
-    private Toolbar toolbar;
     private DrawerLayout drawerLayout;
 
     private int filtroIndex = 1;
@@ -64,8 +64,8 @@ public class FavoriteActivity extends AppCompatActivity{
         verficaFiltroSelecionado();
     }
 
-    private void createNavigationView(){
-        toolbar = findViewById(R.id.toolbar);
+    private void createNavigationView() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout_favorite);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -74,14 +74,14 @@ public class FavoriteActivity extends AppCompatActivity{
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,R.id.favoriteActivity,this));
+        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout, R.id.favoriteActivity, this));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_filter, menu);
         MenuItem filterMenu = menu.findItem(R.id.filterMenu);
-        Drawable newIcon = (Drawable)filterMenu.getIcon();
+        Drawable newIcon = filterMenu.getIcon();
         newIcon.mutate().setColorFilter(Color.argb(255, 255, 255, 255), PorterDuff.Mode.SRC_IN);
         filterMenu.setIcon(newIcon);
         return super.onCreateOptionsMenu(menu);
@@ -90,7 +90,7 @@ public class FavoriteActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.filterMenu) dialogFiltro();
+        if (item.getItemId() == R.id.filterMenu) dialogFiltro();
 
         return super.onOptionsItemSelected(item);
     }
@@ -110,12 +110,13 @@ public class FavoriteActivity extends AppCompatActivity{
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         verficaFiltroSelecionado();
-        mRecyclerView.scrollToPosition((int)data.getExtras().get("position"));
+        assert data.getExtras() != null;
+        mRecyclerView.scrollToPosition((int) data.getExtras().get("position"));
     }
 
-    private void createRecyclerView(){
+    private void createRecyclerView() {
         mRecyclerView.setAdapter(new FavoriteJobAdapter(vagas, FavoriteActivity.this));
 
         RecyclerView.LayoutManager layout = new LinearLayoutManager(FavoriteActivity.this,
@@ -127,12 +128,12 @@ public class FavoriteActivity extends AppCompatActivity{
     }
 
     //Obtem as Vagas salvas no Banco de Dados.
-    public void obtemVagasBanco(int filtro){
-        List<Vaga> vgs = new ArrayList<>();
+    private void obtemVagasBanco(int filtro) {
+        List<Vaga> vgs;
 
         VagaDAO dao = new VagaDAO(getApplicationContext());
 
-        switch (filtro){
+        switch (filtro) {
             case 1:
                 vgs = dao.getAllOrderBy(CampoBD.ID.toString());
                 break;
@@ -148,7 +149,8 @@ public class FavoriteActivity extends AppCompatActivity{
         }
 
         //Caso não houver vaga, informa ao usuario com um toast
-        if(vgs.isEmpty()) Toast.makeText(this,R.string.toast_msg_favorite_activity,Toast.LENGTH_LONG).show();
+        if (vgs.isEmpty())
+            Toast.makeText(this, R.string.toast_msg_favorite_activity, Toast.LENGTH_LONG).show();
 
         this.vagas = vgs;
     }
@@ -156,7 +158,7 @@ public class FavoriteActivity extends AppCompatActivity{
     /************************************* Filtros ******************************** */
 
     // Constrói uma caixa de diálogo que pede qual filtro o jovem deseja.
-    private void dialogFiltro(){
+    private void dialogFiltro() {
 
         final int tempFiltroIndex = filtroIndex;
 
@@ -169,7 +171,7 @@ public class FavoriteActivity extends AppCompatActivity{
         Button filterBtn = alerta.findViewById(R.id.filterBtn);
         Button clearBtn = alerta.findViewById(R.id.clearBtn);
 
-        if(filtroIndex == 1)
+        if (filtroIndex == 1)
             radioGroup.check(buttonUltimas.getId());
         else
             radioGroup.check(buttonSalario.getId());
@@ -179,7 +181,7 @@ public class FavoriteActivity extends AppCompatActivity{
             public void onClick(View v) {
                 alerta.dismiss();
 
-                if(radioGroup.getCheckedRadioButtonId() == buttonUltimas.getId())
+                if (radioGroup.getCheckedRadioButtonId() == buttonUltimas.getId())
                     filtroIndex = 1;
                 else
                     filtroIndex = 2;
@@ -199,7 +201,7 @@ public class FavoriteActivity extends AppCompatActivity{
                 verficaFiltroSelecionado();
             }
         });
-
+        assert alerta.getWindow() != null;
         alerta.getWindow().setBackgroundDrawable(
                 new ColorDrawable(android.graphics.Color.TRANSPARENT));
 

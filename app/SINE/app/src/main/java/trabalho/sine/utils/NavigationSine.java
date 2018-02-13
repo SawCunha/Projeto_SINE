@@ -2,6 +2,7 @@ package trabalho.sine.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,11 +22,11 @@ import trabalho.sine.function.Conexao;
  */
 public class NavigationSine implements NavigationView.OnNavigationItemSelectedListener {
 
-    public DrawerLayout drawerLayout;
-    public int idView;
-    public Context context;
+    private final DrawerLayout drawerLayout;
+    private final int idView;
+    private final Context context;
 
-    public NavigationSine(DrawerLayout drawerLayout, int idView,Context context) {
+    public NavigationSine(DrawerLayout drawerLayout, int idView, Context context) {
         this.drawerLayout = drawerLayout;
         this.idView = idView;
         this.context = context;
@@ -33,7 +34,7 @@ public class NavigationSine implements NavigationView.OnNavigationItemSelectedLi
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -53,29 +54,29 @@ public class NavigationSine implements NavigationView.OnNavigationItemSelectedLi
         return true;
     }
 
-    public void homeActivity(){
+    private void homeActivity() {
         context.startActivity(new Intent(context, MainActivity.class));
     }
 
-    public void searchActivity(){
-        if(Conexao.isConectado(context)) {
+    private void searchActivity() {
+        if (Conexao.isConectado(context)) {
             context.startActivity(new Intent(context, SearchActivity.class));
-        }else
-            Toast.makeText(context,R.string.conexao_infor,Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(context, R.string.conexao_infor, Toast.LENGTH_LONG).show();
     }
 
-    public void favoriteActivity(){
+    private void favoriteActivity() {
         context.startActivity(new Intent(context, FavoriteActivity.class));
     }
 
-    public void searchForGraphicActivity(){
-        if(Conexao.isConectado(context)) {
+    private void searchForGraphicActivity() {
+        if (Conexao.isConectado(context)) {
             context.startActivity(new Intent(context, SearchForGraphicActivity.class));
-        }else
-            Toast.makeText(context,R.string.conexao_infor,Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(context, R.string.conexao_infor, Toast.LENGTH_LONG).show();
     }
 
-    public void infoActivity() {
+    private void infoActivity() {
         context.startActivity(new Intent(context, InfoActivity.class));
     }
 }

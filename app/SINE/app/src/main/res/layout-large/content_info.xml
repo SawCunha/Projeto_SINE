@@ -14,15 +14,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
 
                 <TextView
@@ -37,14 +37,15 @@
                     android:textSize="@dimen/font_view_about" />
 
                 <ImageView
+                    android:id="@+id/imagemSine"
                     android:layout_width="match_parent"
                     android:layout_height="249dp"
-                    app:srcCompat="@drawable/ic_logo_sive"
-                    android:id="@+id/imagemSine"
                     android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="TODO"
                     android:cropToPadding="true"
                     android:isScrollContainer="true"
-                    android:background="@android:color/transparent"/>
+                    app:srcCompat="@drawable/ic_logo_sive" />
 
                 <TextView
                     android:id="@+id/developers"
@@ -61,11 +62,11 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingTop="10dp"
                 app:cardBackgroundColor="@color/cardview_light_background"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="3dp"
-                android:layout_margin="10dp"
-                android:paddingTop="10dp">
+                app:cardElevation="3dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -109,9 +110,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:paddingStart="20dp"
+                        android:text="@string/d_borah_ferreira_fonseca"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:text="@string/d_borah_ferreira_fonseca"
                         android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -119,9 +120,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingStart="20dp"
                         android:text="@string/mauricio_jos_da_silva_j_nior"
                         android:textAllCaps="false"
-                        android:paddingStart="20dp"
                         android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -129,10 +130,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingStart="20dp"
                         android:text="@string/renato_augusto_neves_j_nior"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:paddingStart="20dp"
                         android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -140,10 +141,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingStart="20dp"
                         android:text="@string/richardson_william_tobias_rosa"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:paddingStart="20dp"
                         android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -151,10 +152,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingStart="20dp"
                         android:text="@string/samuel_gon_alves_cunha"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:paddingStart="20dp"
                         android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -162,10 +163,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingStart="20dp"
                         android:text="@string/vitor_caio_de_paula"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:paddingStart="20dp"
                         android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -173,10 +174,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:paddingStart="20dp"
                         android:text="@string/wagner_da_silva_almeida"
                         android:textAlignment="viewStart"
                         android:textAllCaps="false"
-                        android:paddingStart="20dp"
                         android:textColor="@color/Sine1"
                         android:textSize="14sp"
                         android:textStyle="bold" />

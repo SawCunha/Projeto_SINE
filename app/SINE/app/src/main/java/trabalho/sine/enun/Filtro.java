@@ -7,7 +7,8 @@ package trabalho.sine.enun;
 public enum Filtro {
     SEM_FITRO("SEMFILTRO"), MAIOR_SALARIO("MAIORSALARIO"), ULTIMAS_VAGAS("ULTIMASVAGAS");
 
-    private String filtro;
+    private final String filtro;
+
     Filtro(String filtro) {
         this.filtro = filtro;
     }

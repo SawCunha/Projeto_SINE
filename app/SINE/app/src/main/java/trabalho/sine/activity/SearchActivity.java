@@ -1,5 +1,6 @@
 package trabalho.sine.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -51,9 +52,10 @@ import trabalho.sine.utils.Constantes;
 import trabalho.sine.utils.Functions;
 import trabalho.sine.utils.NavigationSine;
 
-public class SearchActivity extends AppCompatActivity{
+public class SearchActivity extends AppCompatActivity {
 
-    @BindView(R.id.list_empregos) RecyclerView mRecyclerView;
+    @BindView(R.id.list_empregos)
+    RecyclerView mRecyclerView;
 
     private List<Vaga> vagas;
     private ProgressDialog dialog;
@@ -62,9 +64,8 @@ public class SearchActivity extends AppCompatActivity{
 
     private String cityValue = "", functionValue = "";
 
-    private Long cidadeEstado = 0l, funcao = 0l;
+    private Long cidadeEstado = 0L, funcao = 0L;
 
-    private Toolbar toolbar;
     private DrawerLayout drawerLayout;
 
     private int pos = 1;
@@ -92,14 +93,15 @@ public class SearchActivity extends AppCompatActivity{
 
     }
 
-    private void createNavigationView(){
-        toolbar = findViewById(R.id.toolbar);
+    private void createNavigationView() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
         // Enable the Up button
+        assert ab != null;
         ab.setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = findViewById(R.id.drawer_layout_search);
@@ -109,7 +111,7 @@ public class SearchActivity extends AppCompatActivity{
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,R.id.searchActivity,this));
+        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout, R.id.searchActivity, this));
     }
 
     @Override
@@ -125,7 +127,7 @@ public class SearchActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.filterMenu) dialogFiltro();
+        if (item.getItemId() == R.id.filterMenu) dialogFiltro();
 
         return super.onOptionsItemSelected(item);
     }
@@ -169,7 +171,7 @@ public class SearchActivity extends AppCompatActivity{
         createRecyclerView();
     }
 
-    private void createRecyclerView(){
+    private void createRecyclerView() {
 
         //Remove os itens do Recycler, para add os novos valores.
         mRecyclerView.removeAllViewsInLayout();
@@ -184,20 +186,21 @@ public class SearchActivity extends AppCompatActivity{
         mRecyclerView.setLayoutFrozen(false);
         mRecyclerView.scrollToPosition(totalItemCount);
         //Define o metodo que ira obter a ação do Scroll.
-        mRecyclerView.addOnScrollListener(new AdpterScrollListener(this,mRecyclerView,
-                (JobAdapter) mRecyclerView.getAdapter(),layout,
-                cidadeEstado,funcao,filtroIndex,pos));
+        mRecyclerView.addOnScrollListener(new AdpterScrollListener(this, mRecyclerView,
+                (JobAdapter) mRecyclerView.getAdapter(), layout,
+                cidadeEstado, funcao, filtroIndex, pos));
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         verifica();
         createRecyclerView();
-        mRecyclerView.scrollToPosition((int)data.getExtras().get("position"));
+        assert data.getExtras() != null;
+        mRecyclerView.scrollToPosition((int) data.getExtras().get("position"));
     }
 
     // Verifica quais das vagas está no banco de dados.
-    public void verifica() {
+    private void verifica() {
 
         VagaDAO vagaDAO = new VagaDAO(getApplicationContext());
         List<Vaga> vagasBd = vagaDAO.getAll();
@@ -216,7 +219,8 @@ public class SearchActivity extends AppCompatActivity{
     }
 
     // obtem todas as vagas da api.
-    public void obtemVagasAPI(){
+    @SuppressLint("DefaultLocale")
+    private void obtemVagasAPI() {
         RequestURL req = new RequestURL(this);
 
         req.requestURL(String.format(Constantes.URL_API + Constantes.URL_API_VAGAS, funcao, cidadeEstado, pos, filtroIndex), new RequestURL.VolleyCallback() {
@@ -232,9 +236,9 @@ public class SearchActivity extends AppCompatActivity{
             @Override
             public void onErrorResponse(VolleyError error) {
                 try {
-                    Log.e("Error",error.getMessage());
-                }catch (Exception e){
-                    Functions.DialogErro(SearchActivity.this, "Erro", "Não foi possivel obter as Vagas.");
+                    Log.e("Error", error.getMessage());
+                } catch (Exception e) {
+                    Functions.DialogErro(SearchActivity.this, "Não foi possivel obter as Vagas.");
                     e.printStackTrace();
                 }
             }
@@ -243,7 +247,7 @@ public class SearchActivity extends AppCompatActivity{
     }
 
     // obtem todas as vagas da api.
-    public void obtemVagasGeral(){
+    private void obtemVagasGeral() {
         RequestURL req = new RequestURL(this);
 
         req.requestURL(Constantes.URL_API_VAGAS_GERAL, new RequestURL.VolleyCallback() {
@@ -259,9 +263,9 @@ public class SearchActivity extends AppCompatActivity{
             @Override
             public void onErrorResponse(VolleyError error) {
                 try {
-                    Log.e("Error",error.getMessage());
-                }catch (Exception e){
-                    Functions.DialogErro(SearchActivity.this, "Erro", "Não foi possivel obter as Vagas.");
+                    Log.e("Error", error.getMessage());
+                } catch (Exception e) {
+                    Functions.DialogErro(SearchActivity.this, "Não foi possivel obter as Vagas.");
                     e.printStackTrace();
                 }
             }
@@ -272,7 +276,7 @@ public class SearchActivity extends AppCompatActivity{
     /************************************* Filtros ******************************** */
 
     // Constrói uma caixa de diálogo que pede qual filtro o jovem deseja.
-    private void dialogFiltro(){
+    private void dialogFiltro() {
 
         final int tempFiltroIndex = filtroIndex;
 
@@ -290,9 +294,9 @@ public class SearchActivity extends AppCompatActivity{
         city.setText(cityValue);
         function.setText(functionValue);
 
-        criaAutoComplete(function,city);
+        criaAutoComplete(function, city);
 
-        if(filtroIndex == 1)
+        if (filtroIndex == 1)
             radioGroup.check(buttonUltimas.getId());
         else
             radioGroup.check(buttonSalario.getId());
@@ -302,7 +306,7 @@ public class SearchActivity extends AppCompatActivity{
             public void onClick(View v) {
                 alerta.dismiss();
 
-                if(radioGroup.getCheckedRadioButtonId() == buttonUltimas.getId())
+                if (radioGroup.getCheckedRadioButtonId() == buttonUltimas.getId())
                     filtroIndex = 1;
                 else
                     filtroIndex = 2;
@@ -330,8 +334,8 @@ public class SearchActivity extends AppCompatActivity{
                 pos = 1;
                 filtroIndex = 1;
 
-                cidadeEstado = 0l;
-                funcao = 0l;
+                cidadeEstado = 0L;
+                funcao = 0L;
                 cityValue = "";
                 functionValue = "";
                 city.setText("");
@@ -346,6 +350,7 @@ public class SearchActivity extends AppCompatActivity{
             }
         });
 
+        assert alerta.getWindow() != null;
         alerta.getWindow().setBackgroundDrawable(
                 new ColorDrawable(android.graphics.Color.TRANSPARENT));
 

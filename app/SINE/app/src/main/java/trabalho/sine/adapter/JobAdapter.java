@@ -20,17 +20,17 @@ import trabalho.sine.utils.Constantes;
 
 /**
  * @version 0.2
- * Created by Samuel Cunha on 25/11/17.
+ *          Created by Samuel Cunha on 25/11/17.
  */
-public class JobAdapter extends RecyclerView.Adapter{
+public class JobAdapter extends RecyclerView.Adapter {
 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
 
     //Objeto com os Dados as serem exebidos na tela
-    private List<Vaga> vagas;
+    private final List<Vaga> vagas;
 
-    private Context context;
+    private final Context context;
 
     //Construtor da Class
     public JobAdapter(List<Vaga> vagas, Context context) {

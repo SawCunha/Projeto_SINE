@@ -1,8 +1,10 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:width="1451dp"
     android:height="1451dp"
     android:viewportHeight="1451.339"
-    android:viewportWidth="1451.339">
+    android:viewportWidth="1451.339"
+    tools:keep="@drawable/logo_sive">
     <group>
         <clip-path android:pathData="M0,0h1451.3v1451.3h-1451.3z M 0,0" />
         <path

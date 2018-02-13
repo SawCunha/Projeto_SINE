@@ -1,18 +1,18 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">SIVE</string>
-    <string name="action_settings">Settings</string>
-    <string name="action_search">Search</string>
-    <string name="drawer_open">Open</string>
-    <string name="drawer_close">Close</string>
+    <string name="action_settings" tools:keep="@string/action_settings">Settings</string>
+    <string name="action_search" tools:keep="@string/action_search">Search</string>
+    <string name="drawer_open" tools:keep="@string/drawer_open">Open</string>
+    <string name="drawer_close" tools:keep="@string/drawer_close">Close</string>
 
-    <string name="nav_item_home">Home</string>
+    <string name="nav_item_home" tools:keep="@string/nav_item_home">Home</string>
 
-    <string name="nav_item_vagas_favoritas">Vagas Favoritas</string>
-    <string name="nav_item_media_salarial">Media salarial</string>
-    <string name="nav_item_sobre">Sobre</string>
+    <string name="nav_item_vagas_favoritas" tools:keep="@string/nav_item_vagas_favoritas">Vagas Favoritas</string>
+    <string name="nav_item_media_salarial" tools:keep="@string/nav_item_media_salarial">Media salarial</string>
+    <string name="nav_item_sobre" tools:keep="@string/nav_item_sobre">Sobre</string>
 
     <!-- navigation drawer item labels  -->
-    <string-array name="nav_drawer_labels">
+    <string-array name="nav_drawer_labels" tools:keep="@array/nav_drawer_labels">
         <item>@string/nav_item_home</item>
         <item>@string/search_vaga</item>
         <item>@string/nav_item_vagas_favoritas</item>
@@ -21,12 +21,12 @@
     </string-array>
 
     <string name="title_vagas_favoritas">Vagas Favoritas</string>
-    <string name="title_home">Home</string>
-    <string name="title_media_salarial">Media salarial</string>
+    <string name="title_home" tools:keep="@string/title_home">Home</string>
+    <string name="title_media_salarial" tools:keep="@string/title_media_salarial">Media salarial</string>
     <string name="title_sobre">Sobre</string>
 
     <!-- Tela geração de gráfico -->
-    <string name="label_grafico">Média Salárial</string>
+    <string name="label_grafico" tools:keep="@string/label_grafico">Média Salárial</string>
 
     <!-- Tela pesquisa de faixa salária -->
     <string name="activity_search_graphic_title">Pesquisar Médias Saláriais</string>
@@ -34,38 +34,38 @@
     <string name="pequeno_porte_label">Pequena</string>
     <string name="medio_porte_label">Média</string>
     <string name="grande_porte_label">Grande</string>
-    <string name="porte_label">Tamanho da empresa: </string>
+    <string name="porte_label">Tipo de empresa: </string>
     <string name="search">Pesquisar</string>
     <string name="search_vaga">Pesquisar Vagas</string>
     <string name="favorite_vaga">Vagas Favoritas</string>
     <string name="media_salarial">Média Salarial</string>
     <string name="info">Sobre</string>
-    <string name="conexao_infor">Você deve estar conectado...</string>
+    <string name="conexao_infor">Você deve estar conectado…</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" tools:keep="@string/hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="filtro_favorite_activity">Filtros:</string>
-    <string name="sem_filtro_favorite_activity">Sem Filtro</string>
-    <string name="maior_salario_favorite_activity">Maior Salario</string>
-    <string name="ultima_vagas_favorite_activity">Ultimas Vagas</string>
+    <string name="filtro_favorite_activity" tools:keep="@string/filtro_favorite_activity">Filtros:</string>
+    <string name="sem_filtro_favorite_activity" tools:keep="@string/sem_filtro_favorite_activity">Sem Filtro</string>
+    <string name="maior_salario_favorite_activity" tools:keep="@string/maior_salario_favorite_activity">Maior Salario</string>
+    <string name="ultima_vagas_favorite_activity" tools:keep="@string/ultima_vagas_favorite_activity">Ultimas Vagas</string>
 
-    <string name="toast_msg_search_activity">Você ainda não possui vagas favoritas.</string>
+    <string name="toast_msg_search_activity" tools:keep="@string/toast_msg_search_activity">Você ainda não possui vagas favoritas.</string>
     <string name="toast_msg_favorite_activity">Você ainda não possui vagas favoritas.</string>
-    <string name="toast_msg_result_activity_favoritado">Favoritado!!!</string>
-    <string name="toast_msg_result_activity_desfavoritado">Desfavoritado!!!</string>
-    <string name="toast_msg_adapter_list_favoritado">Favoritado!!!</string>
-    <string name="toast_msg_adapter_list_desfavoritado">Desfavoritado!!!</string>
+    <string name="toast_msg_result_activity_favoritado" tools:keep="@string/toast_msg_result_activity_favoritado">Favoritado!!!</string>
+    <string name="toast_msg_result_activity_desfavoritado" tools:keep="@string/toast_msg_result_activity_desfavoritado">Desfavoritado!!!</string>
+    <string name="toast_msg_adapter_list_favoritado" tools:keep="@string/toast_msg_adapter_list_favoritado">Favoritado!!!</string>
+    <string name="toast_msg_adapter_list_desfavoritado" tools:keep="@string/toast_msg_adapter_list_desfavoritado">Desfavoritado!!!</string>
 
-    <string name="dialog_infor">Carregando dados</string>
-    <string name="positive_button">OK</string>
-    <string name="negative_button">Resetar</string>
-    <string name="dialog_filter_hint_one">Cidade-uf</string>
-    <string name="dialog_filter_hint_two">Função</string>
-    <string name="filter_name_ultimas_vagas">Últimas vagas</string>
-    <string name="filter_name_maior_salario">Maior Salário</string>
+    <string name="dialog_infor" tools:keep="@string/dialog_infor">Carregando dados</string>
+    <string name="positive_button" tools:keep="@string/positive_button">OK</string>
+    <string name="negative_button" tools:keep="@string/negative_button">Resetar</string>
+    <string name="dialog_filter_hint_one" tools:keep="@string/dialog_filter_hint_one">Cidade-uf</string>
+    <string name="dialog_filter_hint_two" tools:keep="@string/dialog_filter_hint_two">Função</string>
+    <string name="filter_name_ultimas_vagas" tools:keep="@string/filter_name_ultimas_vagas">Últimas vagas</string>
+    <string name="filter_name_maior_salario" tools:keep="@string/filter_name_maior_salario">Maior Salário</string>
 
-    <string name="share_result">Compartilhar</string>
-    <string name="alert_dialog_title">Escolha o filtro?</string>
+    <string name="share_result" tools:keep="@string/share_result">Compartilhar</string>
+    <string name="alert_dialog_title" tools:keep="@string/alert_dialog_title">Escolha o filtro?</string>
 
     <!-- About view -->
     <string name="about_app">Aplicação não oficial do website SINE - Site Nacional de Empregos. \n
@@ -89,7 +89,7 @@
     <string name="mauricio_jos_da_silva_j_nior">Mauricio José da Silva Júnior</string>
     <string name="b_rbara_costa_silverio">Bárbara Costa Silverio</string>
     <string name="armando_valede_assun_o">Armando Valede Assunção</string>
-    <string name="title_activity_teste">Teste</string>
+    <string name="title_activity_teste" tools:keep="@string/title_activity_teste">Teste</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -107,6 +107,10 @@
     <string name="todo">TODO</string>
     <string name="desenvolvedores">Desenvolvedores:</string>
     <string name="d_borah_ferreira_fonseca">Déborah Ferreira Fonseca</string>
-    <string name="title_activity_splash_screen">SplashScreenActivity</string>
-    <string name="carregando_vagas">Carregando Vagas...</string>
+    <string name="title_activity_splash_screen" tools:keep="@string/title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="carregando_vagas">Carregando Vagas…</string>
+    <string name="title_activity_charts">ChartsActivity</string>
+    <string name="pesquisar">Pesquisar</string>
+    <string name="limpar">Limpar</string>
+    <string name="filtrar">Filtrar</string>
 </resources>
