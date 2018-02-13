@@ -16,16 +16,16 @@ import trabalho.sine.persistence.DatabaseHelper;
  */
 
 public class GenericDAO<E> extends DatabaseHelper<E> {
-    protected Dao<E, Long> dao;
-    private Class<E> type;
+    private final Class<E> type;
+    private Dao<E, Long> dao;
 
-    public GenericDAO(Context context, Class<E> type) {
+    GenericDAO(Context context, Class<E> type) {
         super(context);
         this.type = type;
         setDao();
     }
 
-    protected void setDao(){
+    private void setDao() {
         try {
             dao = DaoManager.createDao(getConnectionSource(), type);
         } catch (SQLException e) {
@@ -33,11 +33,10 @@ public class GenericDAO<E> extends DatabaseHelper<E> {
         }
     }
 
-    public List<E> getAll(){
+    public List<E> getAll() {
         try {
-            List<E> list = dao.queryForAll();
-            return list;
-        } catch (SQLException e){
+            return dao.queryForAll();
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
@@ -45,9 +44,8 @@ public class GenericDAO<E> extends DatabaseHelper<E> {
 
     public E getById(Long id) {
         try {
-            E obj = dao.queryForId(id);
-            return obj;
-        }catch (SQLException e){
+            return dao.queryForId(id);
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
@@ -56,15 +54,15 @@ public class GenericDAO<E> extends DatabaseHelper<E> {
     public void insert(E obj) {
         try {
             dao.create(obj);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void delete(E obj){
+    public void delete(E obj) {
         try {
             dao.delete(obj);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -72,18 +70,17 @@ public class GenericDAO<E> extends DatabaseHelper<E> {
     public void update(E obj) {
         try {
             dao.update(obj);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public List<E> getAllOrderBy(String campo){
+    public List<E> getAllOrderBy(String campo) {
         try {
-            QueryBuilder<E,Long> qb = dao.queryBuilder();
-            qb.orderBy(campo,false);
-            List<E> list = qb.query();
-            return list;
-        } catch (SQLException e){
+            QueryBuilder<E, Long> qb = dao.queryBuilder();
+            qb.orderBy(campo, false);
+            return qb.query();
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }

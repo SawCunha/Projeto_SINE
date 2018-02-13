@@ -5,10 +5,13 @@ package trabalho.sine.enun;
  */
 
 public enum CampoBD {
-    ID("id"), SALARIO("salario"), ULTIMAS_VAGAS("ULTIMASVAGAS");
+    ID("id"), SALARIO("salario");
 
-    private String campo;
-    CampoBD(String campo) { this.campo = campo; }
+    private final String campo;
+
+    CampoBD(String campo) {
+        this.campo = campo;
+    }
 
     @Override
     public String toString() {

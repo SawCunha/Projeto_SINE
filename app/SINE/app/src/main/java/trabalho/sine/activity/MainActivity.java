@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.appus.splash.Splash;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,15 +23,18 @@ import trabalho.sine.utils.NavigationSine;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
-    private Toolbar toolbar;
     private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        _initSplashScreen();
+
 
         //Define o ButterKnife para gerenciar as activities e ativa o modo de debugação.
         ButterKnife.bind(this);
@@ -38,8 +43,16 @@ public class MainActivity extends AppCompatActivity {
         createNavigationView();
     }
 
-    private void createNavigationView(){
-        toolbar = findViewById(R.id.toolbar);
+    private void _initSplashScreen() {
+        Splash.Builder splash = new Splash.Builder(this, getSupportActionBar());
+        splash.perform();
+        splash.setBackgroundColor(getResources().getColor(R.color.Sine3));
+        splash.setSplashImage(getResources().getDrawable(R.drawable.ic_logo_sive));
+        splash.setSplashImageColor(getResources().getColor(R.color.Sine2));
+    }
+
+    private void createNavigationView() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout_main);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -48,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,R.id.home,this));
+        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout, R.id.home, this));
     }
 
     @Override
@@ -61,24 +74,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.searchActivity)
-    public void searchActivity(View view){
-        if(Conexao.isConectado(this)) {
+    public void searchActivity(View view) {
+        if (Conexao.isConectado(this)) {
             this.startActivity(new Intent(this, SearchActivity.class));
-        }else
-            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(this, R.string.conexao_infor, Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.favoriteActivity)
-    public void favoriteActivity(View view){
+    public void favoriteActivity(View view) {
         this.startActivity(new Intent(this, FavoriteActivity.class));
     }
 
     @OnClick(R.id.searchForGraphicActivity)
-    public void searchForGraphicActivity(View view){
-        if(Conexao.isConectado(this)) {
+    public void searchForGraphicActivity(View view) {
+        if (Conexao.isConectado(this)) {
             this.startActivity(new Intent(this, SearchForGraphicActivity.class));
-        }else
-            Toast.makeText(this,R.string.conexao_infor,Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(this, R.string.conexao_infor, Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.infoActivity)

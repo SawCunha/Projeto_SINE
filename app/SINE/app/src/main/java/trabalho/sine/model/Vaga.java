@@ -1,5 +1,6 @@
 package trabalho.sine.model;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.j256.ormlite.field.DatabaseField;
@@ -7,19 +8,29 @@ import com.j256.ormlite.table.DatabaseTable;
 
 
 @DatabaseTable(tableName = "vagas")
-public class Vaga implements Comparable<Vaga>{
-    @DatabaseField(id = true) private Long id;
-    @DatabaseField private String titulo;
-    @DatabaseField private String descricao;
-    @DatabaseField private String endereco;
-    @DatabaseField private String cidade;
-    @DatabaseField private String funcao;
-    @DatabaseField private String salario;
-    @DatabaseField private String empresa;
-    @DatabaseField private String url_sine;
+public class Vaga implements Comparable<Vaga> {
+    @DatabaseField(id = true)
+    private Long id;
+    @DatabaseField
+    private String titulo;
+    @DatabaseField
+    private String descricao;
+    @DatabaseField
+    private String endereco;
+    @DatabaseField
+    private String cidade;
+    @DatabaseField
+    private String funcao;
+    @DatabaseField
+    private String salario;
+    @DatabaseField
+    private String empresa;
+    @DatabaseField
+    private String url_sine;
 
 
-    @DatabaseField private boolean favoritado = false;
+    @DatabaseField
+    private boolean favoritado = false;
 
     public boolean isFavoritado() {
         return favoritado;
@@ -41,24 +52,12 @@ public class Vaga implements Comparable<Vaga>{
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
     public String getEndereco() {
         return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
     }
 
     public String getCidade() {
@@ -73,41 +72,29 @@ public class Vaga implements Comparable<Vaga>{
         return funcao;
     }
 
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
-    }
-
     public String getSalario() {
         return salario;
     }
 
-    public void setSalario(String salario) {
-        this.salario = salario;
+    public void setSalario() {
+        this.salario = "R$0,00";
     }
 
     public String getEmpresa() {
         return empresa;
     }
 
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
-    }
-
     public String getUrl_sine() {
         return url_sine;
     }
 
-    public void setUrl_sine(String url_sine) {
-        this.url_sine = url_sine;
-    }
-
     @Override
-    public int compareTo(Vaga vaga) {
+    public int compareTo(@NonNull Vaga vaga) {
         try {
             if (this.getSalario() == null)
                 this.salario = "R$0,00";
             if (vaga.getSalario() == null)
-                vaga.setSalario("R$0,00");
+                vaga.setSalario();
 
             String sal = this.salario,
                     sal2 = vaga.getSalario();
@@ -123,7 +110,7 @@ public class Vaga implements Comparable<Vaga>{
                 return -1;
             else if (Float.parseFloat(sal) < Float.parseFloat(sal2))
                 return 1;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return 1;
         }

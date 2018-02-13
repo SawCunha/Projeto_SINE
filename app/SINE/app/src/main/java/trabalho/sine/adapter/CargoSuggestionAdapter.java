@@ -1,6 +1,7 @@
 package trabalho.sine.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 
@@ -15,13 +16,13 @@ import trabalho.sine.model.Cargo;
 import trabalho.sine.model.CargoJSON;
 
 /**
- * Created by wagner on 15/12/16.
+ * @version 0.1
+ *          Created by wagner on 15/12/16.
  */
 
 public class CargoSuggestionAdapter extends ArrayAdapter<Cargo> {
-    protected static final String TAG = "CargoSuggestionAdapter";
-    private List<Cargo> suggestions;
     private final String ENDERECO;
+    private List<Cargo> suggestions;
 
     public CargoSuggestionAdapter(Context context, String nameFilter, String url) {
         super(context, android.R.layout.simple_dropdown_item_1line);
@@ -39,9 +40,10 @@ public class CargoSuggestionAdapter extends ArrayAdapter<Cargo> {
         return suggestions.get(index);
     }
 
+    @NonNull
     @Override
     public Filter getFilter() {
-        Filter filter = new Filter() {
+        return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
@@ -59,9 +61,7 @@ public class CargoSuggestionAdapter extends ArrayAdapter<Cargo> {
 
                         filterResults.values = suggestions;
                         filterResults.count = suggestions.size();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
+                    } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
                     }
                 }
@@ -75,7 +75,7 @@ public class CargoSuggestionAdapter extends ArrayAdapter<Cargo> {
                 } else {
                     notifyDataSetInvalidated();
                 }
-            }};
-        return filter;
+            }
+        };
     }
 }

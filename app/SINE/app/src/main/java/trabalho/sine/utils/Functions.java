@@ -25,10 +25,10 @@ public class Functions {
     }
 
 
-    public static void DialogErro(final Activity context, String title, String msg) {
+    public static void DialogErro(final Activity context, String msg) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(title);
+        builder.setTitle("Erro");
         builder.setMessage(msg)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

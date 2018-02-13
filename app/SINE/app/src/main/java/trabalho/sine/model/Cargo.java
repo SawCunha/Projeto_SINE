@@ -1,7 +1,7 @@
 package trabalho.sine.model;
 
 /**
-    Model utilizado para obter os dados do AutoComplete do Cargo.
+ * Model utilizado para obter os dados do AutoComplete do Cargo.
  */
 
 public class Cargo {
@@ -12,16 +12,8 @@ public class Cargo {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getDescricao() {
         return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     @Override

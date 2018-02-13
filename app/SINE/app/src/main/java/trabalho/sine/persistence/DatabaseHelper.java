@@ -16,7 +16,7 @@ public class DatabaseHelper<E> extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "sineinfo.db";
     private static final int DATABASE_VERSION = 3;
 
-    public DatabaseHelper(Context context) {
+    protected DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -35,14 +35,10 @@ public class DatabaseHelper<E> extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             TableUtils.dropTable(connectionSource, Vaga.class, true);
-            onCreate(database,connectionSource);
+            onCreate(database, connectionSource);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void close() {
-        super.close();
-    }
 }

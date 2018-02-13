@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
@@ -15,17 +14,18 @@ import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.model.Vaga;
 
 /**
- * Created by Samuel Cunha on 25/11/17.
+ * @version 0.1
+ *          Created by Samuel Cunha on 25/11/17.
  */
-public class FavoriteJobAdapter extends RecyclerView.Adapter{
+public class FavoriteJobAdapter extends RecyclerView.Adapter {
 
     //Cria uma TAG para o logs
     private static String LOG_TAG = "MyRecyclerViewAdapter";
 
     //Objeto com os Dados as serem exebidos na tela
-    private static List<Vaga> vagas;
+    private final List<Vaga> vagas;
 
-    private static Context context;
+    private final Context context;
 
     //Construtor da Class
     public FavoriteJobAdapter(List<Vaga> vagas, Context context) {
@@ -37,10 +37,10 @@ public class FavoriteJobAdapter extends RecyclerView.Adapter{
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_view_adapter, parent, false);
-        return new JobViewHolder(view,context);
+        return new JobViewHolder(view, context);
     }
 
-    public Vaga getItemPosition(int position){
+    private Vaga getItemPosition(int position) {
         return vagas.get(position);
     }
 
@@ -52,7 +52,7 @@ public class FavoriteJobAdapter extends RecyclerView.Adapter{
         viewHolder.setVaga(getItemPosition(position));
         try {
             viewHolder.vagaNome.setText(new String(vagas.get(position).getFuncao().
-                    getBytes(),"UTF-8"));
+                    getBytes(), "UTF-8"));
             viewHolder.vagaEmpresa.setText(vagas.get(position).getEmpresa());
             viewHolder.vagaEndereco.setText(vagas.get(position).getCidade());
         } catch (UnsupportedEncodingException e) {
@@ -60,8 +60,8 @@ public class FavoriteJobAdapter extends RecyclerView.Adapter{
         }
 
         viewHolder.favoriteBtn.setBackgroundResource(
-                (vagas.get(position).isFavoritado() == false ?
-                        R.drawable.favorite_border:R.drawable.favorite_black));
+                (!vagas.get(position).isFavoritado() ?
+                        R.drawable.favorite_border : R.drawable.favorite_black));
 
         viewHolder.favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,16 +69,14 @@ public class FavoriteJobAdapter extends RecyclerView.Adapter{
                 Vaga vaga = getItemPosition(position);
                 VagaDAO vagaDAO = new VagaDAO(context.getApplicationContext());
 
-                if(vaga.isFavoritado() == false){
+                if (!vaga.isFavoritado()) {
                     vaga.setFavoritado(true);
                     vagaDAO.insert(vaga);
                     viewHolder.favoriteBtn.setBackgroundResource(R.drawable.favorite_black);
-                    Toast.makeText(context,R.string.toast_msg_adapter_list_favoritado,Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     vagaDAO.delete(vaga);
                     vaga.setFavoritado(false);
                     viewHolder.favoriteBtn.setBackgroundResource(R.drawable.favorite_border);
-                    Toast.makeText(context,R.string.toast_msg_adapter_list_desfavoritado,Toast.LENGTH_SHORT).show();
                 }
 
             }

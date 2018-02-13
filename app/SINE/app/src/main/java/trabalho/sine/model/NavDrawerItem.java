@@ -4,7 +4,7 @@ package trabalho.sine.model;
  * Created by Déborah on 12/12/2016.
  */
 
-public class NavDrawerItem {
+class NavDrawerItem {
     private boolean showNotify;
     private String title;
 

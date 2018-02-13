@@ -11,67 +11,61 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="?android:attr/selectableItemBackground">
+        android:background="?android:attr/selectableItemBackground"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/searchActivity"
             android:layout_width="match_parent"
             android:layout_height="128dp"
-            android:background="@color/Sine4"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:background="@color/Sine4"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:text="@string/search_vaga"
+                android:id="@+id/search_vaga"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="18dp"
+                android:text="@string/search_vaga"
                 android:textColor="@color/black"
-                android:id="@+id/search_vaga"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
 
             <ImageView
-                android:src="@drawable/lupa_employment"
-                android:layout_above="@+id/search_vaga"
-                android:layout_centerHorizontal="true"
                 android:id="@+id/lupa"
                 android:layout_width="70dp"
-                android:layout_height="70dp" />
+                android:layout_height="70dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/lupa_employment" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/favoriteActivity"
             android:layout_width="match_parent"
             android:layout_height="128dp"
-            android:background="@color/Sine3"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:background="@color/Sine3"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:text="@string/favorite_vaga"
+                android:id="@+id/vagasfavoritas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="18dp"
+                android:text="@string/favorite_vaga"
                 android:textColor="@color/black"
-                android:id="@+id/vagasfavoritas"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
 
             <ImageView
-                android:src="@drawable/favorite_border"
-                android:layout_above="@+id/vagasfavoritas"
-                android:layout_centerHorizontal="true"
                 android:id="@+id/estrela"
                 android:layout_width="70dp"
-                android:layout_height="70dp" />
+                android:layout_height="70dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/favorite_border" />
 
         </LinearLayout>
 
@@ -79,58 +73,52 @@
             android:id="@+id/searchForGraphicActivity"
             android:layout_width="match_parent"
             android:layout_height="128dp"
-            android:background="@color/Sine2"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:background="@color/Sine2"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:text="@string/media_salarial"
+                android:id="@+id/mediasalarial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="18dp"
+                android:text="@string/media_salarial"
                 android:textColor="#000"
-                android:id="@+id/mediasalarial"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <ImageView
-                android:src="@drawable/graphic"
-                android:layout_above="@+id/mediasalarial"
-                android:layout_centerHorizontal="true"
                 android:id="@+id/grafico"
                 android:layout_width="70dp"
-                android:layout_height="70dp" />
+                android:layout_height="70dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/graphic" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/infoActivity"
             android:layout_width="match_parent"
             android:layout_height="127dp"
-            android:background="@color/Sine1"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:background="@color/Sine1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:text="@string/info"
+                android:id="@+id/info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="18dp"
+                android:text="@string/info"
                 android:textColor="#000"
-                android:id="@+id/info"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <ImageView
-                android:src="@drawable/about"
-                android:layout_above="@+id/info"
-                android:layout_centerHorizontal="true"
                 android:id="@+id/sobre"
                 android:layout_width="70dp"
-                android:layout_height="70dp" />
+                android:layout_height="70dp"
+                android:contentDescription="TODO"
+                android:src="@drawable/about" />
         </LinearLayout>
 
     </LinearLayout>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="trabalho.sine">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,15 +17,16 @@
         android:xlargeScreens="true" />
 
     <application
-        android:name="android.support.multidex.MultiDexApplication"
+        android:name=".App"
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:launchMode="singleTop"
-        android:theme="@style/MyMaterialTheme">
-
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/MyMaterialTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -48,49 +50,44 @@
             android:label="@string/title_vagas_favoritas"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
-
         </activity>
-        <activity
-            android:name=".activity.GraphicActivity"
-            android:label="@string/label_grafico"
-            android:screenOrientation="portrait"
-            android:theme="@style/MyMaterialTheme" />
         <activity
             android:name=".activity.SearchForGraphicActivity"
             android:label="@string/activity_search_graphic_title"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
-
         </activity>
         <activity
             android:name=".activity.SearchActivity"
             android:label="@string/vagas_disponiveis"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
-
         </activity>
         <activity
             android:name=".activity.InfoActivity"
             android:label="@string/title_sobre"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />
-
+        </activity>
+        <activity
+            android:name=".activity.ChartsActivity"
+            android:label="@string/title_activity_charts"
+            android:theme="@style/MyMaterialTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.SearchForGraphicActivity" />
         </activity>
     </application>
 

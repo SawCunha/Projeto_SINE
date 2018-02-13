@@ -8,7 +8,7 @@ public enum TipoEmpresa {
 
     PEQUENA("pequena_empresa"), MEDIA("media_empresa"), GRANDE("grande_empresa");
 
-    private String porteEmpresa;
+    private final String porteEmpresa;
 
     TipoEmpresa(String porteEmpresa) {
         this.porteEmpresa = porteEmpresa;

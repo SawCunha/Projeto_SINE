@@ -1,6 +1,9 @@
 package trabalho.sine.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +13,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,22 +28,29 @@ import trabalho.sine.dao.VagaDAO;
 import trabalho.sine.model.Vaga;
 import trabalho.sine.utils.NavigationSine;
 
-public class ResultActivity extends AppCompatActivity{
+public class ResultActivity extends AppCompatActivity {
 
-    @BindView(R.id.favoriteFloat) FloatingActionButton favoriteBtn;
-    @BindView(R.id.shareBTN) FloatingActionButton shareBtn;
+    @BindView(R.id.favoriteFloat)
+    FloatingActionButton favoriteBtn;
+    @BindView(R.id.shareBTN)
+    FloatingActionButton shareBtn;
+    @BindView(R.id.openLink)
+    FloatingActionButton openLink;
+    @BindView(R.id.titleValue)
+    TextView title;
+    @BindView(R.id.moneyValue)
+    TextView money;
+    @BindView(R.id.cityValue)
+    TextView city;
+    @BindView(R.id.addressValue)
+    TextView address;
+    @BindView(R.id.companyValue)
+    TextView company;
+    @BindView(R.id.functionValue)
+    TextView function;
+    @BindView(R.id.descriptionValue)
+    TextView des;
     private Vaga vaga;
-    @BindView(R.id.openLink) FloatingActionButton openLink;
-
-    @BindView(R.id.titleValue) TextView title;
-    @BindView(R.id.moneyValue) TextView money;
-    @BindView(R.id.cityValue) TextView city;
-    @BindView(R.id.addressValue) TextView address;
-    @BindView(R.id.companyValue) TextView company;
-    @BindView(R.id.functionValue) TextView function;
-    @BindView(R.id.descriptionValue) TextView des;
-
-    private Toolbar toolbar;
     private DrawerLayout drawerLayout;
 
     private int position;
@@ -57,8 +69,8 @@ public class ResultActivity extends AppCompatActivity{
 
     }
 
-    private void createNavigationView(){
-        toolbar = findViewById(R.id.toolbar);
+    private void createNavigationView() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout_result);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -67,7 +79,21 @@ public class ResultActivity extends AppCompatActivity{
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,-1,this));
+        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout, -1, this));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_return, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.returnMenu) onBackPressed();
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -76,8 +102,8 @@ public class ResultActivity extends AppCompatActivity{
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             Intent returnIntent = new Intent();
-            returnIntent.putExtra("position",position);
-            setResult(RESULT_OK,returnIntent);
+            returnIntent.putExtra("position", position);
+            setResult(RESULT_OK, returnIntent);
             super.onBackPressed();
         }
     }
@@ -91,10 +117,10 @@ public class ResultActivity extends AppCompatActivity{
 
     }
 
-    public void populaActivity(Vaga vaga){
+    private void populaActivity(Vaga vaga) {
         favoriteBtn.setImageResource(
-                (vaga.isFavoritado() == false ?
-                        R.drawable.favorite_border : R.drawable.favorite_black));
+                (!vaga.isFavoritado() ?
+                        R.drawable.favorite_border_white : R.drawable.favorite_white));
         if (vaga.getTitulo() != null && vaga.getTitulo().trim().length() > 0)
             title.setText(vaga.getTitulo());
         else
@@ -134,23 +160,23 @@ public class ResultActivity extends AppCompatActivity{
     @OnClick(R.id.favoriteFloat)
     public void favoriteClick(View view) {
         VagaDAO vagaDAO = new VagaDAO(this.getApplicationContext());
-        if (vaga.isFavoritado() == false) {
+        if (!vaga.isFavoritado()) {
             vaga.setFavoritado(true);
             vagaDAO.insert(vaga);
-            favoriteBtn.setImageResource(R.drawable.favorite_black);
+            favoriteBtn.setImageResource(R.drawable.favorite_white);
             //Toast.makeText(this, R.string.toast_msg_result_activity_favoritado, Toast.LENGTH_SHORT).show();
         } else {
             vagaDAO.delete(vaga);
             vaga.setFavoritado(false);
-            favoriteBtn.setImageResource(R.drawable.favorite_border);
-           // Toast.makeText(this, R.string.toast_msg_result_activity_desfavoritado, Toast.LENGTH_SHORT).show();
+            favoriteBtn.setImageResource(R.drawable.favorite_border_white);
+            // Toast.makeText(this, R.string.toast_msg_result_activity_desfavoritado, Toast.LENGTH_SHORT).show();
         }
 
     }
 
     @OnClick(R.id.shareBTN)
     // Compartilha o link do card relacionado a vaga.
-    public void shareClick(View view){
+    public void shareClick(View view) {
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("text/plain");
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -158,12 +184,12 @@ public class ResultActivity extends AppCompatActivity{
         share.putExtra(Intent.EXTRA_SUBJECT, vaga.getTitulo());
         share.putExtra(Intent.EXTRA_TEXT, vaga.getUrl_sine());
 
-        startActivity(Intent.createChooser(share,"Compartilhar"));
+        startActivity(Intent.createChooser(share, "Compartilhar"));
     }
 
     @OnClick(R.id.openLink)
     // Abre o link da vaga no navegador.
-    public void openLink(View view){
+    public void openLink(View view) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(vaga.getUrl_sine()));
         startActivity(intent);
     }

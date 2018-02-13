@@ -12,9 +12,8 @@ import android.support.v7.widget.Toolbar;
 import trabalho.sine.R;
 import trabalho.sine.utils.NavigationSine;
 
-public class InfoActivity extends AppCompatActivity{
+public class InfoActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     private DrawerLayout drawerLayout;
 
     @Override
@@ -25,8 +24,8 @@ public class InfoActivity extends AppCompatActivity{
         createNavigationView();
     }
 
-    private void createNavigationView(){
-        toolbar = findViewById(R.id.toolbar);
+    private void createNavigationView() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawer_layout_info);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -35,7 +34,7 @@ public class InfoActivity extends AppCompatActivity{
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout,R.id.infoActivity,this));
+        navigationView.setNavigationItemSelectedListener(new NavigationSine(drawerLayout, R.id.infoActivity, this));
     }
 
     @Override
