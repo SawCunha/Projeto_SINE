@@ -52,7 +52,7 @@ module.exports = function (app) {
     }
 
     const url = utils.urlGetInfoVagas(idFuncao, idCidade, numPagina, tipoOrdenacao);
-
+    url += "&__goc_wtk__=275003002K1dmFBw47Ux13PTXHjkUTNtjV-A";
     request(url)
     .then((html) => {
       let obj;
